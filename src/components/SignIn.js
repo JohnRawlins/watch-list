@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import '../css/signin.scss';
-import signInLogo from '../img/signin-logo.svg';
+import watchListLogo from '../img/watchlist-logo.svg';
 
 const SignIn = () => {
   return (
@@ -9,7 +9,7 @@ const SignIn = () => {
       <div className="signin-header">
         <img
           className="signin-header__logo"
-          src={signInLogo}
+          src={watchListLogo}
           alt="Smiling TV"
         />
         <h1 className="signin-header__title">Watch List</h1>
@@ -32,7 +32,7 @@ const SignIn = () => {
       <div className="signin-links">
         <div className="signin-signup">
           <p className="signin-signup__message">New To Watch List?</p>
-          <Link to="/" className="signin-signup__link">
+          <Link to="/register" className="signin-signup__link">
             Sign Up Now
           </Link>
         </div>
