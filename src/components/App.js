@@ -1,15 +1,18 @@
 import React from 'react';
-import SignIn from './components/SignIn.js';
-import './App.scss';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import SignIn from './SignIn.js';
+import '../components/styling/css/app.scss';
+
 
 function App() {
   return (
+    <div className="app">
     <BrowserRouter>
       <Switch>
-        <Route exact path="/" component={SignIn} />
+        <Route exact path="/login" component={SignIn} />
       </Switch>
     </BrowserRouter>
+    </div>
   );
 }
 

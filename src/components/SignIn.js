@@ -1,28 +1,44 @@
 import React from 'react';
-import './styling/SignIn.scss';
+import { Link } from 'react-router-dom';
+import '../css/signin.scss';
+import signInLogo from '../img/signin-logo.svg';
 
 const SignIn = () => {
   return (
-    <div>
-      <div>
-        <img src="" alt="" />
-        <h1>Watch List</h1>
+    <div className="signin">
+      <div className="signin-header">
+        <img
+          className="signin-header__logo"
+          src={signInLogo}
+          alt="Smiling TV"
+        />
+        <h1 className="signin-header__title">Watch List</h1>
       </div>
 
-      <form>
-        <input type="text" />
-        <input type="password" />
-        <input type="submit" />
+      <form className="signin-form">
+        <input
+          className="signin-form__username"
+          type="text"
+          placeholder="Username"
+        />
+        <input
+          className="signin-form__password"
+          type="password"
+          placeholder="Password"
+        />
+        <input className="signin-form__submit" type="submit" value="Sign In" />
       </form>
 
-      <div>
-        <div>
-          <p>New To Watch List?</p>
-          {/*eslint-disable-next-line*/}
-          <a href="#">Sign Up Now</a>
+      <div className="signin-links">
+        <div className="signin-signup">
+          <p className="signin-signup__message">New To Watch List?</p>
+          <Link to="/" className="signin-signup__link">
+            Sign Up Now
+          </Link>
         </div>
-        {/*eslint-disable-next-line*/}
-        <a href="">Guest</a>
+        <Link to="/" className="signin-links__guest">
+          Guest
+        </Link>
       </div>
     </div>
   );

@@ -1,0 +1,106 @@
+%signin-flex-row {
+  display: flex;
+}
+
+%signin-flex-column {
+  display: flex;
+  flex-direction: column;
+}
+
+%signin-flex-center {
+  justify-content: center;
+  align-items: center;
+}
+
+%signin-form-input {
+  padding-left: 10px;
+  margin-bottom: 60px;
+  height: 40px;
+  color: #2c385e;
+  font-size: 16px;
+}
+
+%signin-bold {
+  font-weight: 700;
+}
+
+%signin-normal {
+  font-weight: 400;
+}
+
+.signin {
+  @extend %signin-flex-column, %signin-flex-center;
+  position: relative;
+  min-height: 100vh;
+  padding: 40px;
+  background: linear-gradient(
+      180deg,
+      rgba(44, 56, 94, 0.95) 0%,
+      rgba(51, 110, 107, 0.9) 100%
+    ),
+    url('../img/tv-background-1920w.jpg');
+  background-position: center;
+  background-size: cover;
+  color: white;
+}
+
+.signin-header {
+  @extend %signin-flex-column, %signin-flex-center;
+  margin-bottom: 80px;
+
+  &__logo {
+    margin-bottom: 40px;
+  }
+
+  &__title {
+    @extend %signin-normal;
+  }
+}
+
+.signin-form {
+  @extend %signin-flex-column;
+  margin-bottom: 50px;
+  width: 100%;
+
+  &__username {
+    @extend %signin-form-input;
+  }
+  &__password {
+    @extend %signin-form-input;
+  }
+
+  &__submit {
+    @extend %signin-bold;
+    border-radius: 10px;
+    outline: none;
+    border: none;
+    height: 55px;
+    color: white;
+    background-color: #2c385e;
+    font-size: 18px;
+  }
+}
+
+.signin-links {
+  @extend %signin-flex-row;
+  justify-content: space-between;
+  width: 100%;
+  a {
+    text-decoration: none;
+    @extend %signin-bold;
+  }
+
+  a:visited {
+    color: white;
+  }
+}
+
+.signin-signup {
+  @extend %signin-flex-column;
+  &__link {
+    align-self: center;
+  }
+  &__message {
+    @extend %signin-normal;
+  }
+}
