@@ -1,0 +1,29 @@
+%navbar-flex-row {
+  display: flex;
+}
+
+.navbar {
+  @extend %navbar-flex-row;
+  justify-content: space-between;
+  padding: 25px;
+
+  &__menu-btn {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+  }
+}
+
+.navbar-logo {
+  @extend %navbar-flex-row;
+  align-items: center;
+  &__img {
+    width: 30px;
+    margin-right: 7px;
+  }
+  &__title {
+    font-size: 20px;
+    color: white;
+    font-weight: 400;
+  }
+}
