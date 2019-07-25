@@ -1,4 +1,5 @@
 import React from 'react';
+import Menu from './Menu';
 import '../css/navbar.scss';
 import watchListLogo from '../img/watchlist-logo.svg';
 import menuIcon from '../img/hamburger-menu.svg';
@@ -21,6 +22,7 @@ const Navbar = () => {
           alt="Hamburger Menu"
         />
       </button>
+      <Menu/>
     </div>
   );
 };
