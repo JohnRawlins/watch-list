@@ -1,0 +1,23 @@
+
+%home-flex-row {
+  display: flex;
+}
+
+%home-flex-column {
+  display: flex;
+  flex-direction: column;
+}
+
+%home-flex-center {
+  justify-content: center;
+  align-items: center;
+}
+
+
+.home{
+    @extend %home-flex-column;
+    min-height:100vh;
+    background:#2C385E;
+    
+}
+
