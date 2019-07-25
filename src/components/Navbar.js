@@ -1,8 +1,8 @@
 import React from 'react';
-import Menu from './Menu';
 import '../css/navbar.scss';
 import watchListLogo from '../img/watchlist-logo.svg';
 import menuIcon from '../img/hamburger-menu.svg';
+import Menu from './Menu';
 
 const Navbar = () => {
   return (
@@ -22,7 +22,7 @@ const Navbar = () => {
           alt="Hamburger Menu"
         />
       </button>
-      <Menu/>
+      <Menu />
     </div>
   );
 };

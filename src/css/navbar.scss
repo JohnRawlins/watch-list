@@ -6,6 +6,8 @@
   @extend %navbar-flex-row;
   justify-content: space-between;
   padding: 25px;
+  position: relative;
+  background: #2c385e;
 
   &__menu-btn {
     background: transparent;
