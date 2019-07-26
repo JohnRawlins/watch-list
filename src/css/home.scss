@@ -16,7 +16,7 @@
   @extend %home-flex-column;
   min-height: 100vh;
   background: #2c385e;
-  overflow:hidden;
+  overflow: hidden;
 }
 
 .search {
@@ -26,14 +26,33 @@
   height: 75px;
 
   &__input {
-    flex: 1 1 85%;
+    flex: 1 1 auto;
     padding-left: 10px;
     font-size: 18px;
-    border:none;
+    border: none;
+    border-radius: 0;
   }
   &__btn {
-    flex: 1 1 15%;
-    background:#FFFFFF;
+    flex: 0 1 45px;
+    background: #ffffff;
     border: none;
+    border-radius: 0;
+  }
+}
+
+.search-result {
+  @extend %home-flex-column, %home-flex-center;
+  flex: 1 1 auto;
+}
+
+.search-default {
+  @extend %home-flex-column, %home-flex-center;
+  &__img {
+    width: 150px;
+    margin-bottom: 20px;
+  }
+
+  &__message {
+    color: white;
   }
 }
