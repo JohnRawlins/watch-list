@@ -15,17 +15,17 @@
 @mixin grid-column($numberOfColumns) {
   flex-grow: 0;
   flex-shrink: 0;
-  flex-basis: (100% / $numberOfColumns)-2;
+  flex-basis: (100% / $numberOfColumns);
 }
 
 .media-list {
   @extend %media-list-flex-row;
   width: 100%;
   flex-wrap: wrap;
-  justify-content: space-between;
 
   .media {
     @include grid-column(2);
-    margin-bottom: 10px;
+    padding:6px;
+ 
   }
 }
