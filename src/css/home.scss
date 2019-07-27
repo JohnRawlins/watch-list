@@ -22,8 +22,9 @@
 .search {
   @extend %home-flex-row;
   width: 100%;
-  padding: 15px;
-  height: 75px;
+  padding: 0px 15px;
+  height: 45px;
+  margin-bottom: 15px;
 
   &__input {
     flex: 1 1 auto;
@@ -41,8 +42,9 @@
 }
 
 .search-result {
-  @extend %home-flex-column, %home-flex-center;
+  @extend %home-flex-column;
   flex: 1 1 auto;
+  padding: 0px 15px;
 }
 
 .search-default {

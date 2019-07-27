@@ -3,19 +3,19 @@ import '../css/Media.scss';
 import defaultPoster from '../img/default-poster.svg';
 import reviewStar from '../img/review-star.svg';
 
-const Media = () => {
+const Media = ({info:{title,poster,year}}) => {
   return (
     <div className="media">
       <div className="media-poster">
         <img
-          src="https://m.media-amazon.com/images/M/MV5BMTExODIwOTUxNzFeQTJeQWpwZ15BbWU4MDE5MDA0MTcz._V1_SX300.jpg"
+          src={poster}
           className="media-poster__img"
           alt="Media Poster"
         />
       </div>
       <div className="media-info">
-        <h2 className="media-info__name">The Punisher Netflix</h2>
-        <p className="media-info__year">2017-2019</p>
+        <h2 className="media-info__name">{title}</h2>
+        <p className="media-info__year">{year}</p>
         <div className="media-rating">
           <img
             className="media-rating__star"
@@ -23,8 +23,9 @@ const Media = () => {
             alt="Review Star"
           />
           <p className="media-rating__number">
-            <span className="media-rating__numerator">4</span>/
-            <span className="media-rating__denominator">5</span>
+            {/* <span className="media-rating__numerator">4</span>/
+            <span className="media-rating__denominator">5</span> */}
+            No Reviews
           </p>
         </div>
       </div>

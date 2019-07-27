@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import '../css/signin.scss';
+import '../css/sign-in.scss';
 import watchListLogo from '../img/watchlist-logo.svg';
 
 const SignIn = () => {
