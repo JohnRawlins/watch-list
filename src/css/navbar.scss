@@ -5,9 +5,10 @@
 .navbar {
   @extend %navbar-flex-row;
   justify-content: space-between;
-  padding: 25px;
+  padding: 25px 15px;
   position: relative;
   background: #2c385e;
+  margin-bottom:20px;
 
   &__menu-btn {
     background: transparent;
