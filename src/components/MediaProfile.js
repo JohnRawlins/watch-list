@@ -2,6 +2,7 @@ import React from 'react';
 import Navbar from './Navbar';
 import '../css/media-profile.scss';
 import rottenTomatoesIcon from '../img/rotten-tomatoes-icon.svg';
+import reviewStar from '../img/review-star.svg';
 
 const MediaProfile = () => {
   let media = {
@@ -15,7 +16,9 @@ const MediaProfile = () => {
     plot:
       'A deactivated female cyborg is revived, but cannot remember anything of her past life and goes on a quest to find out who she is.',
     actors: 'Rosa Salazar, Christoph Waltz, Jennifer Connelly, Mahershala Ali',
-    director: 'Robert Rodriguez'
+    director: 'Robert Rodriguez',
+    reviewScore: 4,
+    totalReviews: 10
   };
 
   return (
@@ -60,6 +63,22 @@ const MediaProfile = () => {
         <div className="media-director">
           <h3 className="media-director__heading">Director</h3>
           <p className="media-director__info">{media.director}</p>
+        </div>
+      </section>
+      <section className="user-reviews">
+        <h2 className="user-reviews__heading">User Reviews</h2>
+        <div className="media-review">
+          <span className="media-review__score">{media.reviewScore}</span>
+          <img
+            className="media-review__star"
+            src={reviewStar}
+            alt="Review Star"
+          />
+          <button className="media-review__btn">Write A Review</button>
+        </div>
+        <div className="user-reviews-total">
+          <p className="user-reviews-total__heading">Total</p>
+          <span className="user-reviews-total__num">{media.totalReviews}</span>
         </div>
       </section>
     </div>

@@ -2,16 +2,6 @@
   display: flex;
 }
 
-%media-profile-flex-column {
-  display: flex;
-  flex-direction: column;
-}
-
-%media-profile-flex-center {
-  justify-content: center;
-  align-items: center;
-}
-
 %media-profile-padding {
   padding: 0px 15px;
 }
@@ -68,6 +58,7 @@
 .media-plot,
 .media-credits {
   @extend %media-profile-padding;
+  margin-bottom: 50px;
 
   h2 {
     margin-bottom: 30px;
@@ -84,4 +75,47 @@
 
 .media-actors {
   margin-bottom: 50px;
+}
+
+.user-reviews {
+  @extend %media-profile-padding;
+
+  &__heading {
+    margin-bottom: 5px;
+  }
+}
+
+.user-reviews-total {
+  @extend %media-profile-flex-row;
+  padding-left: 20px;
+
+  &__heading {
+    margin-right: 5px;
+  }
+}
+
+.media-review {
+  @extend %media-profile-flex-row;
+  align-items: center;
+  padding-left: 30px;
+  padding-right: 15px;
+  margin-bottom: 10px;
+
+  &__score {
+    font-size: 52px;
+    font-weight: bold;
+    margin-right: 10px;
+  }
+  &__star {
+    width: 30px;
+    margin-right: auto;
+  }
+
+  &__btn {
+    font-size: 16px;
+    padding: 8px 15px;
+    color: white;
+    background: #336e6b;
+    border: none;
+  }
 }
