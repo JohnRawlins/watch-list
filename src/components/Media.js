@@ -1,5 +1,5 @@
 import React from 'react';
-import '../css/Media.scss';
+import '../css/media.scss';
 import defaultPoster from '../img/default-poster.svg';
 import reviewStar from '../img/review-star.svg';
 

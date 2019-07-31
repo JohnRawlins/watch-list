@@ -3,6 +3,8 @@ import Navbar from './Navbar';
 import '../css/media-profile.scss';
 import rottenTomatoesIcon from '../img/rotten-tomatoes-icon.svg';
 import reviewStar from '../img/review-star.svg';
+import Review from './Review';
+import UserReviews from './UserReviews';
 
 const MediaProfile = () => {
   let media = {
@@ -20,6 +22,10 @@ const MediaProfile = () => {
     reviewScore: 4,
     totalReviews: 10
   };
+
+  let reviews = [
+
+  ]
 
   return (
     <div className="media-profile">
@@ -81,6 +87,7 @@ const MediaProfile = () => {
           <span className="user-reviews-total__num">{media.totalReviews}</span>
         </div>
       </section>
+      <UserReviews/>
     </div>
   );
 };

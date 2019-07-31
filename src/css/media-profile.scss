@@ -2,32 +2,29 @@
   display: flex;
 }
 
-%media-profile-padding {
-  padding: 0px 15px;
-}
-
 .media-profile {
+  width: 90%;
   flex-grow: 1;
   color: white;
 
   &__watch-list-btn {
-    margin-left: 10px;
+   
     background-image: url('../img/watch-list-icon.svg');
     background-size: 25px;
-    background-position: 10px;
+    background-position: 0px;
     background-color: transparent;
     background-repeat: no-repeat;
-    text-align: right;
+    text-align:right;
     font-weight: 700;
     color: white;
     border: none;
-    width: 150px;
+    width: 140px;
     margin-bottom: 30px;
   }
 }
 
 .media-details {
-  @extend %media-profile-flex-row, %media-profile-padding;
+  @extend %media-profile-flex-row;
   margin-bottom: 20px;
 
   &__poster {
@@ -41,7 +38,7 @@
   &__title {
     font-size: 18px;
     margin-bottom: 10px;
-    word-break: break-all;
+    word-break: break-word;
   }
 }
 
@@ -57,7 +54,6 @@
 
 .media-plot,
 .media-credits {
-  @extend %media-profile-padding;
   margin-bottom: 50px;
 
   h2 {
@@ -78,7 +74,7 @@
 }
 
 .user-reviews {
-  @extend %media-profile-padding;
+  margin-bottom: 70px;
 
   &__heading {
     margin-bottom: 5px;
@@ -91,6 +87,10 @@
 
   &__heading {
     margin-right: 5px;
+  }
+
+  &__num {
+    font-weight: 700;
   }
 }
 
