@@ -3,23 +3,23 @@ import '../css/media.scss';
 import defaultPoster from '../img/default-poster.svg';
 import reviewStar from '../img/review-star.svg';
 
-const Media = ({info:{title,poster,year}}) => {
+const Media = () => {
   return (
     <div className="media">
       <div className="media-poster">
         <img
-          src={poster}
+          src=""
           className="media-poster__img"
           alt="Media Poster"
         />
       </div>
       <div className="media-info">
-        <h2 className="media-info__name">{title}</h2>
-        <p className="media-info__year">{year}</p>
+        <h2 className="media-info__name"></h2>
+        <p className="media-info__year"></p>
         <div className="media-rating">
           <img
             className="media-rating__star"
-            src={reviewStar}
+            src=""
             alt="Review Star"
           />
           <p className="media-rating__number">

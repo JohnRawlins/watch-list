@@ -3,18 +3,17 @@
 }
 
 .media-profile {
-  width: 90%;
+  padding: 0px 15px;
   flex-grow: 1;
   color: white;
 
   &__watch-list-btn {
-   
     background-image: url('../img/watch-list-icon.svg');
     background-size: 25px;
     background-position: 0px;
     background-color: transparent;
     background-repeat: no-repeat;
-    text-align:right;
+    text-align: right;
     font-weight: 700;
     color: white;
     border: none;
@@ -52,25 +51,31 @@
   }
 }
 
-.media-plot,
-.media-credits {
+.media-plot {
   margin-bottom: 50px;
-
-  h2 {
-    margin-bottom: 30px;
-  }
-
-  h3 {
+  &__heading {
     margin-bottom: 20px;
   }
 }
 
-.media-plot {
-  margin-bottom: 50px;
+.media-credits {
+  &__heading {
+    margin-bottom: 25px;
+  }
 }
 
 .media-actors {
+  margin-bottom: 30px;
+  &__heading {
+    margin-bottom: 10px;
+  }
+}
+
+.media-director {
   margin-bottom: 50px;
+  &__heading {
+    margin-bottom: 10px;
+  }
 }
 
 .user-reviews {

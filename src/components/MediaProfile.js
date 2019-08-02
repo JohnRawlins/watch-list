@@ -1,5 +1,6 @@
 import React from 'react';
 import Navbar from './Navbar';
+import WriteReview from './WriteReview';
 import '../css/media-profile.scss';
 import rottenTomatoesIcon from '../img/rotten-tomatoes-icon.svg';
 import reviewStar from '../img/review-star.svg';
@@ -8,7 +9,7 @@ import UserReviews from './UserReviews';
 
 const MediaProfile = () => {
   let media = {
-    title: 'Altice: Battle Angel',
+    title: 'Alita: Battle Angel',
     release: '14 Feb 2019',
     runningTime: '122 Min',
     ageRating: 'PG-13',
@@ -23,13 +24,10 @@ const MediaProfile = () => {
     totalReviews: 10
   };
 
-  let reviews = [
-
-  ]
-
   return (
     <div className="media-profile">
       <Navbar />
+      <WriteReview />
       <section className="media-details">
         <img
           className="media-details__poster"
@@ -87,7 +85,7 @@ const MediaProfile = () => {
           <span className="user-reviews-total__num">{media.totalReviews}</span>
         </div>
       </section>
-      <UserReviews/>
+      {/* <UserReviews/> */}
     </div>
   );
 };
