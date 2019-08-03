@@ -27,7 +27,7 @@ const MediaProfile = () => {
   return (
     <div className="media-profile">
       <Navbar />
-      <WriteReview />
+      {/* <WriteReview /> */}
       <section className="media-details">
         <img
           className="media-details__poster"

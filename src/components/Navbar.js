@@ -13,7 +13,7 @@ const Navbar = () => {
           src={watchListLogo}
           alt="Smiling TV"
         />
-        <h1 className="navbar-logo__title">Watch List</h1>
+        <span className="navbar-logo__title">Watch List</span>
       </div>
       <button className="navbar__menu-btn">
         <img

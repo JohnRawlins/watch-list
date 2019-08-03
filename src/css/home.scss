@@ -17,12 +17,12 @@
   min-height: 100vh;
   background: #2c385e;
   overflow: hidden;
+  width:90%;
 }
 
 .search {
   @extend %home-flex-row;
   width: 100%;
-  padding: 0px 15px;
   height: 45px;
   margin-bottom: 15px;
 
@@ -44,7 +44,6 @@
 .search-result {
   @extend %home-flex-column;
   flex: 1 1 auto;
-  padding: 0px 15px;
 }
 
 .search-default {
