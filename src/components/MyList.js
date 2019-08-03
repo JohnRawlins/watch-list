@@ -1,6 +1,7 @@
 import React from 'react';
 import Navbar from './Navbar.js';
 import MediaList from './MediaList.js';
+import RemoveMediaModal from './RemoveMediaModal.js';
 import Media from './Media.js';
 import '../css/mylist.scss';
 
@@ -43,6 +44,7 @@ const MyList = () => {
         </select>
       </header>
       <MediaList mediaList={mediaItems} />
+      <RemoveMediaModal />
     </div>
   );
 };
