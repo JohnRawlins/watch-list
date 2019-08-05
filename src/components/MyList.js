@@ -44,7 +44,7 @@ const MyList = () => {
         </select>
       </header>
       <MediaList mediaList={mediaItems} />
-      <RemoveMediaModal />
+      {/* <RemoveMediaModal /> */}
     </div>
   );
 };
