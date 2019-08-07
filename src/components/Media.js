@@ -5,7 +5,7 @@ import reviewStar from '../img/review-star.svg';
 
 const Media = ({ info: { title, year, poster } }) => {
   return (
-    <div className="media">
+    <li className="media">
       <button className="media__remove-icon" />
       <div className="media-poster">
         <img src={poster} className="media-poster__img" alt="Media Poster" />
@@ -26,7 +26,7 @@ const Media = ({ info: { title, year, poster } }) => {
           </p>
         </div>
       </div>
-    </div>
+    </li>
   );
 };
 

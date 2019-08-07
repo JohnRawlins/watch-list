@@ -13,13 +13,13 @@ const WriteReview = () => {
             <ReviewStars />
             <span className="score__text">Ok</span>
           </div>
-          <h3 className="write-review__name-heading">
+          <label className="write-review__name-label">
             Enter name to show with your review
-          </h3>
-          <textarea
-            className="write-review__name-txt-area"
-            placeholder="Name"
-          />
+            <textarea
+              className="write-review__name-txt-area"
+              placeholder="Name"
+            />
+          </label>
           <textarea
             className="write-review__review-txt-area"
             placeholder="Tell others what you think about this movie"

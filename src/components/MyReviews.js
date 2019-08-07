@@ -1,10 +1,14 @@
 import React from 'react';
 import Navbar from './Navbar.js';
+import MyReviewList from './MyReviewList';
 import searchIcon from '../img/search-icon.svg';
-import MyReviewItem from './MyReviewItem'
+import star from '../img/review-star.svg';
+import MyReviewItem from './MyReviewItem';
+import RemoveReviewModal from './RemoveReviewModal';
 import '../css/myreviews.scss';
 
 const MyReviews = () => {
+
   return (
     <div className="myreviews">
       <Navbar />
@@ -25,7 +29,9 @@ const MyReviews = () => {
           />
         </button>
       </form>
-      <MyReviewItem />
+      <MyReviewList />
+      {/* <MyReviewItem /> */}
+      {/* <RemoveReviewModal/> */}
     </div>
   );
 };

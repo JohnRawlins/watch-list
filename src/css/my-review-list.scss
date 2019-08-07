@@ -1,0 +1,10 @@
+.myreviewlist {
+  .myreviewitem {
+    margin-bottom: 50px;
+    border-bottom: 1px solid white;
+  }
+
+  .myreviewitem:last-child {
+    border-bottom: initial;
+  }
+}

@@ -1,0 +1,85 @@
+%remove-review-modal-flex-row {
+  display: flex;
+}
+
+%remove-review-modal-flex-column {
+  display: flex;
+  flex-direction: column;
+}
+
+%remove-review-modal-flex-center {
+  justify-content: center;
+  align-items: center;
+}
+
+%remove-review-modal-btn {
+  font-size: 16px;
+  padding: 12px 35px;
+  color: white;
+  border: none;
+}
+
+.remove-review-modal {
+  @extend %remove-review-modal-flex-column, %remove-review-modal-flex-center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.4);
+  color: #2c385e;
+}
+
+.rm-review-modal-message {
+  background: white;
+  width: 90%;
+  padding: 45px 20px 15px 20px;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  text-transform: capitalize;
+
+  &__text {
+    margin-bottom: 40px;
+  }
+}
+
+.rm-review-media {
+  @extend %remove-review-modal-flex-column, %remove-review-modal-flex-center;
+  margin-bottom: 30px;
+
+  &__date {
+    display: block;
+    margin-bottom: 25px;
+  }
+
+  &__title {
+    font-size: 24px;
+    margin-bottom: 25px;
+  }
+}
+
+.rm-review-score {
+  @extend %remove-review-modal-flex-row;
+  justify-content: space-around;
+  width: 50%;
+  margin-bottom: 15px;
+
+  &__star {
+    width: 20px;
+  }
+}
+
+.rm-review-modal-btns {
+  @extend %remove-review-modal-flex-row;
+  justify-content: space-between;
+  margin-bottom: 25px;
+
+  &__no {
+    @extend %remove-review-modal-btn;
+    background: #2c385e;
+  }
+
+  &__yes {
+    @extend %remove-review-modal-btn;
+    background: #dd584d;
+  }
+}
