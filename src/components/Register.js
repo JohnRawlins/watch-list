@@ -17,11 +17,6 @@ const Register = () => {
 
       <form className="register-form">
         <input
-          className="register-form__fullname"
-          type="text"
-          placeholder="Full Name"
-        />
-        <input
           className="register-form__username"
           type="text"
           placeholder="Username"

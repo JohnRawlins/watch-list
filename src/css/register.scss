@@ -18,7 +18,7 @@
   height: 40px;
   color: #2c385e;
   font-size: 16px;
-  border:none;
+  border: none;
 }
 
 %register-bold-font {
@@ -61,10 +61,6 @@
   @extend %register-flex-column;
   margin-bottom: 50px;
   width: 100%;
-
-  &__fullname {
-    @extend %register-form-input;
-  }
 
   &__username {
     @extend %register-form-input;
