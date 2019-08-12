@@ -6,7 +6,7 @@ import Home from './Home.js';
 import MyReviews from './MyReviews.js';
 import WriteReview from './WriteReview.js'
 import MyList from './MyList.js';
-import MediaProfile from '../components/MediaProfile';
+import VideoProfile from '../components/VideoProfile';
 import '../css/app.scss';
 
 function App() {

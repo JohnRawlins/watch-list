@@ -2,8 +2,8 @@ import React from 'react';
 import Navbar from './Navbar.js';
 import MyList from './MyList.js';
 import searchIcon from '../img/search-icon.svg';
-import MediaList from './MediaList.js';
-import Media from './Media.js';
+import VideoList from './VideoList.js';
+import Video from './Video.js';
 import popcorn from '../img/popcorn.svg';
 import '../css/home.scss';
 

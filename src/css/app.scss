@@ -5,12 +5,11 @@
   font-family: 'Roboto', sans-serif;
 }
 
-
 .app {
   display: flex;
   flex-direction: column;
-  align-items:center;
-  background: #2c385e;
   min-height: 100vh;
-  overflow:hidden;
+  align-items: center;
+  background: #2c385e;
+  overflow: hidden;
 }
