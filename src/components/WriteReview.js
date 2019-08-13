@@ -25,7 +25,7 @@ const WriteReview = () => {
             placeholder="Tell others what you think about this movie"
           />
           <div className="review-btns">
-            <button className="review-btns__cancel">Cancel</button>{' '}
+            <button className="review-btns__cancel">Cancel</button>
             <button className="review-btns__submit">Submit</button>
           </div>
         </div>

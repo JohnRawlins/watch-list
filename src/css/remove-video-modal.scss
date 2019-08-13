@@ -1,26 +1,26 @@
-%remove-media-modal-flex-row {
+%remove-video-modal-flex-row {
   display: flex;
 }
 
-%remove-media-modal-flex-column {
+%remove-video-modal-flex-column {
   display: flex;
   flex-direction: column;
 }
 
-%remove-media-modal-flex-center {
+%remove-video-modal-flex-center {
   justify-content: center;
   align-items: center;
 }
 
-%remove-media-modal-btn {
+%remove-video-modal-btn {
   font-size: 16px;
   padding: 12px 35px;
   color: white;
   border: none;
 }
 
-.remove-media-modal {
-  @extend %remove-media-modal-flex-column, %remove-media-modal-flex-center;
+.remove-video-modal {
+  @extend %remove-video-modal-flex-column, %remove-video-modal-flex-center;
   position: fixed;
   top: 0px;
   left: 0px;
@@ -42,24 +42,24 @@
     margin-bottom: 40px;
   }
 
-  &__media-title {
+  &__video-title {
     font-size: 20px;
     margin-bottom: 40px;
   }
 }
 
 .modal-btns {
-  @extend %remove-media-modal-flex-row;
+  @extend %remove-video-modal-flex-row;
   justify-content: space-between;
   margin-bottom: 25px;
 
   &__no {
-    @extend %remove-media-modal-btn;
+    @extend %remove-video-modal-btn;
     background: #2c385e;
   }
 
   &__yes {
-    @extend %remove-media-modal-btn;
+    @extend %remove-video-modal-btn;
     background: #dd584d;
   }
 }

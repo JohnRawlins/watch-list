@@ -31,6 +31,7 @@
 
 .signin {
   @extend %signin-flex-column, %signin-flex-center;
+  width:100%;
   min-height: 100vh;
   padding: 40px;
   background: linear-gradient(

@@ -1,8 +1,8 @@
-%media-profile-flex-row {
+%video-profile-flex-row {
   display: flex;
 }
 
-.media-profile {
+.video-profile {
   padding: 0px 15px;
   flex-grow: 1;
   color: white;
@@ -22,8 +22,8 @@
   }
 }
 
-.media-details {
-  @extend %media-profile-flex-row;
+.video-details {
+  @extend %video-profile-flex-row;
   margin-bottom: 20px;
 
   &__poster {
@@ -33,7 +33,7 @@
   }
 }
 
-.media-details-general {
+.video-details-general {
   &__title {
     font-size: 18px;
     margin-bottom: 10px;
@@ -41,8 +41,8 @@
   }
 }
 
-.media-details-rt {
-  @extend %media-profile-flex-row;
+.video-details-rt {
+  @extend %video-profile-flex-row;
   align-items: center;
   margin-top: 20px;
 
@@ -51,27 +51,27 @@
   }
 }
 
-.media-plot {
+.video-plot {
   margin-bottom: 50px;
   &__heading {
     margin-bottom: 20px;
   }
 }
 
-.media-credits {
+.video-credits {
   &__heading {
     margin-bottom: 25px;
   }
 }
 
-.media-actors {
+.video-actors {
   margin-bottom: 30px;
   &__heading {
     margin-bottom: 10px;
   }
 }
 
-.media-director {
+.video-director {
   margin-bottom: 50px;
   &__heading {
     margin-bottom: 10px;
@@ -87,7 +87,7 @@
 }
 
 .user-reviews-total {
-  @extend %media-profile-flex-row;
+  @extend %video-profile-flex-row;
   padding-left: 20px;
 
   &__heading {
@@ -99,8 +99,8 @@
   }
 }
 
-.media-review {
-  @extend %media-profile-flex-row;
+.video-review {
+  @extend %video-profile-flex-row;
   align-items: center;
   padding-left: 30px;
   padding-right: 15px;
