@@ -7,8 +7,8 @@ import Video from './Video.js';
 import popcorn from '../img/popcorn.svg';
 import '../css/home.scss';
 
-// let mediaItems = [
-//   <Media
+// let videoItems = [
+//   <Video
 //     info={{
 //       title: 'The Punisher',
 //       year: '2017–2019',
@@ -16,7 +16,7 @@ import '../css/home.scss';
 //         'https://m.media-amazon.com/images/M/MV5BMTExODIwOTUxNzFeQTJeQWpwZ15BbWU4MDE5MDA0MTcz._V1_SX300.jpg'
 //     }}
 //   />,
-//   <Media
+//   <Video
 //     info={{
 //       title: 'The Shining',
 //       year: '1980',
@@ -24,7 +24,7 @@ import '../css/home.scss';
 //         "https://m.media-amazon.com/images/M/MV5BZWFlYmY2MGEtZjVkYS00YzU4LTg0YjQtYzY1ZGE3NTA5NGQxXkEyXkFqcGdeQXVyMTQxNzMzNDI@._V1_SX300.jpg"
 //     }}
 //   />,
-//   <Media
+//   <Video
 //     info={{
 //       title: 'Hellboy',
 //       year: '2019',
@@ -49,7 +49,7 @@ const Home = () => {
         </button>
       </form>
       <div className="search-result">
-        {/* <MediaList movielist={mediaItems} /> */}
+        {/* <VideoList videoList={videoItems} /> */}
         <div className="search-default">
           <img className="search-default__img" src={popcorn} alt="Container of Popcorn"/>
           <p className="search-default__message">Search For Movies or Shows</p>

@@ -15,7 +15,7 @@ const VideoProfile = () => {
     ageRating: 'PG-13',
     rottenTomatoesRating: '61%',
     videoPoster:
-      'https://m.video-amazon.com/images/M/MV5BNzVhMjcxYjYtOTVhOS00MzQ1LWFiNTAtZmY2ZmJjNjIxMjllXkEyXkFqcGdeQXVyNTc5OTMwOTQ@._V1_SX300.jpg',
+      'https://m.media-amazon.com/images/M/MV5BNzVhMjcxYjYtOTVhOS00MzQ1LWFiNTAtZmY2ZmJjNjIxMjllXkEyXkFqcGdeQXVyNTc5OTMwOTQ@._V1_SX300.jpg',
     plot:
       'A deactivated female cyborg is revived, but cannot remember anything of her past life and goes on a quest to find out who she is.',
     actors: 'Rosa Salazar, Christoph Waltz, Jennifer Connelly, Mahershala Ali',

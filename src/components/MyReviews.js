@@ -9,6 +9,7 @@ import '../css/myreviews.scss';
 
 const MyReviews = () => {
 
+
   return (
     <div className="myreviews">
       <Navbar />
@@ -29,8 +30,8 @@ const MyReviews = () => {
           />
         </button>
       </form>
-      <MyReviewList />
-      {/* <MyReviewItem /> */}
+      {/* <MyReviewList />
+      <MyReviewItem /> */}
       {/* <RemoveReviewModal/> */}
     </div>
   );
