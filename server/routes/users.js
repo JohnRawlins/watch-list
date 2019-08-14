@@ -1,14 +1,14 @@
 const express = require('express');
 const router = express.Router();
-const { check, validationResult } = require('express-validator/check');
+const { check, validationResult } = require('express-validator');
 const User = require('../models/User');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const config = require('config');
 
-// @route POST api/users
-// @desc  Register a user
-// @access Public
+// @route     POST api/users
+// @desc      Register a user
+// @access    Public
 router.post(
   '/',
   [
@@ -64,7 +64,12 @@ router.post(
       );
     } catch (error) {
       console.error(error.message);
-      return res.status(500).json({msg:"Server error"});
+      return res
+        .status(500)
+        .json({
+          msg:
+            'The server was unable to process your request due to an internal error'
+        });
     }
   }
 );

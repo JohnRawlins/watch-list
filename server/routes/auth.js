@@ -1,28 +1,34 @@
 const express = require('express');
 const router = express.Router();
-const { check, validationResult } = require('express-validator/check');
-const User = require('../models/User');
+const { check, validationResult } = require('express-validator');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const auth = require('../middleware/auth');
 const config = require('config');
+
+const User = require('../models/User');
 
 // @route GET api/auth
 // @desc  Get logged in user
 // @access Private
 router.get('/', auth, async (req, res) => {
   try {
-    const user = await User.findById(req.user.id).select('-password');
-    res.json(user);
+    const user = await User.findById(req.user.id).select('_id username');
+    return res.json(user);
   } catch (error) {
     console.error(error.message);
-    res.status(500).send({ msg: 'Server error' });
+    return res
+      .status(500)
+      .send({
+        msg:
+          'The server was unable to process your request due to an internal error'
+      });
   }
 });
 
-// @route POST api/auth
-// @desc  Auth user & get token
-// @access Public
+// @route     POST api/auth
+// @desc      Login user & assign token
+// @access    Public
 router.post(
   '/',
   [
@@ -47,7 +53,7 @@ router.post(
       const isMatch = await bcrypt.compare(password, user.password);
 
       if (!isMatch) {
-        res.status(400).json({ msg: 'Invalid Login Credentials' });
+        return res.status(400).json({ msg: 'Invalid Login Credentials' });
       }
 
       const payload = {
@@ -69,7 +75,12 @@ router.post(
       );
     } catch (error) {
       console.error(error.message);
-      res.status(500).json({ msg: error.message });
+      return res
+        .status(500)
+        .json({
+          msg:
+            'The server was unable to process your request due to an internal error'
+        });
     }
   }
 );

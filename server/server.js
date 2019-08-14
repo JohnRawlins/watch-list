@@ -11,4 +11,6 @@ app.use('/api/users', require('./routes/users'));
 
 app.use('/api/auth', require('./routes/auth'));
 
+app.use('/api/videos', require('./routes/videos'));
+
 app.listen(PORT, () => console.log(`Server started on port ${PORT}`));
