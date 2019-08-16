@@ -1,13 +1,15 @@
 const express = require('express');
 const router = express.Router();
 const { check, validationResult } = require('express-validator');
-const User = require('../models/User');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const config = require('config');
 
+const User = require('../models/User');
+
+
 // @route     POST api/users
-// @desc      Register a user
+// @desc      Register a user & assign token
 // @access    Public
 router.post(
   '/',
@@ -43,11 +45,12 @@ router.post(
 
       user.password = await bcrypt.hash(password, salt);
 
-      await user.save();
+      user = await user.save();
 
       const payload = {
         user: {
-          id: user.id
+          id: user.id,
+          username: user.username
         }
       };
 
@@ -64,12 +67,10 @@ router.post(
       );
     } catch (error) {
       console.error(error.message);
-      return res
-        .status(500)
-        .json({
-          msg:
-            'The server was unable to process your request due to an internal error'
-        });
+      return res.status(500).json({
+        msg:
+          'The server was unable to process your request due to an internal error'
+      });
     }
   }
 );

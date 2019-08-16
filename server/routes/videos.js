@@ -10,7 +10,7 @@ const Video = require('../models/Video');
 // @access    Private
 router.get('/', auth, async (req, res) => {
   try {
-    const videos = await Video.find({ user: req.user.id }).select('-__v');
+    const videos = await Video.find({ userID: req.user.id }).select('-__v');
     return res.json({ videos });
   } catch (error) {
     console.error(error.message);
@@ -32,7 +32,7 @@ router.post(
       check('title', 'A video title is required')
         .not()
         .isEmpty(),
-      check('imdbID', 'A video id is required')
+      check('imdbID', 'A video ID is required')
         .not()
         .isEmpty()
     ]
@@ -46,23 +46,26 @@ router.post(
     const { imdbID, title, year, poster, type } = req.body;
 
     try {
-      const requestedVideo = new Video({
+      const videoToAdd = new Video({
         imdbID,
-        user: req.user.id,
+        userID: req.user.id,
         title,
         year,
         poster,
         type
       });
 
-      const duplicateVideo = await Video.findOne({ imdbID, user: req.user.id });
+      const duplicateVideo = await Video.findOne({
+        imdbID,
+        userID: req.user.id
+      });
 
       if (duplicateVideo)
         return res
           .status(400)
           .json({ msg: `${title} is already on your watch list` });
 
-      const video = await requestedVideo.save();
+      const video = await videoToAdd.save();
       return res
         .status(201)
         .json({ msg: `${video.title} has been added to your watch list` });
@@ -79,25 +82,23 @@ router.post(
 //@route    DELETE api/videos
 //desc      Remove video from user's watch list
 //@access   Private
-router.delete('/:id', auth, async (req, res) => {
+router.delete('/:videoID', auth, async (req, res) => {
   try {
-    let videoToRemove = await Video.findById(req.params.id).select('-__v');
+    let videoToRemove = await Video.findById(req.params.videoID).select('-__v');
 
     if (!videoToRemove) {
       return res.status(404).json({ msg: 'Video not found' });
     }
 
-    if (videoToRemove.user.toString() !== req.user.id) {
+    if (videoToRemove.userID.toString() !== req.user.id) {
       return res.status(401).json({ msg: 'Unauthorized' });
     }
 
-    let removedVideo = await Video.findByIdAndRemove(req.params.id);
+    let removedVideo = await Video.findByIdAndRemove(videoToRemove._id);
 
-    res
-      .status(200)
-      .json({
-        msg: `${removedVideo.title} has been removed from your watch list`
-      });
+    res.status(200).json({
+      msg: `${removedVideo.title} has been removed from your watch list`
+    });
   } catch (error) {
     console.error(error.message);
     return res.status(500).json({

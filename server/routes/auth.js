@@ -17,12 +17,10 @@ router.get('/', auth, async (req, res) => {
     return res.json(user);
   } catch (error) {
     console.error(error.message);
-    return res
-      .status(500)
-      .send({
-        msg:
-          'The server was unable to process your request due to an internal error'
-      });
+    return res.status(500).send({
+      msg:
+        'The server was unable to process your request due to an internal error'
+    });
   }
 });
 
@@ -58,7 +56,8 @@ router.post(
 
       const payload = {
         user: {
-          id: user.id
+          id: user.id,
+          username: user.username
         }
       };
 
@@ -75,12 +74,10 @@ router.post(
       );
     } catch (error) {
       console.error(error.message);
-      return res
-        .status(500)
-        .json({
-          msg:
-            'The server was unable to process your request due to an internal error'
-        });
+      return res.status(500).json({
+        msg:
+          'The server was unable to process your request due to an internal error'
+      });
     }
   }
 );

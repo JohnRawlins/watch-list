@@ -5,7 +5,7 @@ const VideoSchema = mongoose.Schema({
     type: String,
     required: true
   },
-  user: {
+  userID: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'users'
   },
