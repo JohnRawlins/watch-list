@@ -89,6 +89,7 @@
 
 .register-links {
   @extend %register-flex-row;
+  font-size: 14px;
   justify-content: space-between;
   width: 100%;
   a {
@@ -104,6 +105,7 @@
 
 .register-signin {
   @extend %register-flex-column;
+
   &__link {
     align-self: center;
   }

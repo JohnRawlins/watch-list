@@ -20,17 +20,20 @@ const Register = () => {
           className="register-form__username"
           type="text"
           placeholder="Username"
+          required
         />
         <input
           className="register-form__password"
           type="password"
           placeholder="Password"
+          required
         />
 
         <input
           className="register-form__confirm-password"
           type="password"
           placeholder="Confirm Password"
+          required
         />
         <input
           className="register-form__submit"
