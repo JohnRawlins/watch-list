@@ -1,153 +1,16 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import watchListLogo from '../img/watchlist-logo.svg';
 import AuthError from './AuthError';
 import '../css/register.scss';
+import useForm from '../hooks/useForm';
 
 const Register = () => {
-  const [registerFields, setRegisterFields] = useState({
-    username: '',
-    password: '',
-    confirmPassword: ''
-  });
-
-  const [registerFieldErrors, setRegisterFieldErrors] = useState({
-    username: [],
-    password: [],
-    confirmPassword: []
-  });
-
-  const [registerFieldHighlight, setRegisterFieldHighlight] = useState({
-    username: false,
-    password: false,
-    confirmPassword: false
-  });
-
-  const checkInputValues = (fieldName, fieldValue) => {
-    switch (fieldName) {
-      case 'username': {
-        const inputErrors = [];
-        if (fieldValue.includes(' ')) {
-          inputErrors.push('Username cannot contain any spaces');
-        }
-
-        if (fieldValue.length < 1) {
-          inputErrors.push('Username is required');
-        }
-        setRegisterFieldErrors({
-          ...registerFieldErrors,
-          username: inputErrors
-        });
-        if (registerFieldErrors.username.length > 0) {
-          setRegisterFieldHighlight({
-            ...registerFieldHighlight,
-            username: true
-          });
-        } else {
-          setRegisterFieldHighlight({
-            ...registerFieldHighlight,
-            username: false
-          });
-        }
-
-        break;
-      }
-
-      case 'password': {
-        const inputErrors = [];
-
-        if (fieldValue.includes(' ')) {
-          inputErrors.push('Password cannot contain any spaces');
-        }
-
-        if (fieldValue.length < 1) {
-          inputErrors.push('Password is required');
-        }
-
-        if (fieldValue.length < 6) {
-          inputErrors.push('Password needs to have a minimum of 6 characters');
-        }
-
-        if (
-          fieldValue !== registerFields.confirmPassword &&
-          registerFields.confirmPassword.length > 1
-        ) {
-          setRegisterFieldErrors({
-            ...registerFieldErrors,
-            password: inputErrors,
-            confirmPassword: ['Passwords do not match']
-          });
-        } else
-          setRegisterFieldErrors({
-            ...registerFieldErrors,
-            password: inputErrors,
-            confirmPassword: []
-          });
-
-        if (inputErrors.length > 0) {
-          setRegisterFieldHighlight({
-            ...registerFieldHighlight,
-            password: true
-          });
-        } else {
-          setRegisterFieldHighlight({
-            ...registerFieldHighlight,
-            password: false,
-            confirmPassword:false
-          });
-        }
-
-        break;
-      }
-
-      case 'confirmPassword': {
-        const inputErrors = [];
-
-        if (fieldValue !== registerFields.password) {
-          inputErrors.push('Passwords do not match');
-        }
-        setRegisterFieldErrors({
-          ...registerFieldErrors,
-          confirmPassword: inputErrors
-        });
-
-        if (inputErrors.length > 0) {
-          setRegisterFieldHighlight({
-            ...registerFieldHighlight,
-            confirmPassword: true
-          });
-        } else {
-          setRegisterFieldHighlight({
-            ...registerFieldHighlight,
-            confirmPassword: false
-          });
-        }
-
-        break;
-      }
-    }
-  };
-
-  const handleFormFields = event => {
-    const fieldName = event.target.name;
-    const fieldValue = event.target.value;
-    switch (fieldName) {
-      case 'username':
-        setRegisterFields({ ...registerFields, username: fieldValue });
-        checkInputValues(fieldName, fieldValue);
-        break;
-
-      case 'password':
-        setRegisterFields({ ...registerFields, password: fieldValue });
-        checkInputValues(fieldName, fieldValue);
-        break;
-
-      case 'confirmPassword':
-        setRegisterFields({ ...registerFields, confirmPassword: fieldValue });
-        checkInputValues(fieldName, fieldValue);
-        break;
-    }
-  };
+  const { updateFormFields, formFields, formErrors } = useForm();
+  const confirmPassword = useRef(null);
+  const password = useRef(null);
+  const errorLblColor = { color: 'red' };
+  const errorBorder = { border: '2px solid red', outline: 'none' };
 
   return (
     <div className="register">
@@ -164,7 +27,7 @@ const Register = () => {
         <label className="register-form-label">
           <span
             className="label-text"
-            style={registerFieldHighlight.username ? { color: 'red' } : {}}
+            style={formErrors.username.length > 0 ? errorLblColor : {}}
           >
             Username
           </span>
@@ -172,18 +35,20 @@ const Register = () => {
             className="register-form__username"
             type="text"
             name="username"
-            value={registerFields.username}
-            onChange={handleFormFields}
-            style={
-              registerFieldHighlight.username ? { border: '2px solid red' } : {}
-            }
+            value={formFields.username}
+            onChange={updateFormFields}
+            autoComplete="off"
+            autoCorrect="off"
+            autoCapitalize="off"
+            spellCheck="false"
+            style={formErrors.username.length > 0 ? errorBorder : {}}
           />
-          <AuthError fieldErrors={registerFieldErrors.username} />
+          <AuthError fieldErrors={formErrors.username} />
         </label>
         <label className="register-form-label">
           <span
             className="label-text"
-            style={registerFieldHighlight.password ? { color: 'red' } : {}}
+            style={formErrors.password.length > 0 ? errorLblColor : {}}
           >
             Password
           </span>
@@ -191,17 +56,18 @@ const Register = () => {
             className="register-form__password"
             type="password"
             name="password"
-            value={registerFields.password}
-            onChange={handleFormFields}
-            style={
-              registerFieldHighlight.password ? { border: '2px solid red' } : {}
-            }
+            value={formFields.password}
+            ref={password}
+            onChange={event => {
+              updateFormFields(event, password, confirmPassword);
+            }}
+            style={formErrors.password.length > 0 ? errorBorder : {}}
           />
         </label>
         <label className="register-form-label">
           <span
             className="label-text"
-            style={registerFieldHighlight.confirmPassword ? { color: 'red' } : {}}
+            style={formErrors.confirmPassword.length > 0 ? errorLblColor : {}}
           >
             Confirm Password
           </span>
@@ -209,15 +75,16 @@ const Register = () => {
             className="register-form__confirm-password"
             type="password"
             name="confirmPassword"
-            value={registerFields.confirmPassword}
-            onChange={handleFormFields}
-            style={
-              registerFieldHighlight.confirmPassword ? { border: '2px solid red' } : {}
-            }
+            value={formFields.confirmPassword}
+            onChange={event => {
+              updateFormFields(event, password, confirmPassword);
+            }}
+            ref={confirmPassword}
+            style={formErrors.confirmPassword.length > 0 ? errorBorder : {}}
           />
           <div className="register-password-errors">
-            <AuthError fieldErrors={registerFieldErrors.password} />
-            <AuthError fieldErrors={registerFieldErrors.confirmPassword} />
+            <AuthError fieldErrors={formErrors.password} />
+            <AuthError fieldErrors={formErrors.confirmPassword} />
           </div>
         </label>
         <input

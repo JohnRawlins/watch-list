@@ -71,6 +71,7 @@
 
   &__password {
     @extend %register-form-input;
+    margin-bottom:30px;
   }
 
   &__confirm-password {
