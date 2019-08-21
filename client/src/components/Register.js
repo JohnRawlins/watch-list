@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useRef } from 'react';
 import { Link } from 'react-router-dom';
 import watchListLogo from '../img/watchlist-logo.svg';
 import AuthError from './AuthError';
