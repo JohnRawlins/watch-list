@@ -7,7 +7,9 @@ import useForm from '../hooks/useForm';
 import formValidator from '../hooks/formValidator';
 
 const Register = () => {
-  const { updateFormFields, formFields, submitDisabled } = useForm(formValidator);
+  const { updateFormFields, formFields, submitDisabled } = useForm(
+    formValidator
+  );
   const errorLblColor = { color: 'red' };
   const errorBorder = { border: '2px solid red', outline: 'none' };
 
