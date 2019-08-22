@@ -38,7 +38,7 @@
   padding: 40px;
   background: linear-gradient(
       180deg,
-      rgba(44, 56, 94, 0.95) 0%,
+      rgba(44, 56, 94, 0.9) 0%,
       rgba(51, 110, 107, 0.9) 100%
     ),
     url('../img/tv-background-1920w.jpg');
@@ -71,7 +71,6 @@
 
   &__password {
     @extend %register-form-input;
-    margin-bottom:30px;
   }
 
   &__confirm-password {
@@ -88,11 +87,17 @@
     color: white;
     background-color: #2c385e;
     font-size: 18px;
+    margin-top: 15px;
   }
-}
 
-.register-password-errors {
-  margin-top: 30px;
+  &__submit:disabled {
+    opacity: 0.5;
+    background-color:#6A6A6A;
+  }
+
+  &__submit[disabled]:hover {
+    cursor: not-allowed;
+  }
 }
 
 .register-form-label {

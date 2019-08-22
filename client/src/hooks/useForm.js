@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 const useForm = () => {
   const [formFields, setFormFields] = useState({
@@ -13,7 +13,38 @@ const useForm = () => {
     confirmPassword: []
   });
 
+  const [errorFound, setErrorFound] = useState(false);
+
   let passwordMatchError = false;
+
+  useEffect(() => {
+    let errorFound = false;
+
+    for (const field in formErrors) {
+      if (formErrors[field].length > 0) {
+        errorFound = true;
+      }
+    }
+
+    setErrorFound(errorFound);
+  }, [formErrors, formFields]);
+
+  const updateFormFields = (field, confirmPasswordElem, passwordElem) => {
+    const fieldName = field.target.name;
+    const fieldValue = field.target.value;
+
+    if (
+      confirmPasswordElem &&
+      passwordElem &&
+      confirmPasswordElem.current.value !== passwordElem.current.value
+    ) {
+      passwordMatchError = true;
+    }
+
+    checkInputErrors(fieldName, fieldValue);
+
+    setFormFields({ ...formFields, [fieldName]: fieldValue });
+  };
 
   const checkInputErrors = (fieldName, fieldValue) => {
     switch (fieldName) {
@@ -37,12 +68,8 @@ const useForm = () => {
           errors.push('Password cannot contain spaces');
         }
 
-        if (fieldValue.length < 1) {
-          errors.push('Password is required');
-        }
-
         if (fieldValue.length < 6) {
-          errors.push('Password must contain at least 6 characters ');
+          errors.push('Password must contain at least 6 characters');
         }
 
         if (passwordMatchError) {
@@ -78,23 +105,7 @@ const useForm = () => {
     }
   };
 
-  const updateFormFields = (field, confirmPasswordElem, passwordElem) => {
-    const fieldName = field.target.name;
-    const fieldValue = field.target.value;
-
-    if (
-      confirmPasswordElem &&
-      passwordElem &&
-      confirmPasswordElem.current.value !== passwordElem.current.value
-    ) {
-      passwordMatchError = true;
-    }
-    checkInputErrors(fieldName, fieldValue);
-
-    setFormFields({ ...formFields, [fieldName]: fieldValue });
-  };
-
-  return { updateFormFields, formFields, formErrors };
+  return { updateFormFields, formFields, formErrors, errorFound };
 };
 
 export default useForm;

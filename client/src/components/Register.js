@@ -6,11 +6,12 @@ import '../css/register.scss';
 import useForm from '../hooks/useForm';
 
 const Register = () => {
-  const { updateFormFields, formFields, formErrors } = useForm();
+  const { updateFormFields, formFields, formErrors, errorFound } = useForm();
   const confirmPassword = useRef(null);
   const password = useRef(null);
   const errorLblColor = { color: 'red' };
   const errorBorder = { border: '2px solid red', outline: 'none' };
+
 
   return (
     <div className="register">
@@ -91,6 +92,7 @@ const Register = () => {
           className="register-form__submit"
           type="submit"
           value="Register"
+          disabled={errorFound}
         />
       </form>
 

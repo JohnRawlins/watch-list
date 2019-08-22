@@ -20,7 +20,7 @@ const AuthError = ({ fieldErrors }) => {
 
   return (
     <div className="auth-error">
-      <ul className="auth-error-list">{fieldErrors}</ul>
+     { fieldErrors.length > 0 && <ul className="auth-error-list">{fieldErrors}</ul>}
     </div>
   );
 };

@@ -7,7 +7,6 @@ const config = require('config');
 
 const User = require('../models/User');
 
-
 // @route     POST api/users
 // @desc      Register a user & assign token
 // @access    Public
@@ -17,10 +16,9 @@ router.post(
     check('username', 'Username is required')
       .not()
       .isEmpty(),
-    check(
-      'password',
-      'Please enter a password with 6 or more characters'
-    ).isLength({ min: 6 })
+    check('password', 'Password must contain at least 6 characters').isLength({
+      min: 6
+    }),
   ],
   async (req, res) => {
     const errors = validationResult(req);
