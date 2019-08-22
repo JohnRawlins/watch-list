@@ -3,10 +3,11 @@ import { Link } from 'react-router-dom';
 import watchListLogo from '../img/watchlist-logo.svg';
 import AuthError from './AuthError';
 import '../css/register.scss';
-import useRegisterForm from '../hooks/useRegisterForm';
+import useForm from '../hooks/useForm';
+import formValidator from '../hooks/formValidator';
 
 const Register = () => {
-  const { updateFormFields, formFields, formStatus } = useRegisterForm();
+  const { updateFormFields, formFields, submitDisabled } = useForm(formValidator);
   const errorLblColor = { color: 'red' };
   const errorBorder = { border: '2px solid red', outline: 'none' };
 
@@ -87,7 +88,7 @@ const Register = () => {
           className="register-form__submit"
           type="submit"
           value="Register"
-          disabled={formStatus}
+          disabled={submitDisabled}
         />
       </form>
 

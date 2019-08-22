@@ -18,7 +18,7 @@ router.post(
       .isEmpty(),
     check('password', 'Password must contain at least 6 characters').isLength({
       min: 6
-    }),
+    })
   ],
   async (req, res) => {
     const errors = validationResult(req);
