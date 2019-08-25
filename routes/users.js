@@ -28,7 +28,9 @@ router.post(
         .json({ errors: validationResults.errors.map(error => error.msg) });
     }
 
-    const { username, password } = req.body;
+    let { username, password } = req.body;
+
+    username = username.toLowerCase();
 
     try {
       let user = await User.findOne({ username });

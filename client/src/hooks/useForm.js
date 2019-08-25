@@ -14,7 +14,7 @@ const useForm = formValidator => {
       let fieldCount = 0;
 
       for (const field in formFields) {
-        if (formFields[field].value && formFields[field].errors.length < 1) {
+        if (formFields[field].value && formFields[field].errors.length === 0) {
           fieldCount++;
         }
       }
@@ -29,9 +29,9 @@ const useForm = formValidator => {
     setSubmitDisabled(false);
   }, [formFields, formValidator]);
 
-  const updateFormFields = field => {
-    const fieldName = field.target.name;
-    const fieldValue = field.target.value;
+  const updateFormFields = event => {
+    const fieldName = event.target.name;
+    const fieldValue = event.target.value;
     const newFieldValues = {
       ...formFields,
       [fieldName]: { ...formFields[fieldName], value: fieldValue }
