@@ -17,10 +17,9 @@ router.get('/', auth, async (req, res) => {
     return res.json(user);
   } catch (error) {
     console.error(error.message);
-    return res.status(500).send({
-      msg:
-        'The server was unable to process your request due to an internal error'
-    });
+    return res
+      .status(500)
+      .json({ errors: ['Something went wrong. Please try again'] });
   }
 });
 

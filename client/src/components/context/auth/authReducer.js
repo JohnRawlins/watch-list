@@ -3,6 +3,7 @@ export default (state, action) => {
     case 'REGISTER_SUCCESS': {
       return {
         ...state,
+        isAuthenticated:true,
         token: action.payload
       };
     }
@@ -11,6 +12,13 @@ export default (state, action) => {
       return {
         ...state,
         registerErrors: action.payload.errors
+      };
+    }
+
+    case 'LOAD_USER_SUCCESS': {
+      return {
+        ...state,
+        user: action.payload
       };
     }
   }

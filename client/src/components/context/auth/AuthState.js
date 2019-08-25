@@ -6,11 +6,32 @@ const AuthState = props => {
   const initialState = {
     user: null,
     token: localStorage.getItem('token'),
-    registerErrors:[]
-
+    registerErrors: [],
+    isAuthenticated:false
   };
 
   const [state, dispatch] = useReducer(authReducer, initialState);
+
+  const loadUser = async token => {
+    try {
+      let response = await fetch('/api/auth', {
+        headers: {
+          'x-auth-token': token
+        }
+      });
+
+      let responsePayload = await response.json();
+
+      if (response.ok) {
+        dispatch({
+          type: 'LOAD_USER_SUCCESS',
+          payload: responsePayload
+        });
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   const registerUser = async userCredentials => {
     try {
@@ -22,28 +43,21 @@ const AuthState = props => {
 
       let responsePayload = await response.json();
 
-
-      if (response.ok){
-
+      if (response.ok) {
         dispatch({
-          type: "REGISTER_SUCCESS",
-          payload:responsePayload
-        })
-        
-      }
-      else{
+          type: 'REGISTER_SUCCESS',
+          payload: responsePayload.token
+        });
+        loadUser(responsePayload.token);
+      } else {
         dispatch({
-          type: "REGISTER_FAIL",
-          payload:responsePayload
-
-        })
+          type: 'REGISTER_FAIL',
+          payload: responsePayload
+        });
       }
-    
-
     } catch (error) {
-      
       console.error(error);
-   }
+    }
   };
 
   return (
@@ -51,8 +65,10 @@ const AuthState = props => {
       value={{
         user: state.user,
         token: state.token,
-        registerErrors:state.registerErrors,
-        registerUser
+        registerErrors: state.registerErrors,
+        registerUser,
+        loadUser,
+        isAuthenticated:state.isAuthenticated
       }}
     >
       {props.children}

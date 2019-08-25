@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import watchListLogo from '../img/watchlist-logo.svg';
 import FieldError from './FieldError';
@@ -8,8 +8,10 @@ import useForm from '../hooks/useForm';
 import formValidator from '../hooks/formValidator';
 import AuthContext from './context/auth/authContext';
 
-const Register = () => {
-  const { registerUser, registerErrors } = useContext(AuthContext);
+const Register = ({ history }) => {
+  const { registerUser, registerErrors, isAuthenticated } = useContext(
+    AuthContext
+  );
   const {
     updateFormFields,
     formFields,
@@ -20,6 +22,12 @@ const Register = () => {
     submitDisabled
   } = useForm(formValidator);
   const errorBorder = { border: '2px solid red', outline: 'none' };
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      history.push('/');
+    }
+  });
 
   const handleSubmit = event => {
     event.preventDefault();
