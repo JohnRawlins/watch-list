@@ -1,17 +1,30 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import watchListLogo from '../img/watchlist-logo.svg';
-import AuthError from './AuthError';
+import FieldError from './FieldError';
+import FormError from './FormError';
 import '../css/register.scss';
 import useForm from '../hooks/useForm';
 import formValidator from '../hooks/formValidator';
+import AuthContext from './context/auth/authContext';
 
 const Register = () => {
-  const { updateFormFields, formFields, submitDisabled } = useForm(
-    formValidator
-  );
-  const errorLblColor = { color: 'red' };
+  const { registerUser, registerErrors } = useContext(AuthContext);
+  const {
+    updateFormFields,
+    formFields,
+    formFields: {
+      username: { value: username },
+      password: { value: password }
+    },
+    submitDisabled
+  } = useForm(formValidator);
   const errorBorder = { border: '2px solid red', outline: 'none' };
+
+  const handleSubmit = event => {
+    event.preventDefault();
+    registerUser({ username, password });
+  };
 
   return (
     <div className="register">
@@ -23,15 +36,10 @@ const Register = () => {
         />
         <h1 className="register-header__title">Watch List</h1>
       </div>
-
-      <form className="register-form">
+      <FormError formErrors={registerErrors} />
+      <form className="register-form" onSubmit={handleSubmit}>
         <label className="register-form-label">
-          <span
-            className="label-text"
-            style={formFields.username.errors.length > 0 ? errorLblColor : {}}
-          >
-            Username
-          </span>
+          <span className="label-text">Username</span>
           <input
             className="register-form__username"
             type="text"
@@ -44,15 +52,10 @@ const Register = () => {
             spellCheck="false"
             style={formFields.username.errors.length > 0 ? errorBorder : {}}
           />
-          <AuthError fieldErrors={formFields.username.errors} />
+          <FieldError fieldErrors={formFields.username.errors} />
         </label>
         <label className="register-form-label">
-          <span
-            className="label-text"
-            style={formFields.password.errors.length > 0 ? errorLblColor : {}}
-          >
-            Password
-          </span>
+          <span className="label-text">Password</span>
           <input
             className="register-form__password"
             type="password"
@@ -61,16 +64,10 @@ const Register = () => {
             onChange={updateFormFields}
             style={formFields.password.errors.length > 0 ? errorBorder : {}}
           />
+          <FieldError fieldErrors={formFields.password.errors} />
         </label>
         <label className="register-form-label">
-          <span
-            className="label-text"
-            style={
-              formFields.confirmPassword.errors.length > 0 ? errorLblColor : {}
-            }
-          >
-            Confirm Password
-          </span>
+          <span className="label-text">Confirm Password</span>
           <input
             className="register-form__confirm-password"
             type="password"
@@ -81,10 +78,8 @@ const Register = () => {
               formFields.confirmPassword.errors.length > 0 ? errorBorder : {}
             }
           />
-          <div className="register-password-errors">
-            <AuthError fieldErrors={formFields.password.errors} />
-            <AuthError fieldErrors={formFields.confirmPassword.errors} />
-          </div>
+          <FieldError fieldErrors={formFields.confirmPassword.errors} />
+          <div className="register-password-errors" />
         </label>
         <input
           className="register-form__submit"

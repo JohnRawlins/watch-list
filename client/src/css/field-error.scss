@@ -1,26 +1,21 @@
-%auth-error-flex-row {
+%field-error-flex-row {
   display: flex;
 }
 
-%auth-error-flex-column {
+%field-error-flex-column {
   display: flex;
   flex-direction: column;
 }
 
-%auth-error-flex-center {
-  justify-content: center;
-  align-items: center;
-}
-
-.auth-error {
-  @extend %auth-error-flex-column;
+.field-error {
+  @extend %field-error-flex-column;
   &__message {
     text-align: center;
     margin-bottom:20px;
   }
 }
 
-.auth-error-list {
+.field-error-list {
   list-style: none;
   font-size:14px;
   margin-bottom:15px;
@@ -34,8 +29,8 @@
   }
 }
 
-.auth-error-wrapper{
-    @extend %auth-error-flex-row;
+.field-error-wrapper{
+    @extend %field-error-flex-row;
 
     &__input-status{
         margin-right:10px;

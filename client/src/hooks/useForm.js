@@ -32,32 +32,27 @@ const useForm = formValidator => {
   const updateFormFields = field => {
     const fieldName = field.target.name;
     const fieldValue = field.target.value;
+    const newFieldValues = {
+      ...formFields,
+      [fieldName]: { ...formFields[fieldName], value: fieldValue }
+    };
 
     if (formValidator) {
       formValidator(fieldName, fieldValue, formFields, setFormFields);
     } else {
       switch (fieldName) {
         case 'username': {
-          setFormFields({
-            ...formFields,
-            [fieldName]: { ...formFields[fieldName], value: fieldValue }
-          });
+          setFormFields(newFieldValues);
           break;
         }
 
         case 'password': {
-          setFormFields({
-            ...formFields,
-            [fieldName]: { ...formFields[fieldName], value: fieldValue }
-          });
+          setFormFields(newFieldValues);
           break;
         }
 
         case 'confirmPassword': {
-          setFormFields({
-            ...formFields,
-            [fieldName]: { ...formFields[fieldName], value: fieldValue }
-          });
+          setFormFields(newFieldValues);
         }
       }
     }

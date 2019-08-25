@@ -21,9 +21,11 @@ router.post(
     })
   ],
   async (req, res) => {
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-      return res.status(400).json({ errors: errors.array() });
+    const validationResults = validationResult(req);
+    if (!validationResults.isEmpty()) {
+      return res
+        .status(400)
+        .json({ errors: validationResults.errors.map(error => error.msg) });
     }
 
     const { username, password } = req.body;
@@ -31,7 +33,7 @@ router.post(
     try {
       let user = await User.findOne({ username });
       if (user) {
-        return res.status(400).json({ msg: 'Username already exits' });
+        return res.status(400).json({ errors: ['Username already exist'] });
       }
 
       user = new User({
@@ -56,7 +58,7 @@ router.post(
         payload,
         config.get('jwtSecret'),
         {
-          expiresIn: 36000
+          expiresIn: 1800
         },
         (error, token) => {
           if (error) throw error;
@@ -65,10 +67,9 @@ router.post(
       );
     } catch (error) {
       console.error(error.message);
-      return res.status(500).json({
-        msg:
-          'The server was unable to process your request due to an internal error'
-      });
+      return res
+        .status(500)
+        .json({ errors: ['Something went wrong. Please try again'] });
     }
   }
 );

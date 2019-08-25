@@ -3,32 +3,56 @@ import AuthContext from './authContext';
 import authReducer from './authReducer';
 
 const AuthState = props => {
-  const REGISTER_SUCCESS = 'REGISTER_SUCCESS';
-  const REGISTER_FAIL = 'REGISTER_FAIL';
-  const USER_LOADED = 'USER_LOADED';
-  const AUTH_ERROR = 'AUTH_ERROR';
-  const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
-  const LOGIN_FAIL = 'LOGIN_FAIL';
-  const LOGOUT = 'LOGOUT';
-  const CLEAR_ERRORS = 'CLEAR_ERRORS';
   const initialState = {
     user: null,
     token: localStorage.getItem('token'),
-    isAuthenticated: null,
-    loading: true,
-    error: null
+    registerErrors:[]
+
   };
 
   const [state, dispatch] = useReducer(authReducer, initialState);
 
+  const registerUser = async userCredentials => {
+    try {
+      let response = await fetch('/api/users', {
+        method: 'post',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(userCredentials)
+      });
+
+      let responsePayload = await response.json();
+
+
+      if (response.ok){
+
+        dispatch({
+          type: "REGISTER_SUCCESS",
+          payload:responsePayload
+        })
+        
+      }
+      else{
+        dispatch({
+          type: "REGISTER_FAIL",
+          payload:responsePayload
+
+        })
+      }
+    
+
+    } catch (error) {
+      
+      console.error(error);
+   }
+  };
+
   return (
     <AuthContext.Provider
       value={{
-        token: state.token,
-        isAuthenticated: state.isAuthenticated,
-        loading: state.loading,
         user: state.user,
-        error: state.error
+        token: state.token,
+        registerErrors:state.registerErrors,
+        registerUser
       }}
     >
       {props.children}
