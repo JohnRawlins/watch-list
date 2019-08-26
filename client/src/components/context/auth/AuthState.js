@@ -70,7 +70,7 @@ const AuthState = props => {
   const registerUser = async userCredentials => {
     try {
       let response = await fetch('/api/users', {
-        method: 'post',
+        method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(userCredentials)
       });
