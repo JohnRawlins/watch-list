@@ -3,8 +3,9 @@ export default (state, action) => {
     case 'REGISTER_SUCCESS': {
       return {
         ...state,
-        isAuthenticated:true,
-        token: action.payload
+        isAuthenticated: true,
+        token: action.payload,
+        registerErrors: []
       };
     }
 
@@ -20,6 +21,26 @@ export default (state, action) => {
         ...state,
         user: action.payload
       };
+    }
+
+    case 'SIGN_IN_SUCCESS': {
+      return {
+        ...state,
+        isAuthenticated: true,
+        token: action.payload,
+        signInErrors: []
+      };
+    }
+
+    case 'SIGN_IN_FAIL': {
+      return {
+        ...state,
+        signInErrors: action.payload.errors
+      };
+    }
+
+    default: {
+      return state;
     }
   }
 };

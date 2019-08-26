@@ -29,28 +29,32 @@ router.get('/', auth, async (req, res) => {
 router.post(
   '/',
   [
-    check('username', 'Username is required').exists(),
-    check('password', 'Password is required').exists()
+    check('username', 'Username is required').not().isEmpty(),
+    check('password', 'Password is required').not().isEmpty()
   ],
   async (req, res) => {
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-      return res.status(400).json({ errors: errors.array() });
+    const validationResults = validationResult(req);
+    if (!validationResults.isEmpty()) {
+      return res
+        .status(400)
+        .json({ errors: validationResults.errors.map(error => error.msg) });
     }
 
-    const { username, password } = req.body;
+    let { username, password } = req.body;
+
+    username = username.toLowerCase();
 
     try {
       let user = await User.findOne({ username });
 
       if (!user) {
-        return res.status(400).json({ msg: 'Invalid Login Credentials' });
+        return res.status(400).json({ errors: ['Invalid Credentials'] });
       }
 
-      const isMatch = await bcrypt.compare(password, user.password);
+      const passwordsMatch = await bcrypt.compare(password, user.password);
 
-      if (!isMatch) {
-        return res.status(400).json({ msg: 'Invalid Login Credentials' });
+      if (!passwordsMatch) {
+        return res.status(400).json({ errors: ['Invalid Credentials'] });
       }
 
       const payload = {
@@ -64,18 +68,19 @@ router.post(
         payload,
         config.get('jwtSecret'),
         {
-          expiresIn: 36000
+          expiresIn: 1800
         },
         (error, token) => {
           if (error) throw error;
-          else return res.json({ token });
+          else return res.status(200).json({ token });
         }
       );
     } catch (error) {
       console.error(error.message);
       return res.status(500).json({
-        msg:
+        errors: [
           'The server was unable to process your request due to an internal error'
+        ]
       });
     }
   }

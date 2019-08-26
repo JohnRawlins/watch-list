@@ -9,7 +9,7 @@ import formValidator from '../hooks/formValidator';
 import AuthContext from './context/auth/authContext';
 
 const Register = ({ history }) => {
-  const { registerUser, registerErrors, isAuthenticated } = useContext(
+  const { registerUser, registerErrors, isAuthenticated, user } = useContext(
     AuthContext
   );
   const {
@@ -24,7 +24,7 @@ const Register = ({ history }) => {
   const errorBorder = { border: '2px solid red', outline: 'none' };
 
   useEffect(() => {
-    if (isAuthenticated) {
+    if (isAuthenticated && user) {
       history.push('/');
     }
   });
@@ -47,7 +47,7 @@ const Register = ({ history }) => {
       <FormError formErrors={registerErrors} />
       <form className="register-form" onSubmit={handleSubmit}>
         <label className="register-form-label">
-          <span className="label-text">Username</span>
+          <span className="register-form-label__text">Username</span>
           <input
             className="register-form__username"
             type="text"
@@ -63,7 +63,7 @@ const Register = ({ history }) => {
           <FieldError fieldErrors={formFields.username.errors} />
         </label>
         <label className="register-form-label">
-          <span className="label-text">Password</span>
+          <span className="register-form-label__text">Password</span>
           <input
             className="register-form__password"
             type="password"
@@ -75,7 +75,7 @@ const Register = ({ history }) => {
           <FieldError fieldErrors={formFields.password.errors} />
         </label>
         <label className="register-form-label">
-          <span className="label-text">Confirm Password</span>
+          <span className="register-form-label__text">Confirm Password</span>
           <input
             className="register-form__confirm-password"
             type="password"

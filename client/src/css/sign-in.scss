@@ -13,12 +13,14 @@
 }
 
 %signin-form-input {
+  width: 100%;
   padding-left: 10px;
-  margin-bottom: 60px;
+  margin-bottom: 10px;
   height: 40px;
   color: #2c385e;
   font-size: 16px;
-  border:none;
+  border: none;
+  border-radius: 5px;
 }
 
 %signin-bold-font {
@@ -31,7 +33,7 @@
 
 .signin {
   @extend %signin-flex-column, %signin-flex-center;
-  width:100%;
+  width: 100%;
   min-height: 100vh;
   padding: 40px;
   background: linear-gradient(
@@ -47,10 +49,10 @@
 
 .signin-header {
   @extend %signin-flex-column, %signin-flex-center;
-  margin-bottom: 80px;
+  margin-bottom: 45px;
 
   &__logo {
-    margin-bottom: 40px;
+    margin-bottom: 15px;
   }
 
   &__title {
@@ -72,6 +74,7 @@
 
   &__submit {
     @extend %signin-bold-font;
+    margin-top: 15px;
     border-radius: 10px;
     outline: none;
     border: none;
@@ -80,11 +83,25 @@
     background-color: #2c385e;
     font-size: 18px;
   }
+
+  &__submit:disabled {
+    opacity: 0.6;
+  }
+}
+
+.signin-form-label {
+  margin-bottom: 10px;
+
+  &__text {
+    display: inline-block;
+    margin-bottom: 10px;
+  }
 }
 
 .signin-links {
   @extend %signin-flex-row;
   justify-content: space-between;
+  font-size: 14px;
   width: 100%;
   a {
     text-decoration: none;

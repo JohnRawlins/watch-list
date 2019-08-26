@@ -64,7 +64,7 @@ router.post(
         },
         (error, token) => {
           if (error) throw error;
-          else return res.json({ token });
+          else return res.status(200).json({ token });
         }
       );
     } catch (error) {

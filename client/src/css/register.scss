@@ -92,7 +92,6 @@
 
   &__submit:disabled {
     opacity: 0.6;
-    background-color: #2c385e;
   }
 
   &__submit[disabled]:hover {
@@ -103,7 +102,7 @@
 .register-form-label {
   margin-bottom: 10px;
 
-  .label-text {
+  &__text {
     display: inline-block;
     margin-bottom: 10px;
   }
@@ -111,8 +110,8 @@
 
 .register-links {
   @extend %register-flex-row;
-  font-size: 14px;
   justify-content: space-between;
+  font-size: 14px;
   width: 100%;
   a {
     text-decoration: none;

@@ -7,10 +7,39 @@ const AuthState = props => {
     user: null,
     token: localStorage.getItem('token'),
     registerErrors: [],
-    isAuthenticated:false
+    signInErrors: [],
+    isAuthenticated: false
   };
 
   const [state, dispatch] = useReducer(authReducer, initialState);
+
+  const signInUser = async userCredentials => {
+    try {
+      const response = await fetch('/api/auth', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(userCredentials)
+      });
+
+      const responsePayload = await response.json();
+
+      if (response.ok) {
+        dispatch({
+          type: 'SIGN_IN_SUCCESS',
+          payload: responsePayload
+        });
+
+        loadUser(responsePayload.token);
+      } else {
+        dispatch({
+          type: 'SIGN_IN_FAIL',
+          payload: responsePayload
+        });
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   const loadUser = async token => {
     try {
@@ -25,6 +54,11 @@ const AuthState = props => {
       if (response.ok) {
         dispatch({
           type: 'LOAD_USER_SUCCESS',
+          payload: responsePayload
+        });
+      } else {
+        dispatch({
+          type: 'LOAD_USER_FAIL',
           payload: responsePayload
         });
       }
@@ -66,9 +100,11 @@ const AuthState = props => {
         user: state.user,
         token: state.token,
         registerErrors: state.registerErrors,
+        signInErrors: state.signInErrors,
+        isAuthenticated: state.isAuthenticated,
         registerUser,
         loadUser,
-        isAuthenticated:state.isAuthenticated
+        signInUser
       }}
     >
       {props.children}
