@@ -1,8 +1,11 @@
+require('dotenv').config();
 const mongoose = require('mongoose');
-const config = require('config');
-const connectionString = config.get('mongoURI');
+ const connectionString = process.env.REACT_APP_MONGO_URI;
+
 
 const connectToDB = async () => {
+
+
   let dbConnection;
   try {
     dbConnection = await mongoose.connect(connectionString, {

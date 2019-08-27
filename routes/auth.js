@@ -4,7 +4,8 @@ const { check, validationResult } = require('express-validator');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const auth = require('../middleware/auth');
-const config = require('config');
+require ('dotenv').config();
+const jwtSecret = process.env.REACT_APP_JWT_SECRET;
 
 const User = require('../models/User');
 
@@ -29,8 +30,12 @@ router.get('/', auth, async (req, res) => {
 router.post(
   '/',
   [
-    check('username', 'Username is required').not().isEmpty(),
-    check('password', 'Password is required').not().isEmpty()
+    check('username', 'Username is required')
+      .not()
+      .isEmpty(),
+    check('password', 'Password is required')
+      .not()
+      .isEmpty()
   ],
   async (req, res) => {
     const validationResults = validationResult(req);
@@ -66,7 +71,7 @@ router.post(
 
       jwt.sign(
         payload,
-        config.get('jwtSecret'),
+        jwtSecret,
         {
           expiresIn: 1800
         },

@@ -1,4 +1,0 @@
-{
-  "mongoURI": "mongodb+srv://watchlist-admin:t73SkT3oHfYcMDM5@watchlist-gejzi.mongodb.net/watch-list?retryWrites=true&w=majority",
-  "jwtSecret": "kLqbac9YOiFaUvsBDOZGLzOWh8FcszpPhANkBUAaKux7OiiZwh2RIOJ5owVal4W"
-}

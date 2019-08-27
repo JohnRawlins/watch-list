@@ -40,7 +40,7 @@ import '../css/home.scss';
 const Home = () => {
   const [searchField, setSearchField] = useState('');
 
-  const handleVideoSearch = event => {
+  const handleVideoSearch = async event => {
     event.preventDefault();
   };
 
