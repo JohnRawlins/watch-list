@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Navbar from './Navbar';
 import MyList from './MyList';
 import searchIcon from '../img/search-icon.svg';
@@ -6,6 +6,9 @@ import VideoList from './VideoList';
 import Video from './Video';
 import popcorn from '../img/popcorn.svg';
 import '../css/home.scss';
+
+
+
 
 // let videoItems = [
 //   <Video
@@ -35,11 +38,26 @@ import '../css/home.scss';
 // ];
 
 const Home = () => {
+  const [searchField, setSearchField] = useState('');
+
+  const handleVideoSearch = event => {
+    event.preventDefault();
+  };
+
+  const handleSearchInput = event => {
+    setSearchField(event.target.value);
+  };
   return (
     <div className="home">
       <Navbar />
-      <form className="search">
-        <input className="search__input" type="text" placeholder="Search" />
+      <form className="search" onSubmit={handleVideoSearch}>
+        <input
+          className="search__input"
+          type="text"
+          placeholder="Search"
+          onChange={handleSearchInput}
+          value={searchField}
+        />
         <button className="search__btn" type="submit">
           <img
             className="search__btn-img"
@@ -51,7 +69,11 @@ const Home = () => {
       <div className="search-result">
         {/* <VideoList videoList={videoItems} /> */}
         <div className="search-default">
-          <img className="search-default__img" src={popcorn} alt="Container of Popcorn"/>
+          <img
+            className="search-default__img"
+            src={popcorn}
+            alt="Container of Popcorn"
+          />
           <p className="search-default__message">Search For Movies or Shows</p>
         </div>
       </div>

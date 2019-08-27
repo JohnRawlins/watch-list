@@ -50,7 +50,6 @@ $menu-primary-color: #2c385e;
     border: none;
     cursor: pointer;
     width: 30px;
-    margin-right: 10px;
   }
 }
 
@@ -59,8 +58,11 @@ $menu-primary-color: #2c385e;
   align-items: center;
 
   &__name {
+    text-transform:capitalize;
     font-weight: 700;
     font-size: 18px;
+    margin-right:5px;
+    word-break:break-all;
     color: $menu-primary-color;
   }
 

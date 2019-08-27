@@ -8,9 +8,9 @@ const config = require('config');
 
 const User = require('../models/User');
 
-// @route GET api/auth
-// @desc  Get logged in user
-// @access Private
+// @route     GET api/auth
+// @desc      Get logged in user
+// @access    Private
 router.get('/', auth, async (req, res) => {
   try {
     const user = await User.findById(req.user.id).select('_id username');

@@ -39,6 +39,20 @@ export default (state, action) => {
       };
     }
 
+    case 'MENU_OPENED': {
+      return {
+        ...state,
+        menuOpen: true
+      };
+    }
+
+    case 'MENU_CLOSED': {
+      return {
+        ...state,
+        menuOpen: false
+      };
+    }
+
     default: {
       return state;
     }

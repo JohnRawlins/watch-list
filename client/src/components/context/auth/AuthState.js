@@ -8,10 +8,23 @@ const AuthState = props => {
     token: localStorage.getItem('token'),
     registerErrors: [],
     signInErrors: [],
-    isAuthenticated: false
+    isAuthenticated: false,
+    menuOpen: false
   };
 
   const [state, dispatch] = useReducer(authReducer, initialState);
+
+  const menuVisible = visible => {
+    if (visible) {
+      dispatch({
+        type: 'MENU_OPENED'
+      });
+    } else {
+      dispatch({
+        type: 'MENU_CLOSED'
+      });
+    }
+  };
 
   const signInUser = async userCredentials => {
     try {
@@ -102,9 +115,11 @@ const AuthState = props => {
         registerErrors: state.registerErrors,
         signInErrors: state.signInErrors,
         isAuthenticated: state.isAuthenticated,
+        menuOpen: state.menuOpen,
         registerUser,
         loadUser,
-        signInUser
+        signInUser,
+        menuVisible
       }}
     >
       {props.children}
