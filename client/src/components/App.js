@@ -17,6 +17,7 @@ function App() {
             <Route exact path="/register" component={Register} />
             <Route exact path="/" component={Home} />
             <Route exact path="/mylist" component={MyList} />
+            <Route path="/search" component={Home} />
           </Switch>
         </BrowserRouter>
       </AuthState>

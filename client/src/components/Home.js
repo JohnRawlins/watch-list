@@ -1,52 +1,57 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Navbar from './Navbar';
 import MyList from './MyList';
 import searchIcon from '../img/search-icon.svg';
+import popcorn from '../img/popcorn.svg';
 import VideoList from './VideoList';
 import Video from './Video';
-import popcorn from '../img/popcorn.svg';
 import '../css/home.scss';
 
 
-
-
-// let videoItems = [
-//   <Video
-//     info={{
-//       title: 'The Punisher',
-//       year: '2017–2019',
-//       poster:
-//         'https://m.media-amazon.com/images/M/MV5BMTExODIwOTUxNzFeQTJeQWpwZ15BbWU4MDE5MDA0MTcz._V1_SX300.jpg'
-//     }}
-//   />,
-//   <Video
-//     info={{
-//       title: 'The Shining',
-//       year: '1980',
-//       poster:
-//         "https://m.media-amazon.com/images/M/MV5BZWFlYmY2MGEtZjVkYS00YzU4LTg0YjQtYzY1ZGE3NTA5NGQxXkEyXkFqcGdeQXVyMTQxNzMzNDI@._V1_SX300.jpg"
-//     }}
-//   />,
-//   <Video
-//     info={{
-//       title: 'Hellboy',
-//       year: '2019',
-//       poster:
-//         'https://m.media-amazon.com/images/M/MV5BODdkMDQzMzItZDc4YS00OGM4LTkxNTQtNjUzNzU0ZmJkMWY2XkEyXkFqcGdeQXVyMjMxOTE0ODA@._V1_SX300.jpg'
-//     }}
-//   />
-// ];
-
-const Home = () => {
+const Home = ({ history, location }) => {
   const [searchField, setSearchField] = useState('');
+  const [searchResults, setSearchResults] = useState([]);
 
-  const handleVideoSearch = async event => {
+  const searchForVideo = async () => {
+    try {
+      const omdbResponse = await fetch(`/api/search${location.search}`);
+      const omdbResponsePayload = await omdbResponse.json();
+      setSearchResults(omdbResponsePayload.Search);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  useEffect(() => {
+    if (location.search.length - 1 !== location.search.indexOf('=')) {
+      searchForVideo();
+    } else {
+      setSearchResults([]);
+    }
+
+    //eslint-disable-next-line
+  }, [location]);
+
+  const handleVideoSearch = event => {
     event.preventDefault();
+    history.push(`/search?videoTitle=${searchField}`);
   };
 
   const handleSearchInput = event => {
     setSearchField(event.target.value);
   };
+
+  const searchDefault = (
+    <>
+      <img
+        className="search-default__img"
+        src={popcorn}
+        alt="Container of Popcorn"
+      />
+      <p className="search-default__message">Search For Movies or Shows</p>
+    </>
+  );
+
   return (
     <div className="home">
       <Navbar />
@@ -67,15 +72,11 @@ const Home = () => {
         </button>
       </form>
       <div className="search-result">
-        {/* <VideoList videoList={videoItems} /> */}
-        <div className="search-default">
-          <img
-            className="search-default__img"
-            src={popcorn}
-            alt="Container of Popcorn"
-          />
-          <p className="search-default__message">Search For Movies or Shows</p>
-        </div>
+        {!searchResults || searchResults.length === 0 ? (
+          searchDefault
+        ) : (
+          <VideoList videoList={searchResults} />
+        )}
       </div>
     </div>
   );

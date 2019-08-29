@@ -43,20 +43,12 @@
   }
 }
 
-.search-result {
-  @extend %home-flex-column;
-  justify-content: center;
-  flex: 1 1 auto;
+.search-result{
+  @extend %home-flex-column, %home-flex-center;
+  color:white;
+  flex:1;
 }
 
-.search-default {
-  @extend %home-flex-column, %home-flex-center;
-  &__img {
-    width: 150px;
-    margin-bottom: 25px;
-  }
-
-  &__message {
-    color: white;
-  }
+.search-default__img{
+  margin-bottom:45px;
 }
