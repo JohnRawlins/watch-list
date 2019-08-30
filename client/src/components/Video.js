@@ -19,7 +19,7 @@ const Video = ({ info: { title, year, poster } }) => {
           className="video-poster__img"
           alt="video Poster"
           onError={() =>
-            setImgError({ status: true, style: { width: '100px' } })
+            setImgError({ status: true, style: { width:'100px',objectFit:"contain" } })
           }
         />
       </div>

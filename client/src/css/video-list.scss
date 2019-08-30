@@ -1,31 +1,5 @@
-%video-list-flex-row {
-  display: flex;
-}
-
-%video-list-flex-column {
-  display: flex;
-  flex-direction: column;
-}
-
-%video-list-flex-center {
-  justify-content: center;
-  align-items: center;
-}
-
-@mixin grid-column($numberOfColumns) {
-  flex-grow: 0;
-  flex-shrink: 1;
-  flex-basis: (95% / $numberOfColumns);
-}
-
 .video-list {
-  @extend %video-list-flex-row;
-  width: 100%;
-  flex-wrap: wrap;
-  justify-content: space-between;
-
-  .video {
-    @include grid-column(2);
-    margin-bottom: 20px;
-  }
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  grid-gap: 20px;
 }

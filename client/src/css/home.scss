@@ -22,10 +22,9 @@
 
 .search {
   @extend %home-flex-row;
-  width: 100%;
-  height: 45px;
-  margin: 0px auto;
   width: 90%;
+  height: 45px;
+  margin: 0px auto 40px auto;
 
   &__input {
     flex: 1 1 auto;
@@ -43,12 +42,14 @@
   }
 }
 
-.search-result{
-  @extend %home-flex-column, %home-flex-center;
-  color:white;
-  flex:1;
+.search-result {
+  @extend %home-flex-column;
+  align-self: center;
+  width: 90%;
+  color: white;
+  flex: 1;
 }
 
-.search-default__img{
-  margin-bottom:45px;
+.search-default__img {
+  margin-bottom: 45px;
 }
