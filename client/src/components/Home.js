@@ -7,16 +7,15 @@ import VideoList from './VideoList';
 import Video from './Video';
 import '../css/home.scss';
 
-
 const Home = ({ history, location }) => {
   const [searchField, setSearchField] = useState('');
-  const [searchResults, setSearchResults] = useState([]);
+  const [searchResults, setSearchResults] = useState({});
 
   const searchForVideo = async () => {
     try {
       const omdbResponse = await fetch(`/api/search${location.search}`);
       const omdbResponsePayload = await omdbResponse.json();
-      setSearchResults(omdbResponsePayload.Search);
+      setSearchResults(omdbResponsePayload);
     } catch (error) {
       console.error(error);
     }
@@ -26,7 +25,7 @@ const Home = ({ history, location }) => {
     if (location.search.length - 1 !== location.search.indexOf('=')) {
       searchForVideo();
     } else {
-      setSearchResults([]);
+      setSearchResults({ ...searchResults, Search: [] });
     }
 
     //eslint-disable-next-line
@@ -42,14 +41,14 @@ const Home = ({ history, location }) => {
   };
 
   const searchDefault = (
-    <>
+    <div className="search-default">
       <img
         className="search-default__img"
         src={popcorn}
         alt="Container of Popcorn"
       />
       <p className="search-default__message">Search For Movies or Shows</p>
-    </>
+    </div>
   );
 
   return (
@@ -72,10 +71,10 @@ const Home = ({ history, location }) => {
         </button>
       </form>
       <div className="search-result">
-        {!searchResults || searchResults.length === 0 ? (
+        {!searchResults.Search || searchResults.Search.length === 0 ? (
           searchDefault
         ) : (
-          <VideoList videoList={searchResults} />
+          <VideoList videoSearchResults={searchResults.Search} videoSearchResultsTotal={searchResults.totalResults} />
         )}
       </div>
     </div>

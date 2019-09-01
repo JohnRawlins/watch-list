@@ -24,7 +24,7 @@
   @extend %home-flex-row;
   width: 90%;
   height: 45px;
-  margin: 0px auto 40px auto;
+  margin: auto;
 
   &__input {
     flex: 1 1 auto;
@@ -45,11 +45,16 @@
 .search-result {
   @extend %home-flex-column;
   align-self: center;
+  flex: 1;
   width: 90%;
   color: white;
-  flex: 1;
 }
 
-.search-default__img {
-  margin-bottom: 45px;
+.search-default {
+  @extend %home-flex-column, %home-flex-center;
+  flex: 1;
+  &__img {
+    width: 100px;
+    margin-bottom: 25px;
+  }
 }

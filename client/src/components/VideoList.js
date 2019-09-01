@@ -1,31 +1,30 @@
 import React from 'react';
 import Video from './Video';
 import '../css/video-list.scss';
-import popcorn from '../img/popcorn.svg';
 
-const VideoList = props => {
-  let videoSearchResults = props.videoList;
+const VideoList = ({ videoSearchResults, videoSearchResultsTotal }) => {
+  videoSearchResults = videoSearchResults.map((video, index) => {
+    return (
+      <Video
+        key={index.toString()}
+        info={{
+          title: video.Title,
+          year: video.Year,
+          poster: video.Poster
+        }}
+      />
+    );
+  });
 
-  const removeGames = (videoList, currentVideo) => {
-    if (currentVideo.Type !== 'game') {
-      let video = (
-        <Video
-          key={currentVideo.imdbID}
-          info={{
-            title: currentVideo.Title,
-            year: currentVideo.Year,
-            poster: currentVideo.Poster
-          }}
-        />
-      );
-      videoList.push(video);
-    }
-    return videoList;
-  };
-
-  videoSearchResults = videoSearchResults.reduce(removeGames, []);
-
-  return <ul className="video-list">{videoSearchResults}</ul>;
+  return (
+    <>
+      <p className="search-total">
+        Results:
+        <span className="search-total__num">{videoSearchResultsTotal}</span>
+      </p>
+      <ul className="video-list">{videoSearchResults}</ul>
+    </>
+  );
 };
 
 export default VideoList;
