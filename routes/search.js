@@ -11,7 +11,7 @@ router.get('/', async (req, res) => {
   try {
     const videoTitle = req.url.substring(req.url.indexOf('=') + 1);
     let omdbResponse = await axios.get(
-      `http://www.omdbapi.com/?apikey=${apiKey}&s=${videoTitle}`
+      `http://www.omdbapi.com/?apikey=${apiKey}&s=${videoTitle}&page=1`
     );
 
     res.status(200).json(omdbResponse.data);

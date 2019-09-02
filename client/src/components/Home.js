@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import PageSelector from './PageSelector';
 import Navbar from './Navbar';
 import MyList from './MyList';
 import searchIcon from '../img/search-icon.svg';
@@ -10,12 +11,14 @@ import '../css/home.scss';
 const Home = ({ history, location }) => {
   const [searchField, setSearchField] = useState('');
   const [searchResults, setSearchResults] = useState({});
+  const [numberOfPages, setNumberOfPages] = useState(0);
 
   const searchForVideo = async () => {
     try {
       const omdbResponse = await fetch(`/api/search${location.search}`);
       const omdbResponsePayload = await omdbResponse.json();
       setSearchResults(omdbResponsePayload);
+      setNumberOfPages(Math.ceil(omdbResponsePayload.totalResults / 10));
     } catch (error) {
       console.error(error);
     }
@@ -74,7 +77,13 @@ const Home = ({ history, location }) => {
         {!searchResults.Search || searchResults.Search.length === 0 ? (
           searchDefault
         ) : (
-          <VideoList videoSearchResults={searchResults.Search} videoSearchResultsTotal={searchResults.totalResults} />
+          <>
+            <VideoList
+              videoSearchResults={searchResults.Search}
+              videoSearchResultsTotal={searchResults.totalResults}
+            />
+            <PageSelector numberOfPages={numberOfPages} />
+          </>
         )}
       </div>
     </div>

@@ -1,0 +1,82 @@
+%page-selector-flex-row {
+  display: flex;
+}
+
+%page-selector-flex-column {
+  display: flex;
+  flex-direction: column;
+}
+
+%page-selector-flex-center {
+  justify-content: center;
+  align-items: center;
+}
+
+.page-selector {
+  @extend %page-selector-flex-row, %page-selector-flex-center;
+  position: relative;
+  font-size: 20px;
+  margin-bottom: 40px;
+
+  &__current-page {
+    padding: 30px;
+  }
+
+  &:hover {
+    text-decoration: underline;
+  }
+
+  &__dropdown-arrow {
+    position: absolute;
+    top: 30px;
+    right: 75px;
+  }
+}
+
+.page-dropdown-menu-wrapper {
+  position: absolute;
+  bottom: 100%;
+  &::after {
+    content: '';
+    position: absolute;
+    width: 15px;
+    height: 15px;
+    top: -8px;
+    left: 50%;
+    transform: translatex(-50%) rotate(45deg);
+    background: white;
+    border-top: 2px solid #2c385e;
+    border-left: 2px solid #2c385e;
+  }
+}
+
+.page-dropdown-menu {
+  background: white;
+  list-style: none;
+  width: 200px;
+  padding: 10px;
+  bottom: 100%;
+  max-height: 360px;
+  overflow-y: auto;
+  border: 2px solid #2c385e;
+
+  &__item {
+    font-size: 14px;
+    margin-bottom: 10px;
+    border-bottom: 1px solid #2c385e;
+    padding: 10px;
+  }
+
+  &__item a {
+    text-decoration: none;
+    color: #2c385e;
+  }
+
+  &__item a:visited {
+    color: #2c385e;
+  }
+
+  &__page {
+    margin-right: 5px;
+  }
+}
