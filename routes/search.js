@@ -9,9 +9,13 @@ const apiKey = process.env.REACT_APP_OMDB_API_KEY;
 // @access    Public
 router.get('/', async (req, res) => {
   try {
-    const videoTitle = req.url.substring(req.url.indexOf('=') + 1);
+    const videoTitle = req.query.videoTitle;
+    let pageNum = 1;
+    if (req.query.page) {
+      pageNum = req.query.page;
+    }
     let omdbResponse = await axios.get(
-      `http://www.omdbapi.com/?apikey=${apiKey}&s=${videoTitle}&page=1`
+      `http://www.omdbapi.com/?apikey=${apiKey}&s=${videoTitle}&page=${pageNum}`
     );
 
     res.status(200).json(omdbResponse.data);

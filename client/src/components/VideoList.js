@@ -16,13 +16,16 @@ const VideoList = ({ videoSearchResults, videoSearchResultsTotal }) => {
     );
   });
 
+  const centerVideoList =
+    videoSearchResults.length === 1 ? { justifyItems: 'center' } : {};
+
   return (
     <>
       <p className="search-total">
         Results:
         <span className="search-total__num">{videoSearchResultsTotal}</span>
       </p>
-      <ul className="video-list">{videoSearchResults}</ul>
+      <ul className="video-list" style={centerVideoList}>{videoSearchResults}</ul>
     </>
   );
 };

@@ -12,6 +12,7 @@ const Home = ({ history, location }) => {
   const [searchField, setSearchField] = useState('');
   const [searchResults, setSearchResults] = useState({});
   const [numberOfPages, setNumberOfPages] = useState(0);
+  const [homeClickEvent, setHomeClickEvent] = useState(null);
 
   const searchForVideo = async () => {
     try {
@@ -32,7 +33,7 @@ const Home = ({ history, location }) => {
     }
 
     //eslint-disable-next-line
-  }, [location]);
+  }, [location, homeClickEvent]);
 
   const handleVideoSearch = event => {
     event.preventDefault();
@@ -54,8 +55,17 @@ const Home = ({ history, location }) => {
     </div>
   );
 
+  const handleHomeClickEvent = event => {
+    if (
+      event.target.parentNode &&
+      event.target.parentNode.id !== 'pg-selector'
+    ) {
+      setHomeClickEvent(event.target.parentNode);
+    }
+  };
+
   return (
-    <div className="home">
+    <div className="home" onClick={handleHomeClickEvent}>
       <Navbar />
       <form className="search" onSubmit={handleVideoSearch}>
         <input
@@ -82,7 +92,11 @@ const Home = ({ history, location }) => {
               videoSearchResults={searchResults.Search}
               videoSearchResultsTotal={searchResults.totalResults}
             />
-            <PageSelector numberOfPages={numberOfPages} />
+            <PageSelector
+              homeClickEvent={homeClickEvent}
+              numberOfPages={numberOfPages}
+              location={location}
+            />
           </>
         )}
       </div>

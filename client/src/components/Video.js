@@ -1,29 +1,20 @@
 import React, { useState } from 'react';
 import '../css/video.scss';
-import defaultPoster from '../img/default-poster.svg';
+import defaultPoster from '../img/default-poster.jpg';
 import reviewStar from '../img/review-star.svg';
 
 const Video = ({ info: { title, year, poster } }) => {
-  const [imgError, setImgError] = useState({
-    status: false,
-    style: {}
-  });
-
   return (
     <li className="video">
       <button className="video__remove-icon" />
       <div className="video-poster">
         <img
-          style={imgError.style}
-          src={imgError.status ? defaultPoster : poster}
+          src={poster}
           className="video-poster__img"
           alt="video Poster"
-          onError={() =>
-            setImgError({
-              status: true,
-              style: { width: '70px', objectFit: 'contain' }
-            })
-          }
+          onError={event => {
+            event.target.src = defaultPoster;
+          }}
         />
       </div>
       <div className="video-info">
