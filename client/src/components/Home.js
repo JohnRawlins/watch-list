@@ -10,7 +10,10 @@ import '../css/home.scss';
 
 const Home = ({ history, location }) => {
   const [searchField, setSearchField] = useState('');
-  const [searchResults, setSearchResults] = useState({});
+  const [searchResults, setSearchResults] = useState({
+    Search: [],
+    noResultsFound: false
+  });
   const [numberOfPages, setNumberOfPages] = useState(0);
   const [homeClickEvent, setHomeClickEvent] = useState(null);
 
@@ -18,31 +21,20 @@ const Home = ({ history, location }) => {
     try {
       const omdbResponse = await fetch(`/api/search${location.search}`);
       const omdbResponsePayload = await omdbResponse.json();
-      setSearchResults(omdbResponsePayload);
-      setNumberOfPages(Math.ceil(omdbResponsePayload.totalResults / 10));
+      if (omdbResponsePayload.hasOwnProperty('Search')) {
+        setSearchResults(omdbResponsePayload);
+        setNumberOfPages(Math.ceil(omdbResponsePayload.totalResults / 10));
+      } else {
+        setSearchResults({ Search: [], noResultsFound: true });
+      }
     } catch (error) {
       console.error(error);
     }
   };
 
-  useEffect(() => {
-    if (location.search.length - 1 !== location.search.indexOf('=')) {
-      searchForVideo();
-    } else {
-      setSearchResults({ ...searchResults, Search: [] });
-    }
-
-    //eslint-disable-next-line
-  }, [location, homeClickEvent]);
-
-  const handleVideoSearch = event => {
-    event.preventDefault();
-    history.push(`/search?videoTitle=${searchField}`);
-  };
-
-  const handleSearchInput = event => {
-    setSearchField(event.target.value);
-  };
+  const searchDefaultMessage = searchResults.noResultsFound
+    ? 'No results found. Try again'
+    : 'Search For Movies or Shows';
 
   const searchDefault = (
     <div className="search-default">
@@ -51,9 +43,20 @@ const Home = ({ history, location }) => {
         src={popcorn}
         alt="Container of Popcorn"
       />
-      <p className="search-default__message">Search For Movies or Shows</p>
+      <p className="search-default__message">{searchDefaultMessage}</p>
     </div>
   );
+
+  const handleVideoSearch = event => {
+    event.preventDefault();
+    if (searchField) {
+      history.push(`/search?videoTitle=${searchField}`);
+    }
+  };
+
+  const handleSearchInput = event => {
+    setSearchField(event.target.value);
+  };
 
   const handleHomeClickEvent = event => {
     if (
@@ -63,6 +66,16 @@ const Home = ({ history, location }) => {
       setHomeClickEvent(event.target.parentNode);
     }
   };
+
+  useEffect(() => {
+    if (location.search.length - 1 !== location.search.indexOf('=')) {
+      searchForVideo();
+    } else {
+      setSearchResults({ Search: [] });
+    }
+
+    //eslint-disable-next-line
+  }, [location, homeClickEvent]);
 
   return (
     <div className="home" onClick={handleHomeClickEvent}>
@@ -84,9 +97,7 @@ const Home = ({ history, location }) => {
         </button>
       </form>
       <div className="search-result">
-        {!searchResults.Search || searchResults.Search.length === 0 ? (
-          searchDefault
-        ) : (
+        {searchResults.Response ? (
           <>
             <VideoList
               videoSearchResults={searchResults.Search}
@@ -98,6 +109,8 @@ const Home = ({ history, location }) => {
               location={location}
             />
           </>
+        ) : (
+          searchDefault
         )}
       </div>
     </div>

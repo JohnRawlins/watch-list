@@ -25,7 +25,9 @@ const VideoList = ({ videoSearchResults, videoSearchResultsTotal }) => {
         Results:
         <span className="search-total__num">{videoSearchResultsTotal}</span>
       </p>
-      <ul className="video-list" style={centerVideoList}>{videoSearchResults}</ul>
+      <ul className="video-list" style={centerVideoList}>
+        {videoSearchResults}
+      </ul>
     </>
   );
 };
