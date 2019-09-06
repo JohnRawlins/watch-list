@@ -30,13 +30,16 @@ const Menu = () => {
       </div>
       <ul className="menu-option" onClick={handleMenuSelection}>
         <li className="menu-option__item">
-          <Link to="/mylist">My Watch List</Link>
+          <Link to="/my-watch-list">My Watch List</Link>
         </li>
         <li className="menu-option__item">
           <Link>My Reviews</Link>
         </li>
         <li className="menu-option__item">
           <Link to="/search">Search</Link>
+        </li>
+        <li className="menu-option__item">
+          <Link to="/login">Sign In</Link>
         </li>
         <li className="menu-option__item">
           <Link>Sign Out</Link>

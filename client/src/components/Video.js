@@ -3,13 +3,13 @@ import '../css/video.scss';
 import defaultPoster from '../img/default-poster.jpg';
 import reviewStar from '../img/review-star.svg';
 
-const Video = ({ info: { title, year, poster } }) => {
+const Video = ({ info: { Title, Year, Poster } }) => {
   return (
     <li className="video">
       <button className="video__remove-icon" />
-      <div className="video-poster">
+      <div className="video-Poster">
         <img
-          src={poster}
+          src={Poster}
           className="video-poster__img"
           alt="video Poster"
           onError={event => {
@@ -18,8 +18,8 @@ const Video = ({ info: { title, year, poster } }) => {
         />
       </div>
       <div className="video-info">
-        <h2 className="video-info__name">{title}</h2>
-        <p className="video-info__year">{year}</p>
+        <h2 className="video-info__name">{Title}</h2>
+        <p className="video-info__year">{Year}</p>
         <div className="video-rating">
           <img
             className="video-rating__star"

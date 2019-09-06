@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import PageSelector from './PageSelector';
 import Navbar from './Navbar';
-import MyList from './MyList';
+import MyWatchList from './MyWatchList';
 import searchIcon from '../img/search-icon.svg';
 import popcorn from '../img/popcorn.svg';
 import VideoList from './VideoList';
@@ -100,8 +100,8 @@ const Home = ({ history, location }) => {
         {searchResults.Response ? (
           <>
             <VideoList
-              videoSearchResults={searchResults.Search}
-              videoSearchResultsTotal={searchResults.totalResults}
+              videoItems={searchResults.Search}
+              videoItemsTotal={searchResults.totalResults}
             />
             <PageSelector
               homeClickEvent={homeClickEvent}

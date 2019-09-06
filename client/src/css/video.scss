@@ -13,8 +13,8 @@
 }
 
 .video {
+  list-style: none;
   position: relative;
-  @extend %video-flex-column;
   max-width: 200px;
 
   &__remove-icon {
@@ -33,17 +33,14 @@
 }
 
 .video-poster {
-  @extend %video-flex-row, %video-flex-center;
-  background-color: white;
-  width: 100%;
-  height: 240px;
   border-radius: 15px 15px 0px 0px;
 
   &__img {
     object-fit: cover;
     width: 100%;
-    height: 100%;
+    height: 240px;
     border-radius: 15px 15px 0px 0px;
+    display: block;
   }
 }
 

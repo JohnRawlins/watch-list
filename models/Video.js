@@ -9,15 +9,15 @@ const VideoSchema = mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'users'
   },
-  title: {
+  Title: {
     type: String,
     required: true
   },
-  year: String,
+  Year: String,
 
-  poster: String,
+  Poster: String,
 
-  type: String
+  Type: String
 });
 
 module.exports = mongoose.model('Video', VideoSchema);

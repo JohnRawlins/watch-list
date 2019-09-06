@@ -2,31 +2,31 @@ import React from 'react';
 import Video from './Video';
 import '../css/video-list.scss';
 
-const VideoList = ({ videoSearchResults, videoSearchResultsTotal }) => {
-  videoSearchResults = videoSearchResults.map((video, index) => {
+const VideoList = ({ videoItems, videoItemsTotal }) => {
+
+  videoItems = videoItems.map((video, index) => {
     return (
       <Video
         key={index.toString()}
         info={{
-          title: video.Title,
-          year: video.Year,
-          poster: video.Poster
+          Title: video.Title,
+          Year: video.Year,
+          Poster: video.Poster
         }}
       />
     );
   });
 
   const centerVideoList =
-    videoSearchResults.length === 1 ? { justifyItems: 'center' } : {};
-
+    videoItems.length === 1 ? { justifyItems: 'center' } : {};
   return (
     <>
       <p className="search-total">
         Results:
-        <span className="search-total__num">{videoSearchResultsTotal}</span>
+        <span className="search-total__num">{videoItemsTotal}</span>
       </p>
       <ul className="video-list" style={centerVideoList}>
-        {videoSearchResults}
+        {videoItems}
       </ul>
     </>
   );

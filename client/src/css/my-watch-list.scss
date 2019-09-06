@@ -1,0 +1,45 @@
+%my-watch-list-flex-row {
+  display: flex;
+}
+
+%my-watch-list-flex-column {
+  display: flex;
+  flex-direction: column;
+}
+
+%my-watch-list-flex-center {
+  justify-content: center;
+  align-items: center;
+}
+
+.my-watch-list {
+  @extend %my-watch-list-flex-column;
+  width: 100%;
+  color: white;
+}
+
+.my-watch-list-header {
+  display: flex;
+  justify-content: space-between;
+  align-self: center;
+  margin-bottom: 20px;
+  width: 90%;
+
+  &__title {
+    font-size: 24px;
+  }
+}
+
+.my-watch-list-sort {
+  border-radius: 15px;
+  padding: 5px;
+  background: white;
+  color: #336e6b;
+  font-weight: 700;
+  font-size: 15px;
+}
+
+.watch-list-videos {
+  align-self: center;
+  width: 90%;
+}

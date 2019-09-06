@@ -29,7 +29,7 @@ router.post(
   [
     auth,
     [
-      check('title', 'A video title is required')
+      check('Title', 'A video title is required')
         .not()
         .isEmpty(),
       check('imdbID', 'A video ID is required')
@@ -43,16 +43,16 @@ router.post(
       return res.status(400).json({ errors: errors.array() });
     }
 
-    const { imdbID, title, year, poster, type } = req.body;
+    const { imdbID, Title, Year, Poster, Type } = req.body;
 
     try {
       const videoToAdd = new Video({
         imdbID,
         userID: req.user.id,
-        title,
-        year,
-        poster,
-        type
+        Title,
+        Year,
+        Poster,
+        Type
       });
 
       const duplicateVideo = await Video.findOne({
@@ -63,12 +63,12 @@ router.post(
       if (duplicateVideo)
         return res
           .status(400)
-          .json({ msg: `${title} is already on your watch list` });
+          .json({ msg: `${Title} is already on your watch list` });
 
       const video = await videoToAdd.save();
       return res
         .status(201)
-        .json({ msg: `${video.title} has been added to your watch list` });
+        .json({ msg: `${video.Title} has been added to your watch list` });
     } catch (error) {
       console.error(error.message);
       return res.status(500).json({
@@ -97,7 +97,7 @@ router.delete('/:videoID', auth, async (req, res) => {
     let removedVideo = await Video.findByIdAndRemove(videoToRemove._id);
 
     res.status(200).json({
-      msg: `${removedVideo.title} has been removed from your watch list`
+      msg: `${removedVideo.Title} has been removed from your watch list`
     });
   } catch (error) {
     console.error(error.message);
