@@ -5,10 +5,23 @@ import myVideoListReducer from './myVideoListReducer';
 const MyVideoListState = props => {
   const initialState = {
     usersWatchList: [],
-    error: ''
+    error: '',
+    removeVideoItem: false
   };
 
   const [state, dispatch] = useReducer(myVideoListReducer, initialState);
+
+  const editVideoList = option => {
+    if (option) {
+      dispatch({
+        type: 'ENABLE_VIDEO_REMOVAL'
+      });
+    } else {
+      dispatch({
+        type: 'DISABLE_VIDEO_REMOVAL'
+      });
+    }
+  };
 
   const loadUsersWatchList = async userToken => {
     const guestUsersWatchList = JSON.parse(
@@ -52,6 +65,8 @@ const MyVideoListState = props => {
       value={{
         usersWatchList: state.usersWatchList,
         error: state.error,
+        removeVideoItem: state.removeVideoItem,
+        editVideoList,
         loadUsersWatchList
       }}
     >

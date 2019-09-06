@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
+import MyVideoListContext from './context/my-video-list/myVideoListContext';
 import PageSelector from './PageSelector';
 import Navbar from './Navbar';
 import MyWatchList from './MyWatchList';
@@ -9,6 +10,7 @@ import Video from './Video';
 import '../css/home.scss';
 
 const Home = ({ history, location }) => {
+  const { editVideoList } = useContext(MyVideoListContext);
   const [searchField, setSearchField] = useState('');
   const [searchResults, setSearchResults] = useState({
     Search: [],
@@ -68,6 +70,7 @@ const Home = ({ history, location }) => {
   };
 
   useEffect(() => {
+    editVideoList(false);
     if (location.search.length - 1 !== location.search.indexOf('=')) {
       searchForVideo();
     } else {

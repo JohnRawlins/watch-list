@@ -1,12 +1,18 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
+import MyVideoListContext from './context/my-video-list/myVideoListContext';
 import '../css/video.scss';
 import defaultPoster from '../img/default-poster.jpg';
 import reviewStar from '../img/review-star.svg';
 
 const Video = ({ info: { Title, Year, Poster } }) => {
+  const { removeVideoItem } = useContext(MyVideoListContext);
+  const removeIconVisibility = removeVideoItem
+    ? { visibility: 'visible' }
+    : { visibility: 'hidden' };
+
   return (
     <li className="video">
-      <button className="video__remove-icon" />
+      <button style={removeIconVisibility} className="video__remove-icon" />
       <div className="video-Poster">
         <img
           src={Poster}

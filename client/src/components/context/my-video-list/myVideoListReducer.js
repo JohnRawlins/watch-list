@@ -15,6 +15,20 @@ export default (state, action) => {
       };
     }
 
+    case 'ENABLE_VIDEO_REMOVAL': {
+      return {
+        ...state,
+        removeVideoItem: true
+      };
+    }
+
+    case 'DISABLE_VIDEO_REMOVAL': {
+      return {
+        ...state,
+        removeVideoItem: false
+      };
+    }
+
     default: {
       return state;
     }

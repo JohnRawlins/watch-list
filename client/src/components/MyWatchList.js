@@ -10,9 +10,12 @@ import defaultPoster from '../img/default-poster.svg';
 
 const MyWatchList = () => {
   const { token } = useContext(AuthContext);
-  const { loadUsersWatchList, usersWatchList } = useContext(MyVideoListContext);
+  const { loadUsersWatchList, usersWatchList, editVideoList } = useContext(
+    MyVideoListContext
+  );
 
   useEffect(() => {
+    editVideoList(true);
     loadUsersWatchList(token);
     //eslint-disable-next-line
   }, []);
@@ -32,11 +35,11 @@ const MyWatchList = () => {
         </select>
       </header>
       <div className="watch-list-videos">
-      <VideoList
-        videoItems={usersWatchList}
-        videoItemsTotal={usersWatchList.length}
-      />
-      {/* <RemoveVideoModal /> */}
+        <VideoList
+          videoItems={usersWatchList}
+          videoItemsTotal={usersWatchList.length}
+        />
+        {/* <RemoveVideoModal /> */}
       </div>
     </div>
   );
