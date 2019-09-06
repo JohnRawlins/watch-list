@@ -8,21 +8,20 @@ import AuthState from './context/auth/AuthState';
 import MyListState from './context/my-video-list/MyVideoListState';
 import '../css/app.scss';
 
-
 function App() {
   return (
     <div className="app">
       <AuthState>
         <MyListState>
-        <BrowserRouter>
-          <Switch>
-            <Route exact path="/login" component={SignIn} />
-            <Route exact path="/register" component={Register} />
-            <Route exact path="/" component={Home} />
-            <Route exact path="/my-watch-list" component={MyWatchList} />
-            <Route path="/search" component={Home} />
-          </Switch>
-        </BrowserRouter>
+          <BrowserRouter>
+            <Switch>
+              <Route exact path="/login" component={SignIn} />
+              <Route exact path="/register" component={Register} />
+              <Route exact path="/" component={Home} />
+              <Route exact path="/my-watch-list" component={MyWatchList} />
+              <Route path="/search" component={Home} />
+            </Switch>
+          </BrowserRouter>
         </MyListState>
       </AuthState>
     </div>

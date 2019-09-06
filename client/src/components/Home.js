@@ -104,7 +104,7 @@ const Home = ({ history, location }) => {
               videoItemsTotal={searchResults.totalResults}
             />
             <PageSelector
-              homeClickEvent={homeClickEvent}
+              parentComponentClickEvent={homeClickEvent}
               numberOfPages={numberOfPages}
               location={location}
             />

@@ -4,7 +4,7 @@ import '../css/page-selector.scss';
 import backArrow from '../img/back-arrow.svg';
 import nextArrow from '../img/next-arrow.svg';
 
-const PageSelector = ({ numberOfPages, homeClickEvent, location }) => {
+const PageSelector = ({ numberOfPages, parentComponentClickEvent, location }) => {
   const [dropDownMenuVisible, setDropDownMenuVisible] = useState(false);
   const pages = [];
   const videoTitle = location.search.split('&')[0];
@@ -51,14 +51,14 @@ const PageSelector = ({ numberOfPages, homeClickEvent, location }) => {
 
   useEffect(() => {
     if (
-      homeClickEvent &&
-      homeClickEvent.id !== 'pg-selector' &&
+      parentComponentClickEvent &&
+      parentComponentClickEvent.id !== 'pg-selector' &&
       dropDownMenuVisible === true
     ) {
       setDropDownMenuVisible(false);
     }
     //eslint-disable-next-line
-  }, [homeClickEvent]);
+  }, [parentComponentClickEvent]);
 
 
   return (
