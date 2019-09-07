@@ -44,7 +44,9 @@ const MyWatchList = () => {
           videoItemsTotal={usersWatchList.length}
         />
         {removeVideoModal.visible && <RemoveVideoModal />}
-        {removeVideoModal.response && <InfoModal />}
+        {removeVideoModal.response && (
+          <InfoModal msg={removeVideoModal.response} />
+        )}
       </div>
     </div>
   );

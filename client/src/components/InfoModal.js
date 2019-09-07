@@ -2,10 +2,8 @@ import React, { useContext } from 'react';
 import '../css/remove-video-modal.scss';
 import MyVideoListContext from './context/my-video-list/myVideoListContext.js';
 
-const InfoModal = () => {
-  const { removeVideoModal, setRemoveVideoModal } = useContext(
-    MyVideoListContext
-  );
+const InfoModal = ({ msg }) => {
+  const { setRemoveVideoModal } = useContext(MyVideoListContext);
 
   const handleSelection = event => {
     if (event.target.textContent.toLowerCase() === 'ok') {
@@ -16,7 +14,7 @@ const InfoModal = () => {
   return (
     <div className="info-modal">
       <div className="info-modal-message">
-        <p className="info-modal-message__text">{removeVideoModal.response}</p>
+        <p className="info-modal-message__text">{msg}</p>
         <div className="info-modal-btns">
           <button onClick={handleSelection} className="info-modal-btns__ok">
             ok
