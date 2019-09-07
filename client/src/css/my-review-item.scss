@@ -7,7 +7,8 @@
     font-size: 20px;
     margin-bottom: 15px;
     width: 85%;
-    word-break: break-all;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
   }
 
   &__review-text {

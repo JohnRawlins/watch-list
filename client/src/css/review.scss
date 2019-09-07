@@ -23,7 +23,8 @@
 
 .review__text {
   font-size: 15px;
-  word-break: break-all;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
 }
 
 .user-review-info {
@@ -61,6 +62,6 @@
   }
 }
 
-.review-container{
-  margin-bottom:100px;
+.review-container {
+  margin-bottom: 100px;
 }

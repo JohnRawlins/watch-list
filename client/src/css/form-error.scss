@@ -26,7 +26,8 @@
 .form-error-list {
   list-style: none;
   font-size: 12px;
-  word-break: break-word;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
 
   &__item {
     margin-bottom: 5px;
