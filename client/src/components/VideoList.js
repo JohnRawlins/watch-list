@@ -11,7 +11,8 @@ const VideoList = ({ videoItems, videoItemsTotal }) => {
         info={{
           Title: video.Title,
           Year: video.Year,
-          Poster: video.Poster
+          Poster: video.Poster,
+          videoID:video._id
         }}
       />
     );

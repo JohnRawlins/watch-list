@@ -4,21 +4,25 @@ import MyVideoListContext from './context/my-video-list/myVideoListContext.js';
 import Navbar from './Navbar';
 import VideoList from './VideoList';
 import RemoveVideoModal from './RemoveVideoModal';
+import InfoModal from './InfoModal';
+import '../css/info-modal.scss';
 import Video from './Video';
 import '../css/my-watch-list.scss';
 import defaultPoster from '../img/default-poster.svg';
 
 const MyWatchList = () => {
-  const { token } = useContext(AuthContext);
-  const { loadUsersWatchList, usersWatchList, editVideoList } = useContext(
-    MyVideoListContext
-  );
+  const {
+    loadUsersWatchList,
+    usersWatchList,
+    editVideoList,
+    removeVideoModal
+  } = useContext(MyVideoListContext);
 
   useEffect(() => {
     editVideoList(true);
-    loadUsersWatchList(token);
+    loadUsersWatchList();
     //eslint-disable-next-line
-  }, []);
+  }, [removeVideoModal.response]);
 
   return (
     <div className="my-watch-list">
@@ -39,7 +43,8 @@ const MyWatchList = () => {
           videoItems={usersWatchList}
           videoItemsTotal={usersWatchList.length}
         />
-        {/* <RemoveVideoModal /> */}
+        {removeVideoModal.visible && <RemoveVideoModal />}
+        {removeVideoModal.response && <InfoModal />}
       </div>
     </div>
   );

@@ -4,15 +4,21 @@ import '../css/video.scss';
 import defaultPoster from '../img/default-poster.jpg';
 import reviewStar from '../img/review-star.svg';
 
-const Video = ({ info: { Title, Year, Poster } }) => {
-  const { removeVideoItem } = useContext(MyVideoListContext);
+const Video = ({ info: { Title, Year, Poster, videoID } }) => {
+  const { removeVideoItem, setRemoveVideoModal } = useContext(
+    MyVideoListContext
+  );
   const removeIconVisibility = removeVideoItem
     ? { visibility: 'visible' }
     : { visibility: 'hidden' };
 
   return (
     <li className="video">
-      <button style={removeIconVisibility} className="video__remove-icon" />
+      <button
+        onClick={() => setRemoveVideoModal(true, Title, videoID)}
+        style={removeIconVisibility}
+        className="video__remove-icon"
+      />
       <div className="video-Poster">
         <img
           src={Poster}

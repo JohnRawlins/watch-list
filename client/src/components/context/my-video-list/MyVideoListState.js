@@ -1,13 +1,24 @@
 import React, { useContext, useReducer } from 'react';
 import MyVideoListContext from './myVideoListContext';
+import AuthContext from '../auth/authContext';
 import myVideoListReducer from './myVideoListReducer';
 
 const MyVideoListState = props => {
   const initialState = {
     usersWatchList: [],
     error: '',
-    removeVideoItem: false
+    removeVideoItem: false,
+    removeVideoModal: {
+      visible: false,
+      response: '',
+      videoTitle: '',
+      videoID: ''
+    }
   };
+
+  const { token } = useContext(AuthContext);
+
+  const userToken = token ? token.token : null;
 
   const [state, dispatch] = useReducer(myVideoListReducer, initialState);
 
@@ -23,14 +34,45 @@ const MyVideoListState = props => {
     }
   };
 
-  const loadUsersWatchList = async userToken => {
+  const setRemoveVideoModal = (visible, videoTitle = '', videoID = '') => {
+    if (visible) {
+      dispatch({
+        type: 'SHOW_REMOVE_VIDEO_MODALS',
+        payload: { videoTitle, videoID }
+      });
+    } else {
+      dispatch({
+        type: 'HIDE_REMOVE_VIDEO_MODALS'
+      });
+    }
+  };
+
+  const removeVideoFromWatchList = async videoID => {
+    try {
+      const removeVideoResponse = await fetch(`/api/videos/${videoID}`, {
+        method: 'DELETE',
+        headers: { 'x-auth-token': userToken }
+      });
+
+      const removeVideoPayload = await removeVideoResponse.json();
+
+      dispatch({
+        type: 'REMOVE_VIDEO',
+        payload: removeVideoPayload
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const loadUsersWatchList = async () => {
     const guestUsersWatchList = JSON.parse(
       localStorage.getItem('guestWatchList')
     );
     try {
       if (userToken) {
         const usersWatchListResponse = await fetch('api/videos', {
-          headers: { 'x-auth-token': userToken.token }
+          headers: { 'x-auth-token': userToken }
         });
 
         if (usersWatchListResponse.ok) {
@@ -67,7 +109,10 @@ const MyVideoListState = props => {
         error: state.error,
         removeVideoItem: state.removeVideoItem,
         editVideoList,
-        loadUsersWatchList
+        loadUsersWatchList,
+        removeVideoFromWatchList,
+        setRemoveVideoModal,
+        removeVideoModal: state.removeVideoModal
       }}
     >
       {props.children}
