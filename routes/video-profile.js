@@ -4,22 +4,23 @@ const axios = require('axios');
 require('dotenv').config();
 const apiKey = process.env.REACT_APP_OMDB_API_KEY;
 
-// @route     GET api/search
-// @desc      Search for movie or show using 3rd party API
+// @route     GET api/video-profile
+// @desc      Retrieve profile for video
 // @access    Public
 
 router.get('/', async (req, res) => {
   try {
-    const videoTitle = req.query.videoTitle;
-    let pageNum = 1;
-    if (req.query.page) {
-      pageNum = req.query.page;
-    }
+    const videoImdbID = req.query.imdbID;
+
     let omdbResponse = await axios.get(
-      `http://www.omdbapi.com/?apikey=${apiKey}&s=${videoTitle}&page=${pageNum}`
+      `http://www.omdbapi.com/?apikey=${apiKey}&i=${videoImdbID}`
     );
 
-    res.status(200).json(omdbResponse.data);
+    if (omdbResponse.data.Error) {
+      return res.status(400).json({ msg: 'Error loading video profile' });
+    }
+
+    return res.status(200).json(omdbResponse.data);
   } catch (error) {
     console.error(error.message);
     return res.status(500).json({

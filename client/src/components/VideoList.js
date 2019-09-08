@@ -1,20 +1,25 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import Video from './Video';
 import '../css/video-list.scss';
 
 const VideoList = ({ videoItems, videoItemsTotal }) => {
-
   videoItems = videoItems.map((video, index) => {
     return (
-      <Video
+      <Link
         key={index.toString()}
-        info={{
-          Title: video.Title,
-          Year: video.Year,
-          Poster: video.Poster,
-          videoID:video._id
-        }}
-      />
+        to={`/video-profile/${video.Title}/?imdbID=${video.imdbID}`}
+      >
+        <Video
+          info={{
+            Title: video.Title,
+            Year: video.Year,
+            Poster: video.Poster,
+            videoID: video._id,
+            imdbID: video.imdbID
+          }}
+        />
+      </Link>
     );
   });
 

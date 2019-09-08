@@ -2,11 +2,13 @@
   display: flex;
 }
 
-.video-profile {
-  padding: 0px 15px;
+.video-profile-container {
   flex-grow: 1;
   color: white;
+}
 
+.video-profile {
+  padding: 0px 15px;
   &__watch-list-btn {
     background-image: url('../img/add-to-watchlist.svg');
     background-size: 25px;

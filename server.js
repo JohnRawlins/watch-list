@@ -17,4 +17,6 @@ app.use('/api/reviews', require('./routes/reviews'));
 
 app.use('/api/search', require('./routes/search'));
 
+app.use('/api/video-profile', require('./routes/video-profile'));
+
 app.listen(PORT, () => console.log(`Server started on port ${PORT}`));
