@@ -1,4 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
+import MyVideoListContext from './context/my-video-list/myVideoListContext';
+import InfoModal from './InfoModal';
 import Navbar from './Navbar';
 import WriteReview from './WriteReview';
 import '../css/video-profile.scss';
@@ -10,6 +12,7 @@ import UserReviews from './UserReviews';
 const VideoProfile = ({ location }) => {
   const [video, setVideo] = useState({});
 
+  const { addVideoToWatchList, infoModalMsg } = useContext(MyVideoListContext);
 
   const getVideoProfile = async () => {
     try {
@@ -19,11 +22,13 @@ const VideoProfile = ({ location }) => {
 
       const videoProfilePayload = await videoProfileResponse.json();
 
-      setVideo({
-        ...videoProfilePayload,
-        rottenTomatoesScore: videoProfilePayload.Ratings[1].Value
-      });
+      const rottenTomatoesScore = videoProfilePayload.Ratings[1]
+        ? videoProfilePayload.Ratings[1].Value
+        : 'No Critic Reviews';
 
+      videoProfilePayload.rottenTomatoesScore = rottenTomatoesScore;
+
+      setVideo(videoProfilePayload);
     } catch (error) {
       console.log(error);
     }
@@ -31,74 +36,81 @@ const VideoProfile = ({ location }) => {
 
   useEffect(() => {
     getVideoProfile();
+    //eslint-disable-next-line
   }, []);
 
   return (
     <div className="video-profile-container">
+      {infoModalMsg && <InfoModal msg={infoModalMsg} />}
       <Navbar />
       {/* <WriteReview /> */}
       <div className="video-profile">
-      <section className="video-details">
-        <img
-          className="video-details__poster"
-          src={video.Poster}
-          alt="video Poster"
-        />
-        <div className="video-details-general">
-          <h1 className="video-details-general__title">{video.Title}</h1>
-          <p className="video-details-general__release-date">
-            {video.Released}
-          </p>
-          <p className="video-details-general__runtime">{video.Runtime}</p>
-          <p className="video-details-general__age-rating">{video.Rated}</p>
-          <div className="video-details-rt">
+        <section className="video-details">
+          <img
+            className="video-details__poster"
+            src={video.Poster}
+            alt="video Poster"
+          />
+          <div className="video-details-general">
+            <h1 className="video-details-general__title">{video.Title}</h1>
+            <p className="video-details-general__release-date">
+              {video.Released}
+            </p>
+            <p className="video-details-general__runtime">{video.Runtime}</p>
+            <p className="video-details-general__age-rating">{video.Rated}</p>
+            <div className="video-details-rt">
+              <img
+                className="video-details-rt__icon"
+                src={rottenTomatoesIcon}
+                alt="Rotten Tomatoes"
+              />
+              <span className="video-details-rt__rating">
+                {video.rottenTomatoesScore}
+              </span>
+            </div>
+          </div>
+        </section>
+        <button
+          onClick={() => addVideoToWatchList(video)}
+          className="video-profile__watch-list-btn"
+        >
+          Add To Watch List
+        </button>
+        <section className="video-plot">
+          <h2 className="video-plot__heading">Plot</h2>
+          <p className="video-plot__text">{video.Plot}</p>
+        </section>
+        <section className="video-credits">
+          <h2 className="video-credits__heading">Cast and Credits</h2>
+          <div className="video-actors">
+            <h3 className="video-actors__heading">Actors</h3>
+            <p className="video-actors__info">{video.Actors}</p>
+          </div>
+          <div className="video-director">
+            <h3 className="video-director__heading">Director</h3>
+            <p className="video-director__info">{video.Director}</p>
+          </div>
+        </section>
+        <section className="user-reviews">
+          <h2 className="user-reviews__heading">User Reviews</h2>
+          <div className="video-review">
+            <span className="video-review__score">{video.reviewScore}</span>
             <img
-              className="video-details-rt__icon"
-              src={rottenTomatoesIcon}
-              alt="Rotten Tomatoes"
+              className="video-review__star"
+              src={reviewStar}
+              alt="Review Star"
             />
-            <span className="video-details-rt__rating">
-              {video.rottenTomatoesScore}
+            <button className="video-review__btn">Write A Review</button>
+          </div>
+          <div className="user-reviews-total">
+            <p className="user-reviews-total__heading">Total</p>
+            <span className="user-reviews-total__num">
+              {video.totalReviews}
             </span>
           </div>
-        </div>
-      </section>
-      <button className="video-profile__watch-list-btn">
-        Add To Watch List
-      </button>
-      <section className="video-plot">
-        <h2 className="video-plot__heading">Plot</h2>
-        <p className="video-plot__text">{video.Plot}</p>
-      </section>
-      <section className="video-credits">
-        <h2 className="video-credits__heading">Cast and Credits</h2>
-        <div className="video-actors">
-          <h3 className="video-actors__heading">Actors</h3>
-          <p className="video-actors__info">{video.Actors}</p>
-        </div>
-        <div className="video-director">
-          <h3 className="video-director__heading">Director</h3>
-          <p className="video-director__info">{video.Director}</p>
-        </div>
-      </section>
-      <section className="user-reviews">
-        <h2 className="user-reviews__heading">User Reviews</h2>
-        <div className="video-review">
-          <span className="video-review__score">{video.reviewScore}</span>
-          <img
-            className="video-review__star"
-            src={reviewStar}
-            alt="Review Star"
-          />
-          <button className="video-review__btn">Write A Review</button>
-        </div>
-        <div className="user-reviews-total">
-          <p className="user-reviews-total__heading">Total</p>
-          <span className="user-reviews-total__num">{video.totalReviews}</span>
-        </div>
-      </section>
-      {/* <UserReviews/> */}
-    </div>
+        </section>
+        {/* <UserReviews/> */}
+      </div>
     </div>
   );
 };

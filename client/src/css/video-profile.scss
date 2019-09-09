@@ -2,13 +2,20 @@
   display: flex;
 }
 
+%video-profile-flex-column {
+  display: flex;
+  flex-direction: column;
+}
+
 .video-profile-container {
+  @extend %video-profile-flex-column;
   flex-grow: 1;
   color: white;
 }
 
 .video-profile {
-  padding: 0px 15px;
+  align-self: center;
+  width: 90%;
   &__watch-list-btn {
     background-image: url('../img/add-to-watchlist.svg');
     background-size: 25px;
@@ -29,9 +36,10 @@
   margin-bottom: 20px;
 
   &__poster {
-    width: 100px;
-    height: 158px;
+    width: 140px;
+    height: 208px;
     margin-right: 20px;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   }
 }
 

@@ -6,20 +6,16 @@ import '../css/video-list.scss';
 const VideoList = ({ videoItems, videoItemsTotal }) => {
   videoItems = videoItems.map((video, index) => {
     return (
-      <Link
+      <Video
         key={index.toString()}
-        to={`/video-profile/${video.Title}/?imdbID=${video.imdbID}`}
-      >
-        <Video
-          info={{
-            Title: video.Title,
-            Year: video.Year,
-            Poster: video.Poster,
-            videoID: video._id,
-            imdbID: video.imdbID
-          }}
-        />
-      </Link>
+        info={{
+          Title: video.Title,
+          Year: video.Year,
+          Poster: video.Poster,
+          videoID: video._id,
+          imdbID: video.imdbID
+        }}
+      />
     );
   });
 

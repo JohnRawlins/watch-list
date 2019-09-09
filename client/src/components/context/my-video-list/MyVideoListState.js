@@ -13,7 +13,8 @@ const MyVideoListState = props => {
       response: '',
       videoTitle: '',
       videoID: ''
-    }
+    },
+    infoModalMsg: ''
   };
 
   const { token } = useContext(AuthContext);
@@ -31,6 +32,28 @@ const MyVideoListState = props => {
       dispatch({
         type: 'DISABLE_VIDEO_REMOVAL'
       });
+    }
+  };
+
+  const addVideoToWatchList = async video => {
+    try {
+      const addVideoResponse = await fetch('/api/videos', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'x-auth-token': userToken
+        },
+        body: JSON.stringify(video)
+      });
+
+      const addVideoPayload = await addVideoResponse.json();
+
+      dispatch({
+        type: 'ADD_VIDEO',
+        payload: addVideoPayload
+      });
+    } catch (error) {
+      console.log(error);
     }
   };
 
@@ -108,8 +131,10 @@ const MyVideoListState = props => {
         usersWatchList: state.usersWatchList,
         error: state.error,
         removeVideoItem: state.removeVideoItem,
+        infoModal: state.infoModal,
         editVideoList,
         loadUsersWatchList,
+        addVideoToWatchList,
         removeVideoFromWatchList,
         setRemoveVideoModal,
         removeVideoModal: state.removeVideoModal

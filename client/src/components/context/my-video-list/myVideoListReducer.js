@@ -40,6 +40,13 @@ export default (state, action) => {
       };
     }
 
+    case 'ADD_VIDEO': {
+      return {
+        ...state,
+        infoModalMsg:action.payload.msg
+      };
+    }
+
     case 'SHOW_REMOVE_VIDEO_MODALS': {
       return {
         ...state,

@@ -5,7 +5,7 @@ import authReducer from './authReducer';
 const AuthState = props => {
   const initialState = {
     user: null,
-    token: localStorage.getItem('token'),
+    token: localStorage.getItem('userToken'),
     registerErrors: [],
     signInErrors: [],
     isAuthenticated: false,
