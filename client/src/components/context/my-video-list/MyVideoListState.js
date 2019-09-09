@@ -14,7 +14,7 @@ const MyVideoListState = props => {
       videoTitle: '',
       videoID: ''
     },
-    infoModalMsg: ''
+    videoInfoModalMsg: ''
   };
 
   const { token } = useContext(AuthContext);
@@ -33,6 +33,12 @@ const MyVideoListState = props => {
         type: 'DISABLE_VIDEO_REMOVAL'
       });
     }
+  };
+
+  const clearVideoInfoModalMsg = () => {
+    dispatch({
+      type: 'CLEAR_VIDEO_INFO_MODAL_MSG'
+    });
   };
 
   const addVideoToWatchList = async video => {
@@ -131,13 +137,14 @@ const MyVideoListState = props => {
         usersWatchList: state.usersWatchList,
         error: state.error,
         removeVideoItem: state.removeVideoItem,
-        infoModal: state.infoModal,
+        videoInfoModalMsg: state.videoInfoModalMsg,
+        removeVideoModal: state.removeVideoModal,
         editVideoList,
+        clearVideoInfoModalMsg,
         loadUsersWatchList,
         addVideoToWatchList,
         removeVideoFromWatchList,
-        setRemoveVideoModal,
-        removeVideoModal: state.removeVideoModal
+        setRemoveVideoModal
       }}
     >
       {props.children}

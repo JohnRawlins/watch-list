@@ -2,19 +2,25 @@ import React, { useEffect, useState, useContext } from 'react';
 import MyVideoListContext from './context/my-video-list/myVideoListContext';
 import InfoModal from './InfoModal';
 import Navbar from './Navbar';
+import defaultPoster from '../img/default-poster.jpg';
 import WriteReview from './WriteReview';
 import '../css/video-profile.scss';
-import rottenTomatoesIcon from '../img/rotten-tomatoes-icon.svg';
+import defaultScore from '../img/rotten-tomatoes-icon.svg';
 import reviewStar from '../img/review-star.svg';
+import freshScore from '../img/fresh-score.png';
+import rottenScore from '../img/rotten-score.png';
 import Review from './Review';
 import UserReviews from './UserReviews';
 
 const VideoProfile = ({ location }) => {
   const [video, setVideo] = useState({});
 
-  const { addVideoToWatchList, infoModalMsg } = useContext(MyVideoListContext);
+  const { addVideoToWatchList, videoInfoModalMsg } = useContext(
+    MyVideoListContext
+  );
 
   const getVideoProfile = async () => {
+    let rottenTomatoesScore;
     try {
       const videoProfileResponse = await fetch(
         `/api/video-profile/${location.search}`
@@ -22,9 +28,17 @@ const VideoProfile = ({ location }) => {
 
       const videoProfilePayload = await videoProfileResponse.json();
 
-      const rottenTomatoesScore = videoProfilePayload.Ratings[1]
-        ? videoProfilePayload.Ratings[1].Value
-        : 'No Critic Reviews';
+      if (
+        videoProfilePayload.Ratings.find(
+          review => review.Source === 'Rotten Tomatoes'
+        )
+      ) {
+        rottenTomatoesScore = Number(
+          videoProfilePayload.Ratings[1].Value.replace('%', '')
+        );
+      } else {
+        rottenTomatoesScore = 'No Critic Reviews';
+      }
 
       videoProfilePayload.rottenTomatoesScore = rottenTomatoesScore;
 
@@ -41,8 +55,9 @@ const VideoProfile = ({ location }) => {
 
   return (
     <div className="video-profile-container">
-      {infoModalMsg && <InfoModal msg={infoModalMsg} />}
+      {videoInfoModalMsg && <InfoModal msg={videoInfoModalMsg} />}
       <Navbar />
+
       {/* <WriteReview /> */}
       <div className="video-profile">
         <section className="video-details">
@@ -50,6 +65,9 @@ const VideoProfile = ({ location }) => {
             className="video-details__poster"
             src={video.Poster}
             alt="video Poster"
+            onError={event => {
+              event.target.src = defaultPoster;
+            }}
           />
           <div className="video-details-general">
             <h1 className="video-details-general__title">{video.Title}</h1>
@@ -59,14 +77,26 @@ const VideoProfile = ({ location }) => {
             <p className="video-details-general__runtime">{video.Runtime}</p>
             <p className="video-details-general__age-rating">{video.Rated}</p>
             <div className="video-details-rt">
-              <img
-                className="video-details-rt__icon"
-                src={rottenTomatoesIcon}
-                alt="Rotten Tomatoes"
-              />
-              <span className="video-details-rt__rating">
-                {video.rottenTomatoesScore}
-              </span>
+              <p className="video-details-rt__tomatometer-heading">
+                Tomatometer
+              </p>
+              <div className="tomatometer">
+                <img
+                  className="tomatometer__icon"
+                  src={
+                    video.rottenTomatoesScore >= 60
+                      ? freshScore
+                      : video.rottenTomatoesScore < 60
+                      ? rottenScore
+                      : defaultScore
+                  }
+                  alt="Rotten Tomatoes"
+                />
+                <span className="tomatometer__rating">
+                  {video.rottenTomatoesScore}
+                  {typeof video.rottenTomatoesScore === 'number' ? '%' : ''}
+                </span>
+              </div>
             </div>
           </div>
         </section>

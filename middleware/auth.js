@@ -16,6 +16,9 @@ module.exports = function(req, res, next) {
     req.user = decoded.user;
     next();
   } catch (error) {
-    return res.status(401).json({ errors: ['Token is invalid'] });
+    return res.status(401).json({
+      msg:
+        'There was an error retrieving your account information. Please try signing in.'
+    });
   }
 };

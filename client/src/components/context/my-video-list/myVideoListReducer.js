@@ -43,7 +43,7 @@ export default (state, action) => {
     case 'ADD_VIDEO': {
       return {
         ...state,
-        infoModalMsg:action.payload.msg
+        videoInfoModalMsg: action.payload.msg
       };
     }
 
@@ -68,6 +68,13 @@ export default (state, action) => {
           videoTitle: '',
           videoID: ''
         }
+      };
+    }
+
+    case 'CLEAR_VIDEO_INFO_MODAL_MSG': {
+      return {
+        ...state,
+        videoInfoModalMsg: ''
       };
     }
 

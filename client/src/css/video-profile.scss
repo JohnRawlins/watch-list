@@ -44,6 +44,7 @@
 }
 
 .video-details-general {
+  @extend %video-profile-flex-column;
   &__title {
     font-size: 18px;
     margin-bottom: 10px;
@@ -53,12 +54,18 @@
 }
 
 .video-details-rt {
-  @extend %video-profile-flex-row;
-  align-items: center;
   margin-top: 20px;
+  margin-bottom: 10px;
+}
 
-  &__icon {
-    margin-right: 10px;
+.tomatometer{
+  @extend %video-profile-flex-row;
+  align-items:center;
+  margin-top:10px;
+
+  &__icon{
+    width:20px;
+    margin-right:5px;
   }
 }
 

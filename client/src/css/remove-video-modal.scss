@@ -22,6 +22,7 @@
 .remove-video-modal {
   @extend %remove-video-modal-flex-column, %remove-video-modal-flex-center;
   position: fixed;
+  z-index: 100;
   top: 0px;
   left: 0px;
   width: 100%;
