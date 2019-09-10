@@ -43,21 +43,49 @@ const MyVideoListState = props => {
 
   const addVideoToWatchList = async video => {
     try {
-      const addVideoResponse = await fetch('/api/videos', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'x-auth-token': userToken
-        },
-        body: JSON.stringify(video)
-      });
+      if (userToken) {
+        const addVideoResponse = await fetch('/api/videos', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'x-auth-token': userToken
+          },
+          body: JSON.stringify(video)
+        });
 
-      const addVideoPayload = await addVideoResponse.json();
+        const addVideoPayload = await addVideoResponse.json();
 
-      dispatch({
-        type: 'ADD_VIDEO',
-        payload: addVideoPayload
-      });
+        dispatch({
+          type: 'ADD_VIDEO',
+          payload: addVideoPayload
+        });
+      } else {
+        let guestWatchList = JSON.parse(localStorage.getItem('guestWatchList'));
+        if (!guestWatchList) {
+          guestWatchList = [];
+        }
+        const { imdbID, Title, Year, Poster, Type } = video;
+        const videoToAdd = { imdbID, Title, Year, Poster, Type };
+
+        if (guestWatchList.find(video => video.imdbID === videoToAdd.imdbID)) {
+          dispatch({
+            type: 'ADD_VIDEO',
+            payload: {
+              msg: `${Title} is already on your watch list`
+            }
+          });
+        } else {
+          guestWatchList.push(videoToAdd);
+          localStorage.setItem(
+            'guestWatchList',
+            JSON.stringify(guestWatchList)
+          );
+          dispatch({
+            type: 'ADD_VIDEO',
+            payload: { msg: `${video.Title} has been added to your watch list` }
+          });
+        }
+      }
     } catch (error) {
       console.log(error);
     }
