@@ -54,7 +54,8 @@ export default (state, action) => {
           ...state.removeVideoModal,
           visible: true,
           videoTitle: action.payload.videoTitle,
-          videoID: action.payload.videoID
+          videoID: action.payload.videoID,
+          videoImdbID: action.payload.videoImdbID
         }
       };
     }
@@ -66,7 +67,8 @@ export default (state, action) => {
           visible: false,
           response: '',
           videoTitle: '',
-          videoID: ''
+          videoID: '',
+          videoImdbID: ''
         }
       };
     }

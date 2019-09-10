@@ -12,7 +12,7 @@ const RemoveVideoModal = () => {
   const handleSelection = event => {
     const btnSelection = event.target.textContent.toLowerCase();
     if (btnSelection === 'yes') {
-      removeVideoFromWatchList(removeVideoModal.videoID);
+      removeVideoFromWatchList(removeVideoModal.videoID, removeVideoModal.videoImdbID);
     } else {
       setRemoveVideoModal(false);
     }
@@ -22,7 +22,7 @@ const RemoveVideoModal = () => {
     <div className="remove-video-modal">
       <div className="modal-message">
         <p className="modal-message__text">
-          Remove This Item From Your Watch List?
+          Remove this item from your watch list?
         </p>
         <h1 className="modal-message__video-title">
           {removeVideoModal.videoTitle}

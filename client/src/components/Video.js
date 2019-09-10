@@ -16,7 +16,7 @@ const Video = ({ info: { Title, Year, Poster, videoID, imdbID } }) => {
   return (
     <li className="video">
       <button
-        onClick={() => setRemoveVideoModal(true, Title, videoID)}
+        onClick={() => setRemoveVideoModal(true, Title, videoID, imdbID)}
         style={removeIconVisibility}
         className="video__remove-icon"
       />

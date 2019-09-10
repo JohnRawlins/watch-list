@@ -12,7 +12,8 @@ const MyVideoListState = props => {
       visible: false,
       response: '',
       videoTitle: '',
-      videoID: ''
+      videoID: '',
+      videoImdbID: ''
     },
     videoInfoModalMsg: ''
   };
@@ -91,11 +92,16 @@ const MyVideoListState = props => {
     }
   };
 
-  const setRemoveVideoModal = (visible, videoTitle = '', videoID = '') => {
+  const setRemoveVideoModal = (
+    visible,
+    videoTitle = '',
+    videoID = '',
+    videoImdbID = ''
+  ) => {
     if (visible) {
       dispatch({
         type: 'SHOW_REMOVE_VIDEO_MODALS',
-        payload: { videoTitle, videoID }
+        payload: { videoTitle, videoID, videoImdbID }
       });
     } else {
       dispatch({
@@ -104,19 +110,40 @@ const MyVideoListState = props => {
     }
   };
 
-  const removeVideoFromWatchList = async videoID => {
+  const removeVideoFromWatchList = async (videoID, videoToRemoveImdbID) => {
     try {
-      const removeVideoResponse = await fetch(`/api/videos/${videoID}`, {
-        method: 'DELETE',
-        headers: { 'x-auth-token': userToken }
-      });
+      if (userToken) {
+        const removeVideoResponse = await fetch(`/api/videos/${videoID}`, {
+          method: 'DELETE',
+          headers: { 'x-auth-token': userToken }
+        });
 
-      const removeVideoPayload = await removeVideoResponse.json();
+        const removeVideoPayload = await removeVideoResponse.json();
 
-      dispatch({
-        type: 'REMOVE_VIDEO',
-        payload: removeVideoPayload
-      });
+        dispatch({
+          type: 'REMOVE_VIDEO',
+          payload: removeVideoPayload
+        });
+      } else {
+        let guestWatchList = JSON.parse(localStorage.getItem('guestWatchList'));
+        let videoToRemove;
+        guestWatchList = guestWatchList.filter(video => {
+          if (video.imdbID !== videoToRemoveImdbID) {
+            return true;
+          } else {
+            videoToRemove = video;
+            return false;
+          }
+        });
+        localStorage.setItem('guestWatchList', JSON.stringify(guestWatchList));
+
+        dispatch({
+          type: 'REMOVE_VIDEO',
+          payload: {
+            msg: `${videoToRemove.Title} has been removed from your watch list`
+          }
+        });
+      }
     } catch (error) {
       console.log(error);
     }
