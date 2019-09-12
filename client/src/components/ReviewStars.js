@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useContext, useEffect } from 'react';
+import ReviewContext from './context/review/reviewContext';
 import Star from './Star';
 import { useState } from 'react';
 
@@ -7,47 +8,47 @@ const ReviewStars = () => {
   const deselected = '#B5B3B3';
   const numberOfStars = 5;
 
+  const { setScoreDescription } = useContext(ReviewContext);
+
   const getStarNum = star => {
     return Number(star.id.split('-')[1]);
   };
 
-  let handleReviewStars = event => {
-    let score = reviewStars.map((star, index) => {
-      let starNum = getStarNum(event.target);
-      let starColor = starNum >= index ? selected : deselected;
-      return (
-        <div
-          id={`star-${index}`}
-          className="star-wrapper"
-          key={index}
-          onClick={handleReviewStars}
-        >
-          <Star id={index} color={starColor} />
-        </div>
-      );
-    });
-
-    setReviewStars(score);
-  };
-
   const [reviewStars, setReviewStars] = useState(() => {
-    let starArray = [];
-    for (let index = 0; index < numberOfStars; index++) {
-      starArray.push(
-        <div
-          id={`star-${index}`}
-          className="star-wrapper"
-          key={index}
-          onClick={handleReviewStars}
-        >
-          <Star id={index} color={deselected} />
+    const starsArray = [];
+    for (let currIndex = 0; currIndex < numberOfStars; currIndex++) {
+      starsArray.push(
+        <div id={`star-${currIndex}`} className="star-wrapper" key={currIndex}>
+          <Star id={currIndex} color={deselected} />
         </div>
       );
     }
-    return starArray;
+    return { starsArray };
   });
 
-  return <div className="score__review-stars">{reviewStars}</div>;
+  let handleReviewStars = event => {
+    let selectedStar = getStarNum(event.target);
+    if (Number.isNaN(selectedStar)) return;
+    const score = reviewStars.starsArray.map((star, currIndex) => {
+      const starColor = selectedStar >= currIndex ? selected : deselected;
+      return (
+        <div id={`star-${currIndex}`} className="star-wrapper" key={currIndex}>
+          <Star id={currIndex} color={starColor} />
+        </div>
+      );
+    });
+    setReviewStars({ starsArray: score, selectedStar: selectedStar + 1 });
+  };
+
+  useEffect(() => {
+    setScoreDescription(reviewStars.selectedStar);
+  }, [reviewStars]);
+
+  return (
+    <div className="score__review-stars" onClick={handleReviewStars}>
+      {reviewStars.starsArray}
+    </div>
+  );
 };
 
 export default ReviewStars;

@@ -1,11 +1,12 @@
 import React, { useEffect, useState, useContext } from 'react';
 import MyVideoListContext from './context/my-video-list/myVideoListContext';
+import ReviewContext from './context/review/reviewContext';
 import InfoModal from './InfoModal';
 import Navbar from './Navbar';
 import defaultPoster from '../img/default-poster.jpg';
 import WriteReview from './WriteReview';
 import '../css/video-profile.scss';
-import defaultScore from '../img/rotten-tomatoes-icon.svg';
+import defaultScore from '../img/popcorn.svg';
 import reviewStar from '../img/review-star.svg';
 import freshScore from '../img/fresh-score.png';
 import rottenScore from '../img/rotten-score.png';
@@ -18,6 +19,8 @@ const VideoProfile = ({ location }) => {
   const { addVideoToWatchList, videoInfoModalMsg } = useContext(
     MyVideoListContext
   );
+
+  const { setWriteReviewModal, writeReviewModal } = useContext(ReviewContext);
 
   const getVideoProfile = async () => {
     let rottenTomatoesScore;
@@ -58,7 +61,7 @@ const VideoProfile = ({ location }) => {
       {videoInfoModalMsg && <InfoModal msg={videoInfoModalMsg} />}
       <Navbar />
 
-      {/* <WriteReview /> */}
+      {writeReviewModal.visible && <WriteReview videoInfo={video} />}
       <div className="video-profile">
         <section className="video-details">
           <img
@@ -130,7 +133,12 @@ const VideoProfile = ({ location }) => {
               src={reviewStar}
               alt="Review Star"
             />
-            <button className="video-review__btn">Write A Review</button>
+            <button
+              onClick={() => setWriteReviewModal(true)}
+              className="video-review__btn"
+            >
+              Write A Review
+            </button>
           </div>
           <div className="user-reviews-total">
             <p className="user-reviews-total__heading">Total</p>

@@ -14,6 +14,7 @@
 
 .write-review-modal {
   position: fixed;
+  z-index: 100;
   top: 0;
   left: 0;
   background: rgba(255, 255, 255, 0.4);
@@ -38,29 +39,9 @@
     font-size: 22px;
     align-self: flex-start;
     padding: 30px 0px 0px 5px;
-    margin-bottom: 45px;
+    margin-bottom: 5px;
     overflow-wrap: break-word;
     word-wrap: break-word;
-  }
-
-  &__name-label {
-    font-size: 15px;
-    width: 90%;
-    text-align: center;
-    font-weight: 700;
-  }
-
-  &__name-txt-area {
-    height: 40px;
-    line-height: 40px;
-    margin: 20px 0px;
-    padding-left: 10px;
-    width: 100%;
-    color: #2c385e;
-    background: #f3f3f3;
-    border: none;
-    resize: none;
-    font-size: 17px;
   }
 
   &__review-txt-area {
@@ -73,6 +54,16 @@
     border: none;
     resize: none;
     font-size: 15px;
+  }
+
+  &__username {
+    align-self: flex-start;
+    margin: 0px 0px 40px 5px;
+
+    span {
+      font-weight: 700;
+      text-transform: capitalize;
+    }
   }
 }
 
@@ -95,7 +86,7 @@
     }
   }
 
-  &__text {
+  &__desc {
     display: inline-block;
     width: 100%;
     margin-bottom: 10px;
