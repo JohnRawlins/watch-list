@@ -1,17 +1,37 @@
-import React, { useReducer } from 'react';
+import React, { useReducer, useContext } from 'react';
 import reviewReducer from './reviewReducer';
 import ReviewContext from './reviewContext';
+import AuthContext from '../auth/authContext';
 
 const ReviewState = props => {
   const initialState = {
     writeReviewModal: {
       visible: false,
       response: '',
+      score: '',
       scoreDesc: ''
-    }
+    },
+    userReviews: []
   };
 
   const [state, dispatch] = useReducer(reviewReducer, initialState);
+
+  const { user, token: userToken } = useContext(AuthContext);
+
+  const getVideoReviews = async videoImdbID => {
+    try {
+      const videoReviewsResponse = await fetch(`/api/reviews/${videoImdbID}`);
+
+      const videoReviewsPayload = await videoReviewsResponse.json();
+
+      dispatch({
+        type: 'GET_VIDEO_REVIEWS',
+        payload: videoReviewsPayload
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   const setWriteReviewModal = visible => {
     if (visible) {
@@ -25,7 +45,37 @@ const ReviewState = props => {
     }
   };
 
-  const setScoreDescription = score => {
+  const submitVideoReview = async review => {
+    const username = user.username;
+    review = { ...review, username };
+    try {
+      const submitReviewResponse = await fetch('/api/reviews', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'x-auth-token': userToken
+        },
+        body: JSON.stringify(review)
+      });
+
+      const submitReviewPayload = await submitReviewResponse.json();
+
+      dispatch({
+        type: 'CREATE_REVIEW',
+        payload: submitReviewPayload
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const clearWriteReviewResp = () => {
+    dispatch({
+      type: 'CLEAR_WRITE_REVIEW_RESPONSE'
+    });
+  };
+
+  const setScoreAndDescription = score => {
     let scoreDesc = '';
 
     switch (score) {
@@ -51,17 +101,20 @@ const ReviewState = props => {
     }
 
     dispatch({
-      type: 'SET_SCORE_DESC',
-      payload: scoreDesc
+      type: 'SET_SCORE_AND_DESC',
+      payload: { score, scoreDesc }
     });
   };
   return (
     <ReviewContext.Provider
       value={{
         writeReviewModal: state.writeReviewModal,
-        scoreDesc: state.storeDesc,
+        userReviews: state.userReviews,
         setWriteReviewModal,
-        setScoreDescription
+        setScoreAndDescription,
+        submitVideoReview,
+        clearWriteReviewResp,
+        getVideoReviews
       }}
     >
       {props.children}

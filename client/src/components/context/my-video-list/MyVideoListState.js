@@ -20,7 +20,7 @@ const MyVideoListState = props => {
 
   const { token } = useContext(AuthContext);
 
-  const userToken = token ? token.token : null;
+  const userToken = token ? token : null;
 
   const [state, dispatch] = useReducer(myVideoListReducer, initialState);
 

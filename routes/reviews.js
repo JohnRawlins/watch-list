@@ -30,7 +30,30 @@ router.get('/:videoID', async (req, res) => {
       imdbID: req.params.videoID
     }).select('-__v');
 
-    return res.status(200).json({ videoReviews });
+    if (videoReviews.length === 0) {
+      return res
+        .status(200)
+        .json({
+          userReviews: videoReviews,
+          totalUserReviews: 0,
+          userReviewScore: 0
+        });
+    }
+
+    let totalScore = videoReviews.reduce(
+      (scoreSum, currentValue) => scoreSum + currentValue.stars,
+      0
+    );
+
+    userReviewScore = Number((totalScore / videoReviews.length).toFixed(1));
+
+    return res
+      .status(200)
+      .json({
+        userReviews: videoReviews,
+        totalUserReviews: videoReviews.length,
+        userReviewScore
+      });
   } catch (error) {
     console.error(error.message);
     return res.status(500).json({
@@ -57,7 +80,7 @@ router.post(
       check('stars', 'No rating found')
         .not()
         .isEmpty(),
-      check('text', 'No text found in review')
+      check('body', 'No text found in review')
         .not()
         .isEmpty(),
       check('stars', 'A number is required for rating').isInt(),
@@ -73,16 +96,15 @@ router.post(
     }
 
     try {
-      const { imdbID, videoTitle, stars, date, text } = req.body;
+      const { imdbID, videoTitle, stars, body } = req.body;
 
       const reviewToAdd = new Review({
         imdbID,
         videoTitle,
         stars,
-        date,
         userID: req.user.id,
         username: req.user.username,
-        text
+        body
       });
 
       const duplicateReview = await Review.findOne({

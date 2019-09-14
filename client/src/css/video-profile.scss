@@ -58,14 +58,14 @@
   margin-bottom: 10px;
 }
 
-.tomatometer{
+.tomatometer {
   @extend %video-profile-flex-row;
-  align-items:center;
-  margin-top:10px;
+  align-items: center;
+  margin-top: 10px;
 
-  &__icon{
-    width:20px;
-    margin-right:5px;
+  &__icon {
+    width: 20px;
+    margin-right: 5px;
   }
 }
 
@@ -106,7 +106,6 @@
 
 .user-reviews-total {
   @extend %video-profile-flex-row;
-  padding-left: 20px;
 
   &__heading {
     margin-right: 5px;
@@ -117,21 +116,24 @@
   }
 }
 
+.video-review-score-container {
+  @extend %video-profile-flex-column;
+  align-items: center;
+  margin-right:10px;
+}
+
 .video-review {
   @extend %video-profile-flex-row;
   align-items: center;
-  padding-left: 30px;
-  padding-right: 15px;
-  margin-bottom: 10px;
+  margin-bottom: 50px;
+  padding-left: 20px;
 
   &__score {
     font-size: 52px;
     font-weight: bold;
-    margin-right: 10px;
   }
   &__star {
-    width: 30px;
-    margin-right: auto;
+    width: 40px;
   }
 
   &__btn {
@@ -140,5 +142,6 @@
     color: white;
     background: #336e6b;
     border: none;
+    margin-left: auto;
   }
 }

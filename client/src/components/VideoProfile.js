@@ -20,7 +20,12 @@ const VideoProfile = ({ location }) => {
     MyVideoListContext
   );
 
-  const { setWriteReviewModal, writeReviewModal } = useContext(ReviewContext);
+  const {
+    setWriteReviewModal,
+    writeReviewModal,
+    getVideoReviews,
+    userReviews
+  } = useContext(ReviewContext);
 
   const getVideoProfile = async () => {
     let rottenTomatoesScore;
@@ -45,7 +50,9 @@ const VideoProfile = ({ location }) => {
 
       videoProfilePayload.rottenTomatoesScore = rottenTomatoesScore;
 
-      setVideo(videoProfilePayload);
+      getVideoReviews(videoProfilePayload.imdbID);
+
+      setVideo({ ...videoProfilePayload });
     } catch (error) {
       console.log(error);
     }
@@ -53,15 +60,18 @@ const VideoProfile = ({ location }) => {
 
   useEffect(() => {
     getVideoProfile();
+
     //eslint-disable-next-line
-  }, []);
+  }, [writeReviewModal.response]);
 
   return (
     <div className="video-profile-container">
       {videoInfoModalMsg && <InfoModal msg={videoInfoModalMsg} />}
       <Navbar />
-
       {writeReviewModal.visible && <WriteReview videoInfo={video} />}
+      {writeReviewModal.response && (
+        <InfoModal msg={writeReviewModal.response} />
+      )}
       <div className="video-profile">
         <section className="video-details">
           <img
@@ -126,28 +136,34 @@ const VideoProfile = ({ location }) => {
         </section>
         <section className="user-reviews">
           <h2 className="user-reviews__heading">User Reviews</h2>
-          <div className="video-review">
-            <span className="video-review__score">{video.reviewScore}</span>
-            <img
-              className="video-review__star"
-              src={reviewStar}
-              alt="Review Star"
-            />
-            <button
-              onClick={() => setWriteReviewModal(true)}
-              className="video-review__btn"
-            >
-              Write A Review
-            </button>
+          <div className="video-review-container">
+            <div className="video-review">
+              <div className="video-review-score-container">
+                <span className="video-review__score">
+                  {userReviews.userReviewScore}
+                </span>
+                <div className="user-reviews-total">
+                  <p className="user-reviews-total__heading">Total</p>
+                  <span className="user-reviews-total__num">
+                    {userReviews.totalUserReviews}
+                  </span>
+                </div>
+              </div>
+              <img
+                className="video-review__star"
+                src={reviewStar}
+                alt="Review Star"
+              />
+              <button
+                onClick={() => setWriteReviewModal(true)}
+                className="video-review__btn"
+              >
+                Write A Review
+              </button>
+            </div>
           </div>
-          <div className="user-reviews-total">
-            <p className="user-reviews-total__heading">Total</p>
-            <span className="user-reviews-total__num">
-              {video.totalReviews}
-            </span>
-          </div>
+          <UserReviews videoReviews={userReviews} />
         </section>
-        {/* <UserReviews/> */}
       </div>
     </div>
   );

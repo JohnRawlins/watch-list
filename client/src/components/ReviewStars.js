@@ -8,7 +8,7 @@ const ReviewStars = () => {
   const deselected = '#B5B3B3';
   const numberOfStars = 5;
 
-  const { setScoreDescription } = useContext(ReviewContext);
+  const { setScoreAndDescription } = useContext(ReviewContext);
 
   const getStarNum = star => {
     return Number(star.id.split('-')[1]);
@@ -41,7 +41,7 @@ const ReviewStars = () => {
   };
 
   useEffect(() => {
-    setScoreDescription(reviewStars.selectedStar);
+    setScoreAndDescription(reviewStars.selectedStar);
   }, [reviewStars]);
 
   return (

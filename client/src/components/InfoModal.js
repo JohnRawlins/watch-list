@@ -1,14 +1,20 @@
 import React, { useContext } from 'react';
 import '../css/remove-video-modal.scss';
 import MyVideoListContext from './context/my-video-list/myVideoListContext.js';
+import ReviewContext from './context/review/reviewContext';
 
 const InfoModal = ({ msg }) => {
-  const { setRemoveVideoModal, clearVideoInfoModalMsg } = useContext(MyVideoListContext);
+  const { setRemoveVideoModal, clearVideoInfoModalMsg } = useContext(
+    MyVideoListContext
+  );
+
+  const { clearWriteReviewResp } = useContext(ReviewContext);
 
   const handleSelection = event => {
     if (event.target.textContent.toLowerCase() === 'ok') {
       setRemoveVideoModal(false);
       clearVideoInfoModalMsg();
+      clearWriteReviewResp();
     }
   };
 

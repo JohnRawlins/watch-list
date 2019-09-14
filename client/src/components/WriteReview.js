@@ -1,13 +1,23 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import ReviewContext from './context/review/reviewContext';
 import AuthContext from './context/auth/authContext';
 // import MyVideoListContext from './context/my-video-list/myVideoListContext';
 import '../css/write-review.scss';
 import ReviewStars from './ReviewStars';
 
-const WriteReview = ({ videoInfo: { Title } }) => {
-  const { setWriteReviewModal, writeReviewModal } = useContext(ReviewContext);
+const WriteReview = ({ videoInfo }) => {
+  const {
+    setWriteReviewModal,
+    writeReviewModal,
+    submitVideoReview
+  } = useContext(ReviewContext);
   const { user } = useContext(AuthContext);
+
+  const [reviewBody, setReviewBody] = useState('');
+
+  const handleReviewBody = event => {
+    setReviewBody(event.target.value);
+  };
 
   // const { } = useContext(
   //   MyVideoListContext
@@ -17,7 +27,7 @@ const WriteReview = ({ videoInfo: { Title } }) => {
     <div className="write-review-modal">
       <div className="write-review-container">
         <div className="write-review">
-          <h1 className="write-review__media-title">{Title}</h1>
+          <h1 className="write-review__media-title">{videoInfo.Title}</h1>
           <p className="write-review__username">
             Review by: <span>{user.username}</span>
           </p>
@@ -29,6 +39,8 @@ const WriteReview = ({ videoInfo: { Title } }) => {
           <textarea
             className="write-review__review-txt-area"
             placeholder="Tell others what you think about this movie"
+            onChange={handleReviewBody}
+            value={reviewBody}
           />
           <div className="review-btns">
             <button
@@ -37,7 +49,19 @@ const WriteReview = ({ videoInfo: { Title } }) => {
             >
               Cancel
             </button>
-            <button className="review-btns__submit">Submit</button>
+            <button
+              onClick={() =>
+                submitVideoReview({
+                  imdbID: videoInfo.imdbID,
+                  videoTitle: videoInfo.Title,
+                  body: reviewBody,
+                  stars: writeReviewModal.score
+                })
+              }
+              className="review-btns__submit"
+            >
+              Submit
+            </button>
           </div>
         </div>
       </div>

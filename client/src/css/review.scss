@@ -12,12 +12,18 @@
   align-items: center;
 }
 
+.review-container {
+  margin-bottom: 40px;
+}
+
 .review {
   @extend %review-flex-row;
   margin-bottom: 15px;
 
   &__profile-icon {
+    align-self:flex-start;
     margin-right: 15px;
+    width: 45px;
   }
 }
 
@@ -27,26 +33,11 @@
   word-wrap: break-word;
 }
 
-.user-review-info {
-  width: 100%;
-
-  &__name {
-    margin-bottom: 5px;
-  }
-}
-
-.review-star {
-  width: 16px;
-}
-
 .review-score {
   @extend %review-flex-row;
   align-items: center;
   justify-content: space-between;
-
-  &__stars {
-    flex: 0 1 40%;
-  }
+  margin-bottom:10px;
 
   &__date {
     flex: 0 1 45%;
@@ -56,12 +47,17 @@
 }
 
 .user-review-info {
+  width: 100%;
   &__name {
-    font-size: 20px;
+    font-size: 16px;
     text-transform: capitalize;
+    margin-bottom: 5px;
   }
 }
 
-.review-container {
-  margin-bottom: 100px;
+.review-score-stars {
+  &__star {
+    width: 16px;
+    margin-right: 5px;
+  }
 }
