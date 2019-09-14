@@ -19,10 +19,6 @@ const WriteReview = ({ videoInfo }) => {
     setReviewBody(event.target.value);
   };
 
-  // const { } = useContext(
-  //   MyVideoListContext
-  // );
-
   return (
     <div className="write-review-modal">
       <div className="write-review-container">

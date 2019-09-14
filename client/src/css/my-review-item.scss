@@ -1,4 +1,4 @@
-.myreviewitem {
+.my-review-item {
   position: relative;
   list-style: none;
   padding-bottom: 35px;
@@ -29,13 +29,13 @@
   }
 }
 
-.myreviewitem-details {
+.my-review-item-details {
   display: flex;
   align-items: center;
   margin-bottom: 15px;
 }
 
-.myreviewitem-stars {
+.my-review-item-stars {
   margin-right: auto;
 
   &__item {
@@ -44,7 +44,7 @@
   }
 }
 
-.myreviewitem-btns {
+.my-review-item-btns {
   text-align: right;
 
   &__edit {

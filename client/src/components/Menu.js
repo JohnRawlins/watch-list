@@ -33,7 +33,7 @@ const Menu = () => {
           <Link to="/my-watch-list">My Watch List</Link>
         </li>
         <li className="menu-option__item">
-          <Link>My Reviews</Link>
+          <Link to='/my-reviews'>My Reviews</Link>
         </li>
         <li className="menu-option__item">
           <Link to="/search">Search</Link>

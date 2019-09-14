@@ -1,23 +1,42 @@
-import React from 'react';
+import React, {useState, useEffect, useContext} from 'react';
+import AuthContext from './context/auth/authContext';
 import Navbar from './Navbar';
 import MyReviewList from './MyReviewList';
 import searchIcon from '../img/search-icon.svg';
 import star from '../img/review-star.svg';
 import MyReviewItem from './MyReviewItem';
 import RemoveReviewModal from './RemoveReviewModal';
-import '../css/myreviews.scss';
+import '../css/my-reviews.scss';
 
 const MyReviews = () => {
 
+  const [myReviews, setMyReviews] = useState({});
+  const {token:userInfo} = useContext(AuthContext);
+
+const getMyReviews = async () => {
+  const myReviewsResponse = await fetch ('/api/reviews',{
+    headers:{"x-auth-token":userInfo.token}
+  });
+  if(myReviewsResponse.ok){
+    const myReviewsPayload = await myReviewsResponse.json();
+    setMyReviews(myReviewsPayload);
+  }
+}
+
+useEffect(()=>{
+  if(userInfo)
+  getMyReviews();
+},[])
 
   return (
-    <div className="myreviews">
+    <div className="my-reviews-container">
       <Navbar />
-      <header className="myreviews-header">
-        <h1 className="myreviews-header__title">My Reviews</h1>
-        <select className="myreviews-sort">
-          <option className="myreviews-sort__ascending">Title A to Z</option>
-          <option className="myreviews-sort__descending">Title Z to A</option>
+      <div className="my-reviews">
+      <header className="my-reviews-header">
+        <h1 className="my-reviews-header__title">My Reviews</h1>
+        <select className="my-reviews-sort">
+          <option className="my-reviews-sort__ascending">Title A to Z</option>
+          <option className="my-reviews-sort__descending">Title Z to A</option>
         </select>
       </header>
       <form className="search">
@@ -30,9 +49,10 @@ const MyReviews = () => {
           />
         </button>
       </form>
-      {/* <MyReviewList />
-      <MyReviewItem /> */}
+      <MyReviewList myReviews={myReviews} />
+    
       {/* <RemoveReviewModal/> */}
+      </div>
     </div>
   );
 };

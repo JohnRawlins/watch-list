@@ -1,10 +1,23 @@
-.myreviewlist {
-  .myreviewitem {
+.my-review-list {
+  display: flex;
+  flex-direction: column;
+
+  &__results {
+    align-self: flex-end;
+    margin-bottom:32px;
+  }
+
+  &__total {
+    font-size: 20px;
+    font-weight: 700;
+  }
+
+  .my-review-item {
     margin-bottom: 50px;
     border-bottom: 1px solid white;
   }
 
-  .myreviewitem:last-child {
+  .my-review-item:last-child {
     border-bottom: initial;
   }
 }

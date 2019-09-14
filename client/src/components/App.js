@@ -5,6 +5,7 @@ import Register from './Register';
 import Home from './Home.js';
 import MyWatchList from './MyWatchList';
 import VideoProfile from './VideoProfile';
+import MyReviews from './MyReviews';
 import AuthState from './context/auth/AuthState';
 import MyVideoListState from './context/my-video-list/MyVideoListState';
 import ReviewState from './context/review/ReviewState';
@@ -22,6 +23,7 @@ function App() {
                 <Route exact path="/login" component={SignIn} />
                 <Route exact path="/register" component={Register} />
                 <Route exact path="/my-watch-list" component={MyWatchList} />
+                <Route path="/my-reviews" component={MyReviews} />
                 <Route path="/video-profile" component={VideoProfile} />
                 <Route path="/search" component={Home} />
               </Switch>
