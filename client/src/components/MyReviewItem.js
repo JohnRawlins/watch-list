@@ -1,8 +1,15 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import WriteReview from './WriteReview';
+import ReviewContext from './context/review/reviewContext';
 import reviewStar from '../img/review-star.svg';
 import '../css/my-review-item.scss';
 
-const MyReviewItem = ({ reviewDetails: { videoTitle, stars, date, body } }) => {
+const MyReviewItem = ({
+  reviewDetails: { videoTitle, stars, date, body },
+  reviewDetails: review
+}) => {
+  const { setEditReviewModal, writeReviewModal } = useContext(ReviewContext);
+
   const formatReviewDate = date => {
     const format = { year: 'numeric', month: 'short', day: 'numeric' };
     const reviewDate = new Date(date);
@@ -24,6 +31,10 @@ const MyReviewItem = ({ reviewDetails: { videoTitle, stars, date, body } }) => {
     return reviewStars;
   };
 
+  const handleEdit = () => {
+    setEditReviewModal(true, review);
+  };
+
   return (
     <li className="my-review-item">
       <button className="my-review-item__exit-icon" />
@@ -36,7 +47,9 @@ const MyReviewItem = ({ reviewDetails: { videoTitle, stars, date, body } }) => {
       </div>
       <p className="my-review-item__review-text">{body}</p>
       <div className="my-review-item-btns">
-        <button className="my-review-item-btns__edit">Edit</button>
+        <button onClick={handleEdit} className="my-review-item-btns__edit">
+          Edit
+        </button>
       </div>
     </li>
   );

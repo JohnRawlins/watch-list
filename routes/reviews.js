@@ -31,13 +31,11 @@ router.get('/:videoID', async (req, res) => {
     }).select('-__v');
 
     if (videoReviews.length === 0) {
-      return res
-        .status(200)
-        .json({
-          userReviews: videoReviews,
-          totalUserReviews: 0,
-          userReviewScore: 0
-        });
+      return res.status(200).json({
+        userReviews: videoReviews,
+        totalUserReviews: 0,
+        userReviewScore: 0
+      });
     }
 
     let totalScore = videoReviews.reduce(
@@ -47,13 +45,11 @@ router.get('/:videoID', async (req, res) => {
 
     userReviewScore = Number((totalScore / videoReviews.length).toFixed(1));
 
-    return res
-      .status(200)
-      .json({
-        userReviews: videoReviews,
-        totalUserReviews: videoReviews.length,
-        userReviewScore
-      });
+    return res.status(200).json({
+      userReviews: videoReviews,
+      totalUserReviews: videoReviews.length,
+      userReviewScore
+    });
   } catch (error) {
     console.error(error.message);
     return res.status(500).json({
@@ -133,7 +129,7 @@ router.post(
 );
 
 // @route     PUT api/reviews
-// @desc      Update video review
+// @desc      Edit video review
 // @access    Private
 router.put(
   '/:reviewID',
@@ -171,7 +167,7 @@ router.put(
         {
           $set: {
             stars,
-            text
+            body:text
           }
         }
       );

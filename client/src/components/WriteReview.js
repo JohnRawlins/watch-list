@@ -5,15 +5,17 @@ import AuthContext from './context/auth/authContext';
 import '../css/write-review.scss';
 import ReviewStars from './ReviewStars';
 
-const WriteReview = ({ videoInfo }) => {
+const WriteReview = ({ videoInfo: { body: reviewText }, videoInfo }) => {
   const {
     setWriteReviewModal,
     writeReviewModal,
-    submitVideoReview
+    submitVideoReview,
+    submitReviewEdit,
+    setEditReviewModal
   } = useContext(ReviewContext);
   const { user } = useContext(AuthContext);
 
-  const [reviewBody, setReviewBody] = useState('');
+  const [reviewBody, setReviewBody] = useState(reviewText);
 
   const handleReviewBody = event => {
     setReviewBody(event.target.value);
@@ -23,7 +25,9 @@ const WriteReview = ({ videoInfo }) => {
     <div className="write-review-modal">
       <div className="write-review-container">
         <div className="write-review">
-          <h1 className="write-review__media-title">{videoInfo.Title}</h1>
+          <h1 className="write-review__media-title">
+            {videoInfo.Title || videoInfo.videoTitle}
+          </h1>
           <p className="write-review__username">
             Review by: <span>{user.username}</span>
           </p>
@@ -40,20 +44,30 @@ const WriteReview = ({ videoInfo }) => {
           />
           <div className="review-btns">
             <button
-              onClick={() => setWriteReviewModal(false)}
+              onClick={() => {
+                if (writeReviewModal.edit) setEditReviewModal(false);
+                else setWriteReviewModal(false);
+              }}
               className="review-btns__cancel"
             >
               Cancel
             </button>
             <button
-              onClick={() =>
-                submitVideoReview({
-                  imdbID: videoInfo.imdbID,
-                  videoTitle: videoInfo.Title,
-                  body: reviewBody,
-                  stars: writeReviewModal.score
-                })
-              }
+              onClick={() => {
+                if (writeReviewModal.edit) {
+                  submitReviewEdit({
+                    body: reviewBody,
+                    stars: writeReviewModal.score,
+                    _id: videoInfo._id
+                  });
+                } else
+                  submitVideoReview({
+                    imdbID: videoInfo.imdbID,
+                    videoTitle: videoInfo.Title,
+                    body: reviewBody,
+                    stars: writeReviewModal.score
+                  });
+              }}
               className="review-btns__submit"
             >
               Submit

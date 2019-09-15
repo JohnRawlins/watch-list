@@ -8,7 +8,10 @@ const ReviewStars = () => {
   const deselected = '#B5B3B3';
   const numberOfStars = 5;
 
-  const { setScoreAndDescription } = useContext(ReviewContext);
+  const {
+    setScoreAndDescription,
+    writeReviewModal: { review }
+  } = useContext(ReviewContext);
 
   const getStarNum = star => {
     return Number(star.id.split('-')[1]);
@@ -16,13 +19,35 @@ const ReviewStars = () => {
 
   const [reviewStars, setReviewStars] = useState(() => {
     const starsArray = [];
-    for (let currIndex = 0; currIndex < numberOfStars; currIndex++) {
-      starsArray.push(
-        <div id={`star-${currIndex}`} className="star-wrapper" key={currIndex}>
-          <Star id={currIndex} color={deselected} />
-        </div>
-      );
-    }
+
+    if (review) {
+      for (let currIndex = 0; currIndex < numberOfStars; currIndex++) {
+        starsArray.push(
+          <div
+            id={`star-${currIndex}`}
+            className="star-wrapper"
+            key={currIndex}
+          >
+            <Star
+              id={currIndex}
+              color={currIndex < review.stars ? selected : deselected}
+            />
+          </div>
+        );
+      }
+      return { starsArray, selectedStar: review.stars };
+    } else
+      for (let currIndex = 0; currIndex < numberOfStars; currIndex++) {
+        starsArray.push(
+          <div
+            id={`star-${currIndex}`}
+            className="star-wrapper"
+            key={currIndex}
+          >
+            <Star id={currIndex} color={deselected} />
+          </div>
+        );
+      }
     return { starsArray };
   });
 

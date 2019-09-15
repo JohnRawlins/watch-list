@@ -3,13 +3,16 @@ import reviewReducer from './reviewReducer';
 import ReviewContext from './reviewContext';
 import AuthContext from '../auth/authContext';
 
+
 const ReviewState = props => {
   const initialState = {
     writeReviewModal: {
       visible: false,
       response: '',
       score: '',
-      scoreDesc: ''
+      scoreDesc: '',
+      edit: false,
+      review: null
     },
     userReviews: []
   };
@@ -43,6 +46,37 @@ const ReviewState = props => {
         type: 'HIDE_WRITE_REVIEW_MODAL'
       });
     }
+  };
+
+  const setEditReviewModal = (visible, review = null) => {
+    if (visible) {
+      dispatch({
+        type: 'SHOW_EDIT_REVIEW_MODAL',
+        payload: review
+      });
+    } else {
+      dispatch({
+        type: 'HIDE_EDIT_REVIEW_MODAL'
+      });
+    }
+  };
+
+  const submitReviewEdit = async review => {
+    const editReviewResponse = await fetch(`/api/reviews/${review._id}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        'x-auth-token': userToken.token
+      },
+      body: JSON.stringify({ stars: review.stars, text: review.body })
+    });
+
+    const editReviewPayload = await editReviewResponse.json();
+
+    dispatch({
+      type: 'EDIT_REVIEW',
+      payload: editReviewPayload
+    });
   };
 
   const submitVideoReview = async review => {
@@ -111,10 +145,12 @@ const ReviewState = props => {
         writeReviewModal: state.writeReviewModal,
         userReviews: state.userReviews,
         setWriteReviewModal,
+        setEditReviewModal,
         setScoreAndDescription,
         submitVideoReview,
         clearWriteReviewResp,
-        getVideoReviews
+        getVideoReviews,
+        submitReviewEdit
       }}
     >
       {props.children}

@@ -3,7 +3,7 @@ import MyReviewItem from './MyReviewItem';
 import '../css/my-review-list.scss';
 
 const MyReviewList = ({ myReviews: { reviews } }) => {
-  let reviewList;
+  let reviewList = [];
   let reviewListLength = 0;
   if (reviews) {
     reviewList = reviews.map(review => {
@@ -15,8 +15,8 @@ const MyReviewList = ({ myReviews: { reviews } }) => {
   return (
     <ul className="my-review-list">
       <p className="my-review-list__results">
-        Results:{' '}
-        <span className="my-review-list__total">{reviewListLength}</span>
+        Results:
+        <span className="my-review-list__total"> {reviewListLength}</span>
       </p>
       {reviewList}
     </ul>

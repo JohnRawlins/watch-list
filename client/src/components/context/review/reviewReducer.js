@@ -20,13 +20,41 @@ export default (state, action) => {
       };
     }
 
+    case 'SHOW_EDIT_REVIEW_MODAL': {
+      return {
+        ...state,
+        writeReviewModal: {
+          ...state.writeReviewModal,
+          visible: true,
+          edit: true,
+          review: action.payload
+        }
+      };
+    }
+
+    case 'HIDE_EDIT_REVIEW_MODAL': {
+      return {
+        ...state,
+        writeReviewModal: {
+          ...state.writeReviewModal,
+          visible: false,
+          edit: false,
+          review: null
+        }
+      };
+    }
+
     case 'CLEAR_WRITE_REVIEW_RESPONSE': {
       return {
         ...state,
         writeReviewModal: {
           ...state.writeReviewModal,
           visible: false,
-          response: ''
+          response: '',
+          score: '',
+          scoreDesc: '',
+          edit: false,
+          review: null
         }
       };
     }
@@ -55,7 +83,22 @@ export default (state, action) => {
         writeReviewModal: {
           ...state.writeReviewModal,
           visible: false,
-          response: action.payload.msg
+          response: action.payload.msg,
+          edit: false,
+          review: null
+        }
+      };
+    }
+
+    case 'EDIT_REVIEW': {
+      return {
+        ...state,
+        writeReviewModal: {
+          ...state.writeReviewModal,
+          visible: false,
+          response: action.payload.msg,
+          edit: false,
+          review: null
         }
       };
     }
