@@ -89,4 +89,9 @@
   &__numerator {
     font-weight: 700;
   }
+
+  &__numerator::after{
+    content:'/';
+    padding: 0px 4px;
+  }
 }

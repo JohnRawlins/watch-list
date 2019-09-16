@@ -13,7 +13,8 @@ const VideoList = ({ videoItems, videoItemsTotal }) => {
           Year: video.Year,
           Poster: video.Poster,
           videoID: video._id,
-          imdbID: video.imdbID
+          imdbID: video.imdbID,
+          userReviewScore: video.userReviewScore
         }}
       />
     );

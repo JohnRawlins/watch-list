@@ -52,7 +52,7 @@ const Home = ({ history, location }) => {
   const handleVideoSearch = event => {
     event.preventDefault();
     if (searchField) {
-      history.push(`/search?videoTitle=${searchField}`);
+      history.push(`/search?videoTitle=${searchField.trim()}`);
     }
   };
 
