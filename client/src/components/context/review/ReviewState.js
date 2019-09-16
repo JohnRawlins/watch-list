@@ -3,7 +3,6 @@ import reviewReducer from './reviewReducer';
 import ReviewContext from './reviewContext';
 import AuthContext from '../auth/authContext';
 
-
 const ReviewState = props => {
   const initialState = {
     writeReviewModal: {
@@ -12,6 +11,11 @@ const ReviewState = props => {
       score: '',
       scoreDesc: '',
       edit: false,
+      review: null
+    },
+    deleteReviewModal: {
+      visible: false,
+      response: '',
       review: null
     },
     userReviews: []
@@ -87,7 +91,7 @@ const ReviewState = props => {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'x-auth-token': userToken
+          'x-auth-token': userToken.token
         },
         body: JSON.stringify(review)
       });
@@ -100,6 +104,37 @@ const ReviewState = props => {
       });
     } catch (error) {
       console.log(error);
+    }
+  };
+
+  const deleteVideoReview = async reviewID => {
+    try {
+      const deleteReviewResponse = await fetch(`/api/reviews/${reviewID}`, {
+        method:"DELETE",
+        headers: { 'x-auth-token': userToken.token }
+      });
+
+      const deleteReviewPayload = await deleteReviewResponse.json();
+
+      dispatch({
+        type: 'DELETE_REVIEW',
+        payload: deleteReviewPayload
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const setDeleteReviewModal = (visible, review = null) => {
+    if (visible) {
+      dispatch({
+        type: 'SHOW_DELETE_REVIEW_MODAL',
+        payload: review
+      });
+    } else {
+      dispatch({
+        type: 'CLEAR_DELETE_REVIEW_MODAL'
+      });
     }
   };
 
@@ -144,13 +179,16 @@ const ReviewState = props => {
       value={{
         writeReviewModal: state.writeReviewModal,
         userReviews: state.userReviews,
+        deleteReviewModal: state.deleteReviewModal,
         setWriteReviewModal,
         setEditReviewModal,
+        setDeleteReviewModal,
         setScoreAndDescription,
         submitVideoReview,
         clearWriteReviewResp,
         getVideoReviews,
-        submitReviewEdit
+        submitReviewEdit,
+        deleteVideoReview
       }}
     >
       {props.children}

@@ -15,7 +15,12 @@ export default (state, action) => {
         ...state,
         writeReviewModal: {
           ...state.writeReviewModal,
-          visible: false
+          visible: false,
+          response: '',
+          score: '',
+          scoreDesc: '',
+          edit: false,
+          review: null
         }
       };
     }
@@ -38,6 +43,9 @@ export default (state, action) => {
         writeReviewModal: {
           ...state.writeReviewModal,
           visible: false,
+          response: '',
+          score: '',
+          scoreDesc: '',
           edit: false,
           review: null
         }
@@ -99,6 +107,41 @@ export default (state, action) => {
           response: action.payload.msg,
           edit: false,
           review: null
+        }
+      };
+    }
+
+    case 'DELETE_REVIEW': {
+      return {
+        ...state,
+        deleteReviewModal: {
+          ...state.deleteReviewModal,
+          visible: false,
+          review: null,
+          response: action.payload.msg
+        }
+      };
+    }
+
+    case 'SHOW_DELETE_REVIEW_MODAL': {
+      return {
+        ...state,
+        deleteReviewModal: {
+          ...state.deleteReviewModal,
+          visible: true,
+          review: action.payload
+        }
+      };
+    }
+
+    case 'CLEAR_DELETE_REVIEW_MODAL': {
+      return {
+        ...state,
+        deleteReviewModal: {
+          ...state.deleteReviewModal,
+          visible: false,
+          review: null,
+          response: ""
         }
       };
     }

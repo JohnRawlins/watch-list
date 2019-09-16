@@ -15,7 +15,8 @@ const MyReviews = () => {
   const [myReviews, setMyReviews] = useState({});
   const { token: userInfo } = useContext(AuthContext);
   const {
-    writeReviewModal: { review, response }
+    writeReviewModal: { review, response },
+    deleteReviewModal
   } = useContext(ReviewContext);
 
   const getMyReviews = async () => {
@@ -30,7 +31,7 @@ const MyReviews = () => {
 
   useEffect(() => {
     if (userInfo) getMyReviews();
-  }, [response]);
+  }, [response, deleteReviewModal.response]);
 
   return (
     <div className="my-reviews-container">
@@ -56,8 +57,12 @@ const MyReviews = () => {
           </button>
         </form>
         <MyReviewList myReviews={myReviews} />
+        {deleteReviewModal.review && <RemoveReviewModal />}
         {review && <WriteReview videoInfo={review} />}
         {response && <InfoModal msg={response} />}
+        {deleteReviewModal.response && (
+          <InfoModal msg={deleteReviewModal.response} />
+        )}
       </div>
     </div>
   );

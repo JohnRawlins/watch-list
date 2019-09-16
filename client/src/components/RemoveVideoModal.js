@@ -17,6 +17,7 @@ const RemoveVideoModal = () => {
       setRemoveVideoModal(false);
     }
   };
+  
 
   return (
     <div className="remove-video-modal">

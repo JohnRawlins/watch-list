@@ -8,13 +8,14 @@ const InfoModal = ({ msg }) => {
     MyVideoListContext
   );
 
-  const { clearWriteReviewResp } = useContext(ReviewContext);
+  const { clearWriteReviewResp, setDeleteReviewModal } = useContext(ReviewContext);
 
   const handleSelection = event => {
     if (event.target.textContent.toLowerCase() === 'ok') {
       setRemoveVideoModal(false);
       clearVideoInfoModalMsg();
       clearWriteReviewResp();
+      setDeleteReviewModal(false);
     }
   };
 

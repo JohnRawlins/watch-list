@@ -8,7 +8,11 @@ const MyReviewItem = ({
   reviewDetails: { videoTitle, stars, date, body },
   reviewDetails: review
 }) => {
-  const { setEditReviewModal, writeReviewModal } = useContext(ReviewContext);
+  const {
+    setEditReviewModal,
+    writeReviewModal,
+    setDeleteReviewModal
+  } = useContext(ReviewContext);
 
   const formatReviewDate = date => {
     const format = { year: 'numeric', month: 'short', day: 'numeric' };
@@ -35,9 +39,16 @@ const MyReviewItem = ({
     setEditReviewModal(true, review);
   };
 
+  const handleReviewDeletion = () => {
+    setDeleteReviewModal(true, { ...review});
+  };
+
   return (
     <li className="my-review-item">
-      <button className="my-review-item__exit-icon" />
+      <button
+        onClick={handleReviewDeletion}
+        className="my-review-item__exit-icon"
+      />
       <h1 className="my-review-item__media-title">{videoTitle}</h1>
       <div className="my-review-item-details">
         <div className="my-review-item-stars">{createReviewStars(stars)}</div>
