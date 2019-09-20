@@ -1,7 +1,6 @@
 import React from 'react';
 import '../css/user-reviews.scss';
 import Review from './Review';
-import reviewStar from '../img/review-star.svg';
 
 const UserReviews = ({ videoReviews: { userReviews: reviews } }) => {
   if (reviews) {

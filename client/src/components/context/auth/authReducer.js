@@ -4,7 +4,7 @@ export default (state, action) => {
       return {
         ...state,
         isAuthenticated: true,
-        token: action.payload,
+        userToken: action.payload,
         registerErrors: []
       };
     }
@@ -19,7 +19,24 @@ export default (state, action) => {
     case 'LOAD_USER_SUCCESS': {
       return {
         ...state,
+        isAuthenticated: true,
         user: action.payload
+      };
+    }
+
+    case 'LOAD_USER_FAIL': {
+      return {
+        ...state,
+        isAuthenticated: false,
+        user: null,
+        tokenStatus: action.payload
+      };
+    }
+
+    case 'SET_TOKEN_STATUS': {
+      return {
+        ...state,
+        tokenStatus: action.payload
       };
     }
 
@@ -27,7 +44,7 @@ export default (state, action) => {
       return {
         ...state,
         isAuthenticated: true,
-        token: action.payload,
+        userToken: action.payload,
         signInErrors: []
       };
     }
@@ -50,6 +67,24 @@ export default (state, action) => {
       return {
         ...state,
         menuOpen: false
+      };
+    }
+
+    case 'LOG_USER_OUT': {
+      return {
+        ...state,
+        user: null,
+        userToken: localStorage.removeItem('userToken'),
+        registerErrors: [],
+        signInErrors: [],
+        isAuthenticated: false,
+        menuOpen: false,
+        tokenStatus: {
+          ...state.tokenStatus,
+          expired: false,
+          msg: '',
+          error:false
+        }
       };
     }
 

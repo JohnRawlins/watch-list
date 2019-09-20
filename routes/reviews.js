@@ -100,7 +100,7 @@ router.post(
         stars,
         userID: req.user.id,
         username: req.user.username,
-        body
+        body: body.trim()
       });
 
       const duplicateReview = await Review.findOne({
@@ -167,7 +167,7 @@ router.put(
         {
           $set: {
             stars,
-            body:text
+            body: text.trim()
           }
         }
       );

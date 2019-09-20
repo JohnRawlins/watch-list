@@ -13,7 +13,7 @@ $menu-primary-color: #2c385e;
   @extend %menu-flex-column;
   background: white;
   position: absolute;
-  transform: translatex(100%) scale(0);
+  transform: translatex(100%) scale(1);
   top: 0px;
   left: 0px;
   width: 100%;

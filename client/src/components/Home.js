@@ -2,11 +2,9 @@ import React, { useState, useEffect, useContext } from 'react';
 import MyVideoListContext from './context/my-video-list/myVideoListContext';
 import PageSelector from './PageSelector';
 import Navbar from './Navbar';
-import MyWatchList from './MyWatchList';
 import searchIcon from '../img/search-icon.svg';
 import popcorn from '../img/popcorn.svg';
 import VideoList from './VideoList';
-import Video from './Video';
 import '../css/home.scss';
 
 const Home = ({ history, location }) => {

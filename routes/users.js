@@ -61,11 +61,11 @@ router.post(
         payload,
         jwtSecret,
         {
-          expiresIn: 3600
+          expiresIn: 60
         },
-        (error, token) => {
+        (error, userToken) => {
           if (error) throw error;
-          else return res.status(200).json({ token });
+          else return res.status(200).json(userToken);
         }
       );
     } catch (error) {

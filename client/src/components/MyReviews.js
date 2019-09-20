@@ -1,37 +1,41 @@
 import React, { useState, useEffect, useContext } from 'react';
+import MyVideoListContext from './context/my-video-list/myVideoListContext';
 import WriteReview from './WriteReview';
-import InfoModal from './InfoModal';
 import AuthContext from './context/auth/authContext';
 import ReviewContext from './context/review/reviewContext';
 import Navbar from './Navbar';
 import MyReviewList from './MyReviewList';
 import searchIcon from '../img/search-icon.svg';
-import star from '../img/review-star.svg';
-import MyReviewItem from './MyReviewItem';
 import RemoveReviewModal from './RemoveReviewModal';
 import '../css/my-reviews.scss';
 
 const MyReviews = () => {
   const [myReviews, setMyReviews] = useState({});
-  const { token: userInfo } = useContext(AuthContext);
+  const { userToken, setTokenStatus } = useContext(AuthContext);
   const {
-    writeReviewModal: { review, response },
+    writeReviewModal: { review },
     deleteReviewModal
   } = useContext(ReviewContext);
 
+  const { infoModalMsg } = useContext(MyVideoListContext);
+
   const getMyReviews = async () => {
     const myReviewsResponse = await fetch('/api/reviews', {
-      headers: { 'x-auth-token': userInfo.token }
+      headers: { 'x-auth-token': userToken }
     });
+
+    const myReviewsPayload = await myReviewsResponse.json();
+
     if (myReviewsResponse.ok) {
-      const myReviewsPayload = await myReviewsResponse.json();
       setMyReviews(myReviewsPayload);
+    } else if (myReviewsPayload.hasOwnProperty('expiredToken')) {
+      setTokenStatus(myReviewsPayload.expiredToken, myReviewsPayload.msg, true);
     }
   };
 
   useEffect(() => {
-    if (userInfo) getMyReviews();
-  }, [response, deleteReviewModal.response]);
+    if (userToken) getMyReviews();
+  }, [infoModalMsg]);
 
   return (
     <div className="my-reviews-container">
@@ -59,10 +63,6 @@ const MyReviews = () => {
         <MyReviewList myReviews={myReviews} />
         {deleteReviewModal.review && <RemoveReviewModal />}
         {review && <WriteReview videoInfo={review} />}
-        {response && <InfoModal msg={response} />}
-        {deleteReviewModal.response && (
-          <InfoModal msg={deleteReviewModal.response} />
-        )}
       </div>
     </div>
   );

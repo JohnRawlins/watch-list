@@ -2,12 +2,12 @@ import React, { useReducer, useContext } from 'react';
 import reviewReducer from './reviewReducer';
 import ReviewContext from './reviewContext';
 import AuthContext from '../auth/authContext';
+import MyVideoListContext from '../my-video-list/myVideoListContext';
 
 const ReviewState = props => {
   const initialState = {
     writeReviewModal: {
       visible: false,
-      response: '',
       score: '',
       scoreDesc: '',
       edit: false,
@@ -15,7 +15,6 @@ const ReviewState = props => {
     },
     deleteReviewModal: {
       visible: false,
-      response: '',
       review: null
     },
     userReviews: []
@@ -23,7 +22,9 @@ const ReviewState = props => {
 
   const [state, dispatch] = useReducer(reviewReducer, initialState);
 
-  const { user, token: userToken } = useContext(AuthContext);
+  const { user, userToken } = useContext(AuthContext);
+
+  const { setInfoModalMsg } = useContext(MyVideoListContext);
 
   const getVideoReviews = async videoImdbID => {
     try {
@@ -36,7 +37,7 @@ const ReviewState = props => {
         payload: videoReviewsPayload
       });
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   };
 
@@ -49,6 +50,7 @@ const ReviewState = props => {
       dispatch({
         type: 'HIDE_WRITE_REVIEW_MODAL'
       });
+      setInfoModalMsg('');
     }
   };
 
@@ -62,6 +64,7 @@ const ReviewState = props => {
       dispatch({
         type: 'HIDE_EDIT_REVIEW_MODAL'
       });
+      setInfoModalMsg('');
     }
   };
 
@@ -70,7 +73,7 @@ const ReviewState = props => {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
-        'x-auth-token': userToken.token
+        'x-auth-token': userToken
       },
       body: JSON.stringify({ stars: review.stars, text: review.body })
     });
@@ -81,6 +84,7 @@ const ReviewState = props => {
       type: 'EDIT_REVIEW',
       payload: editReviewPayload
     });
+    setInfoModalMsg(editReviewPayload.msg);
   };
 
   const submitVideoReview = async review => {
@@ -91,7 +95,7 @@ const ReviewState = props => {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'x-auth-token': userToken.token
+          'x-auth-token': userToken
         },
         body: JSON.stringify(review)
       });
@@ -102,16 +106,18 @@ const ReviewState = props => {
         type: 'CREATE_REVIEW',
         payload: submitReviewPayload
       });
+
+      setInfoModalMsg(submitReviewPayload.msg);
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   };
 
   const deleteVideoReview = async reviewID => {
     try {
       const deleteReviewResponse = await fetch(`/api/reviews/${reviewID}`, {
-        method:"DELETE",
-        headers: { 'x-auth-token': userToken.token }
+        method: 'DELETE',
+        headers: { 'x-auth-token': userToken }
       });
 
       const deleteReviewPayload = await deleteReviewResponse.json();
@@ -120,8 +126,10 @@ const ReviewState = props => {
         type: 'DELETE_REVIEW',
         payload: deleteReviewPayload
       });
+
+      setInfoModalMsg(deleteReviewPayload.msg);
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   };
 
@@ -135,6 +143,8 @@ const ReviewState = props => {
       dispatch({
         type: 'CLEAR_DELETE_REVIEW_MODAL'
       });
+
+      setInfoModalMsg("");
     }
   };
 
@@ -142,6 +152,7 @@ const ReviewState = props => {
     dispatch({
       type: 'CLEAR_WRITE_REVIEW_RESPONSE'
     });
+    setInfoModalMsg('');
   };
 
   const setScoreAndDescription = score => {
@@ -174,6 +185,14 @@ const ReviewState = props => {
       payload: { score, scoreDesc }
     });
   };
+
+  const clearUsersReviewInfo = () => {
+    dispatch({
+      type: 'CLEAR_REVIEW_INFO'
+    });
+
+    setInfoModalMsg("");
+  };
   return (
     <ReviewContext.Provider
       value={{
@@ -188,7 +207,8 @@ const ReviewState = props => {
         clearWriteReviewResp,
         getVideoReviews,
         submitReviewEdit,
-        deleteVideoReview
+        deleteVideoReview,
+        clearUsersReviewInfo
       }}
     >
       {props.children}

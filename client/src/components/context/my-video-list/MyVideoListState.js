@@ -1,7 +1,7 @@
 import React, { useContext, useReducer } from 'react';
-import MyVideoListContext from './myVideoListContext';
 import AuthContext from '../auth/authContext';
 import myVideoListReducer from './myVideoListReducer';
+import MyVideoListContext from './myVideoListContext';
 
 const MyVideoListState = props => {
   const initialState = {
@@ -10,17 +10,16 @@ const MyVideoListState = props => {
     removeVideoItem: false,
     removeVideoModal: {
       visible: false,
-      response: '',
       videoTitle: '',
       videoID: '',
       videoImdbID: ''
     },
-    videoInfoModalMsg: ''
+    infoModalMsg: ''
   };
 
-  const { token } = useContext(AuthContext);
-
-  const userToken = token ? token.token : null;
+  const { userToken, isAuthenticated, setTokenStatus } = useContext(
+    AuthContext
+  );
 
   const [state, dispatch] = useReducer(myVideoListReducer, initialState);
 
@@ -36,15 +35,15 @@ const MyVideoListState = props => {
     }
   };
 
-  const clearVideoInfoModalMsg = () => {
+  const clearInfoModalMsg = () => {
     dispatch({
-      type: 'CLEAR_VIDEO_INFO_MODAL_MSG'
+      type: 'CLEAR_INFO_MODAL_MSG'
     });
   };
 
   const addVideoToWatchList = async video => {
     try {
-      if (userToken) {
+      if (isAuthenticated) {
         const addVideoResponse = await fetch('/api/videos', {
           method: 'POST',
           headers: {
@@ -56,10 +55,18 @@ const MyVideoListState = props => {
 
         const addVideoPayload = await addVideoResponse.json();
 
-        dispatch({
-          type: 'ADD_VIDEO',
-          payload: addVideoPayload
-        });
+        if (addVideoPayload.hasOwnProperty('expiredToken')) {
+          setTokenStatus(
+            addVideoPayload.expiredToken,
+            addVideoPayload.msg,
+            true
+          );
+        } else {
+          dispatch({
+            type: 'ADD_VIDEO',
+            payload: addVideoPayload
+          });
+        }
       } else {
         let guestWatchList = JSON.parse(localStorage.getItem('guestWatchList'));
         if (!guestWatchList) {
@@ -88,7 +95,7 @@ const MyVideoListState = props => {
         }
       }
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   };
 
@@ -112,7 +119,7 @@ const MyVideoListState = props => {
 
   const removeVideoFromWatchList = async (videoID, videoToRemoveImdbID) => {
     try {
-      if (userToken) {
+      if (isAuthenticated) {
         const removeVideoResponse = await fetch(`/api/videos/${videoID}`, {
           method: 'DELETE',
           headers: { 'x-auth-token': userToken }
@@ -145,7 +152,7 @@ const MyVideoListState = props => {
         });
       }
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   };
 
@@ -154,14 +161,20 @@ const MyVideoListState = props => {
       localStorage.getItem('guestWatchList')
     );
     try {
-      if (userToken) {
+      if (isAuthenticated) {
         const usersWatchListResponse = await fetch('api/videos', {
           headers: { 'x-auth-token': userToken }
         });
 
-        if (usersWatchListResponse.ok) {
-          const usersWatchListPayload = await usersWatchListResponse.json();
+        const usersWatchListPayload = await usersWatchListResponse.json();
 
+        if (usersWatchListPayload.hasOwnProperty('expiredToken')) {
+          setTokenStatus(
+            usersWatchListPayload.expiredToken,
+            usersWatchListPayload.msg,
+            true
+          );
+        } else if (usersWatchListResponse.ok) {
           dispatch({
             type: 'LOAD_WATCH_LIST',
             payload: usersWatchListPayload.videos
@@ -182,8 +195,21 @@ const MyVideoListState = props => {
         });
       }
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
+  };
+
+  const clearUsersVideoInfo = () => {
+    dispatch({
+      type: 'CLEAR_VIDEO_INFO'
+    });
+  };
+
+  const setInfoModalMsg = msg => {
+    dispatch({
+      type: 'SET_INFO_MODAL_MSG',
+      payload: msg
+    });
   };
 
   return (
@@ -194,12 +220,15 @@ const MyVideoListState = props => {
         removeVideoItem: state.removeVideoItem,
         videoInfoModalMsg: state.videoInfoModalMsg,
         removeVideoModal: state.removeVideoModal,
+        infoModalMsg: state.infoModalMsg,
         editVideoList,
-        clearVideoInfoModalMsg,
+        clearInfoModalMsg,
         loadUsersWatchList,
         addVideoToWatchList,
         removeVideoFromWatchList,
-        setRemoveVideoModal
+        setRemoveVideoModal,
+        clearUsersVideoInfo,
+        setInfoModalMsg
       }}
     >
       {props.children}

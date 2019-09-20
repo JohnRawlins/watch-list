@@ -9,7 +9,7 @@ import formValidator from '../hooks/formValidator';
 import AuthContext from './context/auth/authContext';
 
 const Register = ({ history }) => {
-  const { registerUser, registerErrors, isAuthenticated, user } = useContext(
+  const { registerUser, registerErrors, isAuthenticated, user, userToken, loadUser } = useContext(
     AuthContext
   );
   const {
@@ -27,7 +27,11 @@ const Register = ({ history }) => {
     if (isAuthenticated && user) {
       history.push('/');
     }
-  });
+
+    if (userToken && !isAuthenticated) {
+      loadUser(userToken);
+    }
+  }, [isAuthenticated,user]);
 
   const handleSubmit = event => {
     event.preventDefault();

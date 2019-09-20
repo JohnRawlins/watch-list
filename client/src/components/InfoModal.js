@@ -1,28 +1,46 @@
 import React, { useContext } from 'react';
-import '../css/remove-video-modal.scss';
+import { withRouter } from 'react-router-dom';
+import AuthContext from './context/auth/authContext';
 import MyVideoListContext from './context/my-video-list/myVideoListContext.js';
 import ReviewContext from './context/review/reviewContext';
+import '../css/remove-video-modal.scss';
 
-const InfoModal = ({ msg }) => {
-  const { setRemoveVideoModal, clearVideoInfoModalMsg } = useContext(
-    MyVideoListContext
-  );
+const InfoModal = ({ history }) => {
+  const {
+    setRemoveVideoModal,
+    clearInfoModalMsg,
+    clearUsersVideoInfo,
+    infoModalMsg
+  } = useContext(MyVideoListContext);
+  const { tokenStatus, setTokenStatus, logUserOut } = useContext(AuthContext);
 
-  const { clearWriteReviewResp, setDeleteReviewModal } = useContext(ReviewContext);
+  const {
+    clearWriteReviewResp,
+    setDeleteReviewModal,
+    clearUsersReviewInfo
+  } = useContext(ReviewContext);
 
   const handleSelection = event => {
-    if (event.target.textContent.toLowerCase() === 'ok') {
+    if (tokenStatus.error && event.target.textContent.toLowerCase() === 'ok') {
+      setTokenStatus(false, '', false);
+      logUserOut();
+      clearUsersVideoInfo();
+      clearUsersReviewInfo();
+      history.push('/login');
+    } else if (event.target.textContent.toLowerCase() === 'ok') {
       setRemoveVideoModal(false);
-      clearVideoInfoModalMsg();
+      clearInfoModalMsg();
       clearWriteReviewResp();
       setDeleteReviewModal(false);
     }
   };
 
-  return (
+  return infoModalMsg || tokenStatus.msg ? (
     <div className="info-modal">
       <div className="info-modal-message">
-        <p className="info-modal-message__text">{msg}</p>
+        <p className="info-modal-message__text">
+          {infoModalMsg || tokenStatus.msg}
+        </p>
         <div className="info-modal-btns">
           <button onClick={handleSelection} className="info-modal-btns__ok">
             ok
@@ -30,7 +48,7 @@ const InfoModal = ({ msg }) => {
         </div>
       </div>
     </div>
-  );
+  ) : null;
 };
 
-export default InfoModal;
+export default withRouter(InfoModal);

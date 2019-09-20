@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import SignIn from './SignIn';
 import Register from './Register';
@@ -9,15 +9,17 @@ import MyReviews from './MyReviews';
 import AuthState from './context/auth/AuthState';
 import MyVideoListState from './context/my-video-list/MyVideoListState';
 import ReviewState from './context/review/ReviewState';
+import InfoModal from './InfoModal';
 import '../css/app.scss';
 
-function App() {
+const App = () => {
   return (
     <div className="app">
       <AuthState>
         <MyVideoListState>
           <ReviewState>
             <BrowserRouter>
+              <InfoModal />
               <Switch>
                 <Route exact path="/" component={Home} />
                 <Route exact path="/login" component={SignIn} />
@@ -33,6 +35,6 @@ function App() {
       </AuthState>
     </div>
   );
-}
+};
 
 export default App;

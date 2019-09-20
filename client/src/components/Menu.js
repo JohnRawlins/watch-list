@@ -7,8 +7,9 @@ import exitIcon from '../img/exit-icon.svg';
 
 const Menu = () => {
   let { menuVisible, menuOpen, user } = useContext(AuthContext);
-  const menuPosition = menuOpen ? { transform: 'translatex(0%) scale(1)' } : {};
-  user = user ? user.username : 'Guest';
+  const menuPosition = menuOpen ? { transform: 'translatex(0%)' } : {};
+  const username = user ? user.username : 'Guest';
+  
 
   const handleMenuSelection = () => {
     menuVisible(false);
@@ -19,7 +20,7 @@ const Menu = () => {
       <div className="menu-header">
         <div className="user">
           <img className="user__icon" src={userIcon} alt="Profile Icon" />
-          <p className="user__name">{user}</p>
+          <p className="user__name">{username}</p>
         </div>
         <button
           className="menu-header__exit-btn"
@@ -33,14 +34,16 @@ const Menu = () => {
           <Link to="/my-watch-list">My Watch List</Link>
         </li>
         <li className="menu-option__item">
-          <Link to='/my-reviews'>My Reviews</Link>
+          <Link to="/my-reviews">My Reviews</Link>
         </li>
         <li className="menu-option__item">
           <Link to="/search">Search</Link>
         </li>
-        <li className="menu-option__item">
-          <Link to="/login">Sign In</Link>
-        </li>
+        {!user && (
+          <li className="menu-option__item">
+            <Link to="/login">Sign In</Link>
+          </li>
+        )}
         <li className="menu-option__item">
           <Link>Sign Out</Link>
         </li>

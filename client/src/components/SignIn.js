@@ -12,9 +12,14 @@ const SignIn = ({ history }) => {
     formFields: { username, password }
   } = useForm();
 
-  const { signInUser, signInErrors, isAuthenticated, user } = useContext(
-    AuthContext
-  );
+  const {
+    signInUser,
+    signInErrors,
+    isAuthenticated,
+    user,
+    userToken,
+    loadUser
+  } = useContext(AuthContext);
 
   const handleSignIn = event => {
     event.preventDefault();
@@ -25,7 +30,11 @@ const SignIn = ({ history }) => {
     if (isAuthenticated && user) {
       history.push('/');
     }
-  });
+
+    if (userToken && !isAuthenticated) {
+      loadUser(userToken);
+    }
+  }, [isAuthenticated, user]);
 
   return (
     <div className="signin">
@@ -66,7 +75,12 @@ const SignIn = ({ history }) => {
             onChange={updateFormFields}
           />
         </label>
-        <input className="signin-form__submit" type="submit" value="Sign In" disabled={!username.value || !password.value } />
+        <input
+          className="signin-form__submit"
+          type="submit"
+          value="Sign In"
+          disabled={!username.value || !password.value}
+        />
       </form>
 
       <div className="signin-links">

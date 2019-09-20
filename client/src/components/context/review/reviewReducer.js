@@ -16,7 +16,6 @@ export default (state, action) => {
         writeReviewModal: {
           ...state.writeReviewModal,
           visible: false,
-          response: '',
           score: '',
           scoreDesc: '',
           edit: false,
@@ -43,7 +42,6 @@ export default (state, action) => {
         writeReviewModal: {
           ...state.writeReviewModal,
           visible: false,
-          response: '',
           score: '',
           scoreDesc: '',
           edit: false,
@@ -58,7 +56,6 @@ export default (state, action) => {
         writeReviewModal: {
           ...state.writeReviewModal,
           visible: false,
-          response: '',
           score: '',
           scoreDesc: '',
           edit: false,
@@ -91,7 +88,6 @@ export default (state, action) => {
         writeReviewModal: {
           ...state.writeReviewModal,
           visible: false,
-          response: action.payload.msg,
           edit: false,
           review: null
         }
@@ -104,7 +100,6 @@ export default (state, action) => {
         writeReviewModal: {
           ...state.writeReviewModal,
           visible: false,
-          response: action.payload.msg,
           edit: false,
           review: null
         }
@@ -118,7 +113,6 @@ export default (state, action) => {
           ...state.deleteReviewModal,
           visible: false,
           review: null,
-          response: action.payload.msg
         }
       };
     }
@@ -141,8 +135,27 @@ export default (state, action) => {
           ...state.deleteReviewModal,
           visible: false,
           review: null,
-          response: ""
         }
+      };
+    }
+
+    case 'CLEAR_REVIEW_INFO': {
+      return {
+        ...state,
+        writeReviewModal: {
+          ...state.writeReviewModal,
+          visible: false,
+          score: '',
+          scoreDesc: '',
+          edit: false,
+          review: null
+        },
+        deleteReviewModal: {
+          ...state.deleteReviewModal,
+          visible: false,
+          review: null
+        },
+        userReviews: []
       };
     }
 

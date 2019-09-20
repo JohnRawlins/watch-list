@@ -3,17 +3,15 @@ export default (state, action) => {
     case 'LOAD_WATCH_LIST': {
       return {
         ...state,
-        error: '',
         usersWatchList: action.payload
       };
     }
 
-    case 'LOAD_WATCH_LIST_FAIL': {
-      return {
-        ...state,
-        error: 'Failed to load Watch List'
-      };
-    }
+    // case 'LOAD_WATCH_LIST_FAIL': {
+    //   return {
+    //     ...state,
+    //   };
+    // }
 
     case 'ENABLE_VIDEO_REMOVAL': {
       return {
@@ -34,16 +32,16 @@ export default (state, action) => {
         ...state,
         removeVideoModal: {
           ...state.removeVideoModal,
-          visible: false,
-          response: action.payload.msg
-        }
+          visible: false
+        },
+        infoModalMsg: action.payload.msg
       };
     }
 
     case 'ADD_VIDEO': {
       return {
         ...state,
-        videoInfoModalMsg: action.payload.msg
+        infoModalMsg: action.payload.msg
       };
     }
 
@@ -65,7 +63,6 @@ export default (state, action) => {
         ...state,
         removeVideoModal: {
           visible: false,
-          response: '',
           videoTitle: '',
           videoID: '',
           videoImdbID: ''
@@ -73,10 +70,34 @@ export default (state, action) => {
       };
     }
 
-    case 'CLEAR_VIDEO_INFO_MODAL_MSG': {
+    case 'SET_INFO_MODAL_MSG': {
       return {
         ...state,
-        videoInfoModalMsg: ''
+        infoModalMsg: action.payload
+      };
+    }
+
+    case 'CLEAR_INFO_MODAL_MSG': {
+      return {
+        ...state,
+        infoModalMsg: ''
+      };
+    }
+
+    case 'CLEAR_VIDEO_INFO': {
+      return {
+        ...state,
+        usersWatchList: [],
+        error: '',
+        removeVideoItem: false,
+        removeVideoModal: {
+          ...state.removeVideoModal,
+          visible: false,
+          videoTitle: '',
+          videoID: '',
+          videoImdbID: ''
+        },
+        infoModalMsg: ''
       };
     }
 

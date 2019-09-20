@@ -1,28 +1,29 @@
 import React, { useEffect, useContext } from 'react';
-import AuthContext from './context/auth/authContext.js';
 import MyVideoListContext from './context/my-video-list/myVideoListContext.js';
+import AuthContext from './context/auth/authContext';
 import Navbar from './Navbar';
 import VideoList from './VideoList';
 import RemoveVideoModal from './RemoveVideoModal';
 import InfoModal from './InfoModal';
 import '../css/info-modal.scss';
-import Video from './Video';
 import '../css/my-watch-list.scss';
-import defaultPoster from '../img/default-poster.svg';
 
-const MyWatchList = () => {
+const MyWatchList = ({ history }) => {
   const {
     loadUsersWatchList,
     usersWatchList,
     editVideoList,
-    removeVideoModal
+    removeVideoModal,
+    infoModalMsg
   } = useContext(MyVideoListContext);
+
+  const { tokenStatus, isAuthenticated } = useContext(AuthContext);
 
   useEffect(() => {
     editVideoList(true);
     loadUsersWatchList();
     //eslint-disable-next-line
-  }, [removeVideoModal.response]);
+  }, [infoModalMsg, isAuthenticated]);
 
   return (
     <div className="my-watch-list">
@@ -44,8 +45,8 @@ const MyWatchList = () => {
           videoItemsTotal={usersWatchList.length}
         />
         {removeVideoModal.visible && <RemoveVideoModal />}
-        {removeVideoModal.response && (
-          <InfoModal msg={removeVideoModal.response} />
+        {tokenStatus.expired && (
+          <InfoModal history={history} msg={tokenStatus.msg} />
         )}
       </div>
     </div>

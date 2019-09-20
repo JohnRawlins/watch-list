@@ -1,5 +1,4 @@
-import React, { useContext } from 'react';
-import WriteReview from './WriteReview';
+import React, { useContext } from 'react'
 import ReviewContext from './context/review/reviewContext';
 import reviewStar from '../img/review-star.svg';
 import '../css/my-review-item.scss';
@@ -10,7 +9,6 @@ const MyReviewItem = ({
 }) => {
   const {
     setEditReviewModal,
-    writeReviewModal,
     setDeleteReviewModal
   } = useContext(ReviewContext);
 

@@ -1,14 +1,19 @@
-import React, { useReducer } from 'react';
+import React, { useReducer, useContext, useEffect } from 'react';
 import AuthContext from './authContext';
 import authReducer from './authReducer';
 
 const AuthState = props => {
   const initialState = {
     user: null,
-    token: localStorage.getItem('userToken'),
+    userToken: localStorage.getItem('userToken'),
     registerErrors: [],
     signInErrors: [],
     isAuthenticated: false,
+    tokenStatus: {
+      expiredToken: false,
+      msg: '',
+      error:false
+    },
     menuOpen: false
   };
 
@@ -41,8 +46,8 @@ const AuthState = props => {
           type: 'SIGN_IN_SUCCESS',
           payload: responsePayload
         });
-
-        loadUser(responsePayload.token);
+        localStorage.setItem('userToken', responsePayload);
+        loadUser(responsePayload);
       } else {
         dispatch({
           type: 'SIGN_IN_FAIL',
@@ -50,15 +55,15 @@ const AuthState = props => {
         });
       }
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   };
 
-  const loadUser = async token => {
+  const loadUser = async userToken => {
     try {
       let response = await fetch('/api/auth', {
         headers: {
-          'x-auth-token': token
+          'x-auth-token': userToken
         }
       });
 
@@ -69,7 +74,17 @@ const AuthState = props => {
           type: 'LOAD_USER_SUCCESS',
           payload: responsePayload
         });
+      } else if (responsePayload.hasOwnProperty('expiredToken')) {
+        dispatch({
+          type: 'LOAD_USER_FAIL',
+          payload: responsePayload
+        });
       } else {
+        const responsePayload = {
+          expiredToken: false,
+          msg: 'Something went wrong. Please try again.',
+          error:true
+        };
         dispatch({
           type: 'LOAD_USER_FAIL',
           payload: responsePayload
@@ -93,9 +108,9 @@ const AuthState = props => {
       if (response.ok) {
         dispatch({
           type: 'REGISTER_SUCCESS',
-          payload: responsePayload.token
+          payload: responsePayload
         });
-        loadUser(responsePayload.token);
+        loadUser(responsePayload);
       } else {
         dispatch({
           type: 'REGISTER_FAIL',
@@ -107,19 +122,42 @@ const AuthState = props => {
     }
   };
 
+  const setTokenStatus = (status, msg, error) => {
+    const tokenStatus = { expiredToken: status, msg, error };
+    dispatch({
+      type: 'SET_TOKEN_STATUS',
+      payload: tokenStatus
+    });
+  };
+
+  const logUserOut = () => {
+    dispatch({
+      type: 'LOG_USER_OUT'
+    });
+  };
+
+  useEffect(() => {
+    if (state.userToken) {
+      loadUser(state.userToken);
+    }
+  }, [state.userToken]);
+
   return (
     <AuthContext.Provider
       value={{
         user: state.user,
-        token: state.token,
+        userToken: state.userToken,
         registerErrors: state.registerErrors,
         signInErrors: state.signInErrors,
         isAuthenticated: state.isAuthenticated,
         menuOpen: state.menuOpen,
+        tokenStatus: state.tokenStatus,
         registerUser,
         loadUser,
         signInUser,
-        menuVisible
+        menuVisible,
+        setTokenStatus,
+        logUserOut
       }}
     >
       {props.children}

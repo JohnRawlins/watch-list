@@ -1,7 +1,6 @@
 import React, { useEffect, useState, useContext } from 'react';
 import MyVideoListContext from './context/my-video-list/myVideoListContext';
 import ReviewContext from './context/review/reviewContext';
-import InfoModal from './InfoModal';
 import Navbar from './Navbar';
 import defaultPoster from '../img/default-poster.jpg';
 import WriteReview from './WriteReview';
@@ -10,15 +9,12 @@ import defaultScore from '../img/popcorn.svg';
 import reviewStar from '../img/review-star.svg';
 import freshScore from '../img/fresh-score.png';
 import rottenScore from '../img/rotten-score.png';
-import Review from './Review';
 import UserReviews from './UserReviews';
 
 const VideoProfile = ({ location }) => {
   const [video, setVideo] = useState({});
 
-  const { addVideoToWatchList, videoInfoModalMsg } = useContext(
-    MyVideoListContext
-  );
+  const { addVideoToWatchList, infoModalMsg } = useContext(MyVideoListContext);
 
   const {
     setWriteReviewModal,
@@ -54,7 +50,7 @@ const VideoProfile = ({ location }) => {
 
       setVideo({ ...videoProfilePayload });
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   };
 
@@ -62,16 +58,12 @@ const VideoProfile = ({ location }) => {
     getVideoProfile();
 
     //eslint-disable-next-line
-  }, [writeReviewModal.response]);
+  }, [infoModalMsg]);
 
   return (
     <div className="video-profile-container">
-      {videoInfoModalMsg && <InfoModal msg={videoInfoModalMsg} />}
       <Navbar />
       {writeReviewModal.visible && <WriteReview videoInfo={video} />}
-      {writeReviewModal.response && (
-        <InfoModal msg={writeReviewModal.response} />
-      )}
       <div className="video-profile">
         <section className="video-details">
           <img
