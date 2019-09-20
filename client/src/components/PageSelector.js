@@ -4,7 +4,11 @@ import '../css/page-selector.scss';
 import backArrow from '../img/back-arrow.svg';
 import nextArrow from '../img/next-arrow.svg';
 
-const PageSelector = ({ numberOfPages, parentComponentClickEvent, location }) => {
+const PageSelector = ({
+  numberOfPages,
+  parentComponentClickEvent,
+  location
+}) => {
   const [dropDownMenuVisible, setDropDownMenuVisible] = useState(false);
   const pages = [];
   const videoTitle = location.search.split('&')[0];
@@ -15,15 +19,13 @@ const PageSelector = ({ numberOfPages, parentComponentClickEvent, location }) =>
   const handleScrollToTop = () => {
     window.scrollTo({
       top: 100,
-      left: 100,
-      behavior: 'smooth'
+      left: 100
     });
   };
 
   const handlePageSelection = () => {
     setDropDownMenuVisible(prevState => !prevState);
   };
-
 
   if (location.search.split('&')[1]) {
     currentPage = Number(location.search.split('&')[1].replace('page=', ''));
@@ -59,7 +61,6 @@ const PageSelector = ({ numberOfPages, parentComponentClickEvent, location }) =>
     }
     //eslint-disable-next-line
   }, [parentComponentClickEvent]);
-
 
   return (
     <div id="pg-selector" className="page-selector">

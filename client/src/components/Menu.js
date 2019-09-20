@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import AuthContext from '../components/context/auth/authContext';
 import MyVideoListContext from './context/my-video-list/myVideoListContext';
 import MyReviewContext from './context/review/reviewContext';
@@ -23,6 +23,12 @@ const Menu = ({ history }) => {
     clearUsersVideoInfo();
     clearUsersReviewInfo();
   };
+
+  useEffect(() => {
+    if (menuOpen) {
+      menuVisible(false);
+    }
+  }, [history]);
 
   return (
     <div className="menu" style={menuPosition}>
