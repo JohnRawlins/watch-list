@@ -9,9 +9,15 @@ import formValidator from '../hooks/formValidator';
 import AuthContext from './context/auth/authContext';
 
 const Register = ({ history }) => {
-  const { registerUser, registerErrors, isAuthenticated, user, userToken, loadUser } = useContext(
-    AuthContext
-  );
+  const {
+    registerUser,
+    registerErrors,
+    isAuthenticated,
+    user,
+    userToken,
+    loadUser,
+    clearFormErrors
+  } = useContext(AuthContext);
   const {
     updateFormFields,
     formFields,
@@ -31,7 +37,9 @@ const Register = ({ history }) => {
     if (userToken && !isAuthenticated) {
       loadUser(userToken);
     }
-  }, [isAuthenticated,user]);
+
+    return () => clearFormErrors();
+  }, [isAuthenticated, user, formFields]);
 
   const handleSubmit = event => {
     event.preventDefault();

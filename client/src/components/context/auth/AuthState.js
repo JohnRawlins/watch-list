@@ -12,7 +12,7 @@ const AuthState = props => {
     tokenStatus: {
       expiredToken: false,
       msg: '',
-      error:false
+      error: false
     },
     menuOpen: false
   };
@@ -83,7 +83,7 @@ const AuthState = props => {
         const responsePayload = {
           expiredToken: false,
           msg: 'Something went wrong. Please try again.',
-          error:true
+          error: true
         };
         dispatch({
           type: 'LOAD_USER_FAIL',
@@ -136,6 +136,12 @@ const AuthState = props => {
     });
   };
 
+  const clearFormErrors = () => {
+    dispatch({
+      type: 'CLEAR_FORM_ERRORS'
+    });
+  };
+
   useEffect(() => {
     if (state.userToken) {
       loadUser(state.userToken);
@@ -157,7 +163,8 @@ const AuthState = props => {
         signInUser,
         menuVisible,
         setTokenStatus,
-        logUserOut
+        logUserOut,
+        clearFormErrors
       }}
     >
       {props.children}

@@ -83,8 +83,16 @@ export default (state, action) => {
           ...state.tokenStatus,
           expired: false,
           msg: '',
-          error:false
+          error: false
         }
+      };
+    }
+
+    case 'CLEAR_FORM_ERRORS': {
+      return {
+        ...state,
+        registerErrors: [],
+        signInErrors: []
       };
     }
 

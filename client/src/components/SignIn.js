@@ -9,7 +9,8 @@ import watchListLogo from '../img/watchlist-logo.svg';
 const SignIn = ({ history }) => {
   const {
     updateFormFields,
-    formFields: { username, password }
+    formFields: { username, password },
+    formFields
   } = useForm();
 
   const {
@@ -18,7 +19,8 @@ const SignIn = ({ history }) => {
     isAuthenticated,
     user,
     userToken,
-    loadUser
+    loadUser,
+    clearFormErrors
   } = useContext(AuthContext);
 
   const handleSignIn = event => {
@@ -34,7 +36,9 @@ const SignIn = ({ history }) => {
     if (userToken && !isAuthenticated) {
       loadUser(userToken);
     }
-  }, [isAuthenticated, user]);
+
+    return () => clearFormErrors();
+  }, [isAuthenticated, user, formFields]);
 
   return (
     <div className="signin">
