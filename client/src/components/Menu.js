@@ -1,18 +1,27 @@
 import React, { useContext } from 'react';
 import AuthContext from '../components/context/auth/authContext';
+import MyVideoListContext from './context/my-video-list/myVideoListContext';
+import MyReviewContext from './context/review/reviewContext';
 import '../css/menu.scss';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import userIcon from '../img/user-icon.svg';
 import exitIcon from '../img/exit-icon.svg';
 
-const Menu = () => {
-  let { menuVisible, menuOpen, user } = useContext(AuthContext);
+const Menu = ({ history }) => {
+  let { menuVisible, menuOpen, user, logUserOut } = useContext(AuthContext);
+  const { clearUsersVideoInfo } = useContext(MyVideoListContext);
+  const { clearUsersReviewInfo } = useContext(MyReviewContext);
   const menuPosition = menuOpen ? { transform: 'translatex(0%)' } : {};
   const username = user ? user.username : 'Guest';
-  
 
   const handleMenuSelection = () => {
     menuVisible(false);
+  };
+
+  const handleLogOut = () => {
+    logUserOut();
+    clearUsersVideoInfo();
+    clearUsersReviewInfo();
   };
 
   return (
@@ -30,26 +39,26 @@ const Menu = () => {
         </button>
       </div>
       <ul className="menu-option" onClick={handleMenuSelection}>
-        <li className="menu-option__item">
-          <Link to="/my-watch-list">My Watch List</Link>
-        </li>
-        <li className="menu-option__item">
-          <Link to="/my-reviews">My Reviews</Link>
-        </li>
-        <li className="menu-option__item">
-          <Link to="/search">Search</Link>
-        </li>
+        <Link to="/my-watch-list">
+          <li className="menu-option__item">My Watch List</li>
+        </Link>
+        <Link to="/my-reviews">
+          <li className="menu-option__item">My Reviews</li>
+        </Link>
+        <Link to="/search">
+          <li className="menu-option__item">Search</li>
+        </Link>
         {!user && (
-          <li className="menu-option__item">
-            <Link to="/login">Sign In</Link>
-          </li>
+          <Link to="/login">
+            <li className="menu-option__item">Sign In</li>
+          </Link>
         )}
-        <li className="menu-option__item">
-          <Link>Sign Out</Link>
-        </li>
+        <Link onClick={handleLogOut} to="/login">
+          <li className="menu-option__item">Sign Out</li>
+        </Link>
       </ul>
     </div>
   );
 };
 
-export default Menu;
+export default withRouter(Menu);

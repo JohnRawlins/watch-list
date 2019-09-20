@@ -21,7 +21,6 @@ $menu-primary-color: #2c385e;
 }
 
 .menu-option {
-  padding-left: 30px;
   list-style: none;
   font-size: 22px;
   font-weight: 700;
@@ -35,7 +34,8 @@ $menu-primary-color: #2c385e;
   }
 
   &__item {
-    margin-bottom: 60px;
+    margin-bottom: 20px;
+    padding: 20px;
   }
 }
 
@@ -43,7 +43,6 @@ $menu-primary-color: #2c385e;
   @extend %menu-flex-row;
   justify-content: space-between;
   padding: 15px 15px;
-  margin-bottom: 30px;
 
   &__exit-btn {
     background-color: transparent;
