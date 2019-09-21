@@ -48,9 +48,11 @@ const Menu = ({ history }) => {
         <Link to="/my-watch-list">
           <li className="menu-option__item">My Watch List</li>
         </Link>
-        <Link to="/my-reviews">
-          <li className="menu-option__item">My Reviews</li>
-        </Link>
+        {user && (
+          <Link to="/my-reviews">
+            <li className="menu-option__item">My Reviews</li>
+          </Link>
+        )}
         <Link to="/search">
           <li className="menu-option__item">Search</li>
         </Link>
@@ -59,9 +61,11 @@ const Menu = ({ history }) => {
             <li className="menu-option__item">Sign In</li>
           </Link>
         )}
-        <Link onClick={handleLogOut} to="/login">
-          <li className="menu-option__item">Sign Out</li>
-        </Link>
+        {user && (
+          <Link onClick={handleLogOut} to="/login">
+            <li className="menu-option__item">Sign Out</li>
+          </Link>
+        )}
       </ul>
     </div>
   );

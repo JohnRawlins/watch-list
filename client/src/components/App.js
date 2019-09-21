@@ -1,4 +1,5 @@
 import React from 'react';
+import PrivateRoute from './PrivateRoute';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import SignIn from './SignIn';
 import Register from './Register';
@@ -25,7 +26,7 @@ const App = () => {
                 <Route exact path="/login" component={SignIn} />
                 <Route exact path="/register" component={Register} />
                 <Route exact path="/my-watch-list" component={MyWatchList} />
-                <Route path="/my-reviews" component={MyReviews} />
+                <PrivateRoute path="/my-reviews" component={MyReviews} />
                 <Route path="/video-profile" component={VideoProfile} />
                 <Route path="/search" component={Home} />
               </Switch>
