@@ -18,14 +18,20 @@ module.exports = function(req, res, next) {
       return res.status(401).json({
         msg: 'Your session has expired. Please login to continue.',
         expiredToken: true,
-        error:true
+        error: true
+      });
+    } else if (error.name === 'JsonWebTokenError') {
+      return res.status(401).json({
+        msg: 'In order to continue, you must sign in.',
+        expiredToken: false,
+        error: true
       });
     } else
       return res.status(401).json({
         msg:
           'There was an error retrieving your account information. Please try signing in.',
         expiredToken: false,
-        error:true
+        error: true
       });
   }
 };

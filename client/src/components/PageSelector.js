@@ -17,10 +17,7 @@ const PageSelector = ({
   let nextPage = false;
 
   const handleScrollToTop = () => {
-    window.scrollTo({
-      top: 100,
-      left: 100
-    });
+    window.scrollTo(0, 0);
   };
 
   const handlePageSelection = () => {

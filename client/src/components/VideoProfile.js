@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useContext } from 'react';
 import MyVideoListContext from './context/my-video-list/myVideoListContext';
 import ReviewContext from './context/review/reviewContext';
+import AuthContext from './context/auth/authContext';
 import Navbar from './Navbar';
 import defaultPoster from '../img/default-poster.jpg';
 import WriteReview from './WriteReview';
@@ -56,7 +57,7 @@ const VideoProfile = ({ location }) => {
 
   useEffect(() => {
     getVideoProfile();
-
+    window.scrollTo(0,0);
     //eslint-disable-next-line
   }, [infoModalMsg]);
 

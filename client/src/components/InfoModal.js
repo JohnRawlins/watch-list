@@ -21,13 +21,14 @@ const InfoModal = ({ history }) => {
   } = useContext(ReviewContext);
 
   const handleSelection = event => {
-    if (tokenStatus.error && event.target.textContent.toLowerCase() === 'ok') {
+    if (tokenStatus.expiredToken && event.target.textContent.toLowerCase() === 'ok') {
       setTokenStatus(false, '', false);
       logUserOut();
       clearUsersVideoInfo();
       clearUsersReviewInfo();
       history.push('/login');
     } else if (event.target.textContent.toLowerCase() === 'ok') {
+      setTokenStatus(false, '', false);
       setRemoveVideoModal(false);
       clearInfoModalMsg();
       clearWriteReviewResp();
@@ -39,7 +40,7 @@ const InfoModal = ({ history }) => {
     <div className="info-modal">
       <div className="info-modal-message">
         <p className="info-modal-message__text">
-          {infoModalMsg || tokenStatus.msg}
+          {tokenStatus.msg|| infoModalMsg}
         </p>
         <div className="info-modal-btns">
           <button onClick={handleSelection} className="info-modal-btns__ok">

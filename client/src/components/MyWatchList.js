@@ -45,9 +45,6 @@ const MyWatchList = ({ history }) => {
           videoItemsTotal={usersWatchList.length}
         />
         {removeVideoModal.visible && <RemoveVideoModal />}
-        {tokenStatus.expired && (
-          <InfoModal history={history} msg={tokenStatus.msg} />
-        )}
       </div>
     </div>
   );

@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from 'react';
+import React, {useContext } from 'react';
 import { Link } from 'react-router-dom';
 import MyVideoListContext from './context/my-video-list/myVideoListContext';
 import '../css/video.scss';
@@ -16,9 +16,14 @@ const Video = ({
     ? { visibility: 'visible' }
     : { visibility: 'hidden' };
 
-  const userReviewScore = Number(video.userReviewScore);
+  let userReviewScore = video.userReviewScore;
 
-  const displayProperty = Number.isNaN(userReviewScore) ? { display: 'none' } : {};
+  if (userReviewScore) {
+    userReviewScore = Number(video.userReviewScore);
+  }
+
+  const displayProperty =
+    userReviewScore === undefined ? { display: 'none' } : {};
 
   return (
     <li className="video">
