@@ -1,4 +1,5 @@
 import React, { useContext, useEffect } from 'react';
+import ImageGallery from './ImageGallery';
 import useForm from '../hooks/useForm.js';
 import AuthContext from './context/auth/authContext.js';
 import { Link } from 'react-router-dom';
@@ -41,65 +42,68 @@ const SignIn = ({ history }) => {
   }, [isAuthenticated, user, formFields]);
 
   return (
-    <div className="signin-container">
-    <div className="signin">
-      <div className="signin-header">
-        <img
-          className="signin-header__logo"
-          src={watchListLogo}
-          alt="Smiling TV"
-        />
-        <h1 className="signin-header__title">Watch List</h1>
-      </div>
+    <div className="sign-in-container">
+      <div className="sign-in-layout">
+        <ImageGallery />
+        <div className="sign-in">
+          <div className="sign-in-header">
+            <img
+              className="sign-in-header__logo"
+              src={watchListLogo}
+              alt="Smiling TV"
+            />
+            <h1 className="sign-in-header__title">Watch List</h1>
+          </div>
 
-      <FormError formErrors={signInErrors} />
+          <FormError formErrors={signInErrors} />
 
-      <form className="signin-form" onSubmit={handleSignIn}>
-        <label className="signin-form-label">
-          <span className="signin-form-label__text">Username</span>
-          <input
-            className="signin-form__username"
-            type="text"
-            name="username"
-            value={username.value}
-            onChange={updateFormFields}
-            autoComplete="off"
-            autoCorrect="off"
-            autoCapitalize="off"
-            spellCheck="false"
-          />
-        </label>
+          <form className="sign-in-form" onSubmit={handleSignIn}>
+            <label className="sign-in-form-label">
+              <span className="sign-in-form-label__text">Username</span>
+              <input
+                className="sign-in-form__username"
+                type="text"
+                name="username"
+                value={username.value}
+                onChange={updateFormFields}
+                autoComplete="off"
+                autoCorrect="off"
+                autoCapitalize="off"
+                spellCheck="false"
+              />
+            </label>
 
-        <label className="signin-form-label">
-          <span className="signin-form-label__text">Password</span>
-          <input
-            className="signin-form__password"
-            type="password"
-            name="password"
-            value={password.value}
-            onChange={updateFormFields}
-          />
-        </label>
-        <input
-          className="signin-form__submit"
-          type="submit"
-          value="Sign In"
-          disabled={!username.value || !password.value}
-        />
-      </form>
+            <label className="sign-in-form-label">
+              <span className="sign-in-form-label__text">Password</span>
+              <input
+                className="sign-in-form__password"
+                type="password"
+                name="password"
+                value={password.value}
+                onChange={updateFormFields}
+              />
+            </label>
+            <input
+              className="sign-in-form__submit"
+              type="submit"
+              value="Sign In"
+              disabled={!username.value || !password.value}
+            />
+          </form>
 
-      <div className="signin-links">
-        <div className="signin-signup">
-          <p className="signin-signup__message">New To Watch List?</p>
-          <Link to="/register" className="signin-signup__link">
-            Sign Up Now
-          </Link>
+          <div className="sign-in-links">
+            <div className="sign-in-signup">
+              <p className="sign-in-signup__message">New To Watch List?</p>
+              <Link to="/register" className="sign-in-signup__link">
+                Sign Up Now
+              </Link>
+            </div>
+            <Link to="/" className="sign-in-links__guest">
+              Guest
+            </Link>
+          </div>
         </div>
-        <Link to="/" className="signin-links__guest">
-          Guest
-        </Link>
       </div>
-    </div>
     </div>
   );
 };
