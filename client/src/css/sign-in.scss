@@ -1,3 +1,18 @@
+$medium-width: 450px;
+$large-width: 880px;
+
+@mixin medium-display {
+  @media (min-width: $medium-width) {
+    @content;
+  }
+}
+
+@mixin large-display {
+  @media (min-width: $large-width) {
+    @content;
+  }
+}
+
 %signin-flex-row {
   display: flex;
 }
@@ -31,19 +46,18 @@
   font-weight: 400;
 }
 
+.signin-container {
+  @extend %signin-flex-column;
+  flex: 1;
+  width: 100%;
+}
+
 .signin {
   @extend %signin-flex-column, %signin-flex-center;
   width: 100%;
-  min-height: 100vh;
+  flex: 1;
   padding: 40px;
-  background: linear-gradient(
-      180deg,
-      rgba(44, 56, 94, 0.95) 0%,
-      rgba(51, 110, 107, 0.9) 100%
-    ),
-    url('../img/tv-background-1920w.jpg');
-  background-position: center;
-  background-size: cover;
+  background: #2c385e;
   color: white;
 }
 
@@ -80,7 +94,7 @@
     border: none;
     height: 55px;
     color: white;
-    background-color: #2c385e;
+    background-color: #336E6B;
     font-size: 18px;
   }
 
@@ -122,4 +136,22 @@
   &__message {
     @extend %signin-normal-font;
   }
+}
+
+@include medium-display {
+  .signin-container {
+    justify-content: center;
+    align-items: center;
+  }
+  .signin {
+    max-width: 350px;
+    flex: 0;
+    padding-top: 80px;
+    padding-bottom: 80px;
+  }
+}
+
+@include large-display{
+  
+
 }

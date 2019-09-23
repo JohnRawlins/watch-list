@@ -41,6 +41,7 @@ const SignIn = ({ history }) => {
   }, [isAuthenticated, user, formFields]);
 
   return (
+    <div className="signin-container">
     <div className="signin">
       <div className="signin-header">
         <img
@@ -98,6 +99,7 @@ const SignIn = ({ history }) => {
           Guest
         </Link>
       </div>
+    </div>
     </div>
   );
 };
