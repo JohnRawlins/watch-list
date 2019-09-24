@@ -155,7 +155,6 @@ $large-width: 880px;
   }
 
   .sign-in {
-    max-width: 350px;
     flex: 0;
     padding-top: 80px;
     padding-bottom: 80px;
@@ -165,15 +164,16 @@ $large-width: 880px;
 @include large-display {
   .sign-in-layout {
     display: flex;
-    flex-direction:row;
+    flex-direction: row;
     justify-content: center;
     height: 80vh;
-    flex:initial;
-    max-width:950px;
+    flex: initial;
+    max-width: 950px;
+    max-height: 800px;
   }
 
   .sign-in {
-    flex: 1;
+    flex: 1 1 50%;
   }
 
   .image-gallery {

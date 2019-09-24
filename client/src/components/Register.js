@@ -1,4 +1,5 @@
 import React, { useContext, useEffect } from 'react';
+import ImageGallery from './ImageGallery';
 import { Link } from 'react-router-dom';
 import watchListLogo from '../img/watchlist-logo.svg';
 import FieldError from './FieldError';
@@ -47,78 +48,89 @@ const Register = ({ history }) => {
   };
 
   return (
-    <div className="register">
-      <div className="register-header">
-        <img
-          className="register-header__logo"
-          src={watchListLogo}
-          alt="Smiling TV"
-        />
-        <h1 className="register-header__title">Watch List</h1>
-      </div>
-      <FormError formErrors={registerErrors} />
-      <form className="register-form" onSubmit={handleSubmit}>
-        <label className="register-form-label">
-          <span className="register-form-label__text">Username</span>
-          <input
-            className="register-form__username"
-            type="text"
-            name="username"
-            value={formFields.username.value}
-            onChange={updateFormFields}
-            autoComplete="off"
-            autoCorrect="off"
-            autoCapitalize="off"
-            spellCheck="false"
-            style={formFields.username.errors.length > 0 ? errorBorder : {}}
-          />
-          <FieldError fieldErrors={formFields.username.errors} />
-        </label>
-        <label className="register-form-label">
-          <span className="register-form-label__text">Password</span>
-          <input
-            className="register-form__password"
-            type="password"
-            name="password"
-            value={formFields.password.value}
-            onChange={updateFormFields}
-            style={formFields.password.errors.length > 0 ? errorBorder : {}}
-          />
-          <FieldError fieldErrors={formFields.password.errors} />
-        </label>
-        <label className="register-form-label">
-          <span className="register-form-label__text">Confirm Password</span>
-          <input
-            className="register-form__confirm-password"
-            type="password"
-            name="confirmPassword"
-            value={formFields.confirmPassword.value}
-            onChange={updateFormFields}
-            style={
-              formFields.confirmPassword.errors.length > 0 ? errorBorder : {}
-            }
-          />
-          <FieldError fieldErrors={formFields.confirmPassword.errors} />
-          <div className="register-password-errors" />
-        </label>
-        <input
-          className="register-form__submit"
-          type="submit"
-          value="Register"
-          disabled={submitDisabled}
-        />
-      </form>
+    <div className="register-container">
+      <div className="register-layout">
+        <ImageGallery />
+        <div className="register">
+          <div className="register-header">
+            <img
+              className="register-header__logo"
+              src={watchListLogo}
+              alt="Smiling TV"
+            />
+            <h1 className="register-header__title">Watch List</h1>
+          </div>
+          <FormError formErrors={registerErrors} />
+          <form className="register-form" onSubmit={handleSubmit}>
+            <label className="register-form-label">
+              <span className="register-form-label__text">Username</span>
+              <input
+                className="register-form__username"
+                type="text"
+                name="username"
+                value={formFields.username.value}
+                onChange={updateFormFields}
+                autoComplete="off"
+                autoCorrect="off"
+                autoCapitalize="off"
+                spellCheck="false"
+                style={formFields.username.errors.length > 0 ? errorBorder : {}}
+              />
+              <FieldError fieldErrors={formFields.username.errors} />
+            </label>
+            <label className="register-form-label">
+              <span className="register-form-label__text">Password</span>
+              <input
+                className="register-form__password"
+                type="password"
+                name="password"
+                value={formFields.password.value}
+                onChange={updateFormFields}
+                style={formFields.password.errors.length > 0 ? errorBorder : {}}
+              />
+              <FieldError fieldErrors={formFields.password.errors} />
+            </label>
+            <label className="register-form-label">
+              <span className="register-form-label__text">
+                Confirm Password
+              </span>
+              <input
+                className="register-form__confirm-password"
+                type="password"
+                name="confirmPassword"
+                value={formFields.confirmPassword.value}
+                onChange={updateFormFields}
+                style={
+                  formFields.confirmPassword.errors.length > 0
+                    ? errorBorder
+                    : {}
+                }
+              />
+              <FieldError fieldErrors={formFields.confirmPassword.errors} />
+              <div className="register-password-errors" />
+            </label>
+            <input
+              className="register-form__submit"
+              type="submit"
+              value="Register"
+              disabled={submitDisabled}
+            />
+          </form>
 
-      <div className="register-links">
-        <div className="register-signin">
-          <p className="register-signin__message">Already Have An Account?</p>
-          <Link to="/login" className="register-signin__link">
-            Sign In
-          </Link>
+          <div className="register-links">
+            <div className="register-signin">
+              <p className="register-signin__message">
+                Already Have An Account?
+              </p>
+              <Link to="/login" className="register-signin__link">
+                Sign In
+              </Link>
+            </div>
+            <Link to="/" className="register-links__guest">
+              Guest
+            </Link>
+          </div>
         </div>
-        <Link to="/" className="register-links__guest">
-          Guest
-        </Link>
       </div>
     </div>
   );
