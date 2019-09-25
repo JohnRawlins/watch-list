@@ -1,18 +1,37 @@
 import React from 'react';
+import '../css/image-gallery.scss';
+import galleryImage01 from '../img/gallery-image01.jpg';
+import galleryImage02 from '../img/gallery-image02.jpg';
+import galleryImage03 from '../img/gallery-image03.jpg';
+import galleryImage04 from '../img/gallery-image04.jpg';
 
 const ImageGallery = () => {
-    let images = [
-        <img className="image-gallery__img" src="https://images.unsplash.com/photo-1485846234645-a62644f84728?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1040&q=80" alt="Gallery"/>,
-        <img className="image-gallery__img" src="https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80" alt="Gallery" />,
-        <img className="image-gallery__img" src="https://images.unsplash.com/photo-1547130542-00f463cf8c0c?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=934&q=80" alt="Gallery" />,
-        <img className="image-gallery__img" src="https://images.unsplash.com/photo-1521967906867-14ec9d64bee8?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80" alt="Gallery" />
+  const images = [
+    <div
+      key="1"
+      className="image-gallery__img"
+      style={{ backgroundImage: `url(${galleryImage01})` }}
+    ></div>,
+    ,
+    <div
+      key="4"
+      className="image-gallery__img"
+      style={{ backgroundImage: `url(${galleryImage04})` }}
+    ></div>,
+    <div
+      key="3"
+      className="image-gallery__img"
+      style={{ backgroundImage: `url(${galleryImage03})` }}
+    ></div>,
 
-        
-        
-    ]
-  return <div className="image-gallery">
-      {images}
-      </div>;
+    ,
+    <div
+      key="2"
+      className="image-gallery__img"
+      style={{ backgroundImage: `url(${galleryImage02})` }}
+    ></div>
+  ];
+  return <div className="image-gallery">{images}</div>;
 };
 
 export default ImageGallery;

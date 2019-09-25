@@ -1,3 +1,18 @@
+$medium-width: 450px;
+$large-width: 880px;
+
+@mixin medium-display {
+  @media (min-width: $medium-width) {
+    @content;
+  }
+}
+
+@mixin large-display {
+  @media (min-width: $large-width) {
+    @content;
+  }
+}
+
 * {
   box-sizing: border-box;
   margin: 0;
@@ -25,3 +40,6 @@ button {
 a {
   text-decoration: none;
 }
+
+
+

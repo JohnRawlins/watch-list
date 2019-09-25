@@ -1,17 +1,4 @@
-$medium-width: 450px;
-$large-width: 880px;
-
-@mixin medium-display {
-  @media (min-width: $medium-width) {
-    @content;
-  }
-}
-
-@mixin large-display {
-  @media (min-width: $large-width) {
-    @content;
-  }
-}
+@import './app.scss';
 
 %sign-in-flex-row {
   display: flex;
@@ -50,10 +37,6 @@ $large-width: 880px;
   @extend %sign-in-flex-column;
   flex: 1;
   width: 100%;
-}
-
-.image-gallery {
-  display: none;
 }
 
 .sign-in-layout {
@@ -166,47 +149,19 @@ $large-width: 880px;
     display: flex;
     flex-direction: row;
     justify-content: center;
-    height: 80vh;
-    flex: initial;
+    flex: 0 1 auto;
     max-width: 950px;
-    max-height: 800px;
+    min-height: 695px;
+    max-height: 840px;
+    height: 90vh;
+    width: 90%;
+
+    .image-gallery {
+      display: grid;
+    }
   }
 
   .sign-in {
     flex: 1 1 50%;
-  }
-
-  .image-gallery {
-    display: grid;
-    height: 100%;
-    flex: 0 1 50%;
-    grid-template-columns: repeat(2, 1fr);
-    grid-template-rows: repeat(3, 1fr);
-    grid-gap: 5px;
-    margin-right: 5px;
-
-    &__img {
-      display: block;
-      height: 100%;
-      width: 100%;
-      object-fit: cover;
-    }
-
-    &__img:nth-child(1) {
-      grid-row: 1/2;
-      grid-column: 1/2;
-    }
-    &__img:nth-child(3) {
-      grid-row: 2/3;
-      grid-column: 1/2;
-    }
-    &__img:nth-child(2) {
-      grid-row: 3/4;
-      grid-column: 1/3;
-    }
-    &__img:nth-child(4) {
-      grid-row: 1/3;
-      grid-column: 2/3;
-    }
   }
 }
