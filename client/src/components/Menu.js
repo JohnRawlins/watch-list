@@ -39,7 +39,7 @@ const Menu = ({ history }) => {
         </div>
         <button
           className="menu-header__exit-btn"
-          onClick={() => menuVisible(false)}
+          onClick={handleMenuSelection}
         >
           <img className="menu-header__exit-icon" src={exitIcon} alt="Exit" />
         </button>

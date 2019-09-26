@@ -1,3 +1,5 @@
+@import './app.scss';
+
 %menu-flex-row {
   display: flex;
 }
@@ -68,5 +70,11 @@ $menu-primary-color: #2c385e;
 
   &__icon {
     margin-right: 10px;
+  }
+}
+
+@include large-display {
+  .menu-header {
+    padding: 15px 20px;
   }
 }

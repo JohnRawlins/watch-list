@@ -1,0 +1,16 @@
+@import './app.scss';
+
+.desktop-menu {
+  align-items: center;
+  list-style: none;
+  a {
+    color: white;
+    margin-right: 20px;
+    font-size: 18px;
+  }
+
+  a:last-child {
+    margin-right: 0;
+  }
+}
+

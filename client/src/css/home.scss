@@ -1,3 +1,5 @@
+@import './app.scss';
+
 %home-flex-row {
   display: flex;
 }
@@ -56,5 +58,16 @@
   &__img {
     width: 100px;
     margin-bottom: 25px;
+  }
+}
+
+@include medium-display {
+  .search-default {
+    &__img {
+      width: 120px;
+    }
+    &__message {
+      font-size: 18px;
+    }
   }
 }
