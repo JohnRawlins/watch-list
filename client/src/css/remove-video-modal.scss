@@ -53,7 +53,7 @@
 
 .modal-btns {
   @extend %remove-video-modal-flex-row;
-  justify-content: space-evenly;
+  justify-content: space-around;
   margin-bottom: 25px;
 
   &__no {
