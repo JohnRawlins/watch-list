@@ -9,7 +9,7 @@
 
 .form-error {
   @extend %field-error-flex-row;
-  border: 4px solid #dd2e44;
+  border-left: 8px solid #dd2e44;
   background: white;
   color: #dd2e44;
   padding: 15px;
