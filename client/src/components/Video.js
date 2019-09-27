@@ -5,7 +5,7 @@ import '../css/video.scss';
 import defaultPoster from '../img/default-poster.jpg';
 import reviewStar from '../img/review-star.svg';
 
-const Video = ({
+const Video = ({singleVideoStyle,
   info: { Title, Year, Poster, videoID, imdbID },
   info: video
 }) => {
@@ -26,7 +26,7 @@ const Video = ({
     userReviewScore === undefined ? { display: 'none' } : {};
 
   return (
-    <li className="video">
+    <li style={singleVideoStyle} className="video">
       <button
         onClick={() => setRemoveVideoModal(true, Title, videoID, imdbID)}
         style={removeIconVisibility}

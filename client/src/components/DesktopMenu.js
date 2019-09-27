@@ -6,7 +6,7 @@ import MyReviewContext from './context/review/reviewContext';
 import '../css/desktop-menu.scss';
 
 const DesktopMenu = () => {
-  const { menuVisible, user, logUserOut } = useContext(AuthContext);
+  const { user, logUserOut } = useContext(AuthContext);
   const { clearUsersVideoInfo } = useContext(MyVideoListContext);
   const { clearUsersReviewInfo } = useContext(MyReviewContext);
 

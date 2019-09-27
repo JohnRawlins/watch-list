@@ -18,6 +18,8 @@
   @extend %my-watch-list-flex-column;
   width: 100%;
   color: white;
+  flex: 1;
+  background: #2c385e;
 }
 
 .my-watch-list-header {
@@ -44,4 +46,12 @@
 .watch-list-videos {
   align-self: center;
   width: 90%;
+}
+
+@include medium-display {
+  .my-watch-list-header {
+    &__title {
+      font-size: 30px;
+    }
+  }
 }
