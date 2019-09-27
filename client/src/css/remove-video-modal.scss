@@ -31,6 +31,7 @@
 }
 
 .modal-message {
+  max-width: 450px;
   width: 90%;
   text-align: center;
   background: white;
@@ -52,16 +53,19 @@
 
 .modal-btns {
   @extend %remove-video-modal-flex-row;
-  justify-content: space-between;
+  justify-content: space-evenly;
   margin-bottom: 25px;
 
   &__no {
     @extend %remove-video-modal-btn;
-    background: #2c385e;
+    background: white;
+    color: #2c385e;
+    font-weight: 700;
+    border: 2px solid#2c385e;
   }
 
   &__yes {
     @extend %remove-video-modal-btn;
-    background: #dd584d;
+    background: #da0d27;
   }
 }

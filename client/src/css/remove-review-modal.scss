@@ -1,3 +1,5 @@
+@import './app.scss';
+
 %remove-review-modal-flex-row {
   display: flex;
 }
@@ -33,11 +35,13 @@
 .rm-review-modal-message {
   background: white;
   width: 90%;
+  max-width: 560px;
   padding: 45px 20px 15px 20px;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   text-transform: capitalize;
 
   &__text {
+    text-align: center;
     margin-bottom: 40px;
   }
 }
@@ -52,7 +56,7 @@
   }
 
   &__title {
-    text-align:center;
+    text-align: center;
     font-size: 20px;
     margin-bottom: 25px;
   }
@@ -71,16 +75,29 @@
 
 .rm-review-modal-btns {
   @extend %remove-review-modal-flex-row;
-  justify-content: space-between;
+  justify-content: space-evenly;
   margin-bottom: 25px;
 
   &__no {
     @extend %remove-review-modal-btn;
-    background: #2c385e;
+    background: white;
+    color: #2c385e;
+    font-weight: 700;
+    border: 2px solid#2c385e;
   }
 
   &__yes {
     @extend %remove-review-modal-btn;
-    background: #dd584d;
+    background: #da0d27;
+  }
+}
+
+@include medium-display {
+  .rm-review-score {
+    width: 70%;
+
+    .review-score-stars__star {
+      width: 25px;
+    }
   }
 }
