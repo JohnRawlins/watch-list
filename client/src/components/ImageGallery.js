@@ -23,8 +23,6 @@ const ImageGallery = () => {
       className="image-gallery__img"
       style={{ backgroundImage: `url(${galleryImage03})` }}
     ></div>,
-
-    ,
     <div
       key="2"
       className="image-gallery__img"

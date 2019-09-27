@@ -1,7 +1,6 @@
 import React, { useContext, useState, useEffect } from 'react';
 import ReviewContext from './context/review/reviewContext';
 import AuthContext from './context/auth/authContext';
-import MyVideoListContext from './context/my-video-list/myVideoListContext';
 import '../css/write-review.scss';
 import ReviewStars from './ReviewStars';
 

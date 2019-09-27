@@ -1,3 +1,5 @@
+@import './app.scss';
+
 %video-profile-flex-row {
   display: flex;
 }
@@ -11,11 +13,16 @@
   @extend %video-profile-flex-column;
   flex-grow: 1;
   color: white;
+  background-color: #2c385e;
+  width: 100%;
 }
 
 .video-profile {
   align-self: center;
-  width: 90%;
+  padding: 15px;
+  width: 100%;
+  max-width: 1920px;
+
   &__watch-list-btn {
     background-image: url('../img/add-to-watchlist.svg');
     background-size: 25px;
@@ -119,7 +126,7 @@
 .video-review-score-container {
   @extend %video-profile-flex-column;
   align-items: center;
-  margin-right:10px;
+  margin-right: 10px;
 }
 
 .video-review {
@@ -143,5 +150,12 @@
     background: #336e6b;
     border: none;
     margin-left: auto;
+  }
+}
+
+@include large-display {
+  .video-profile {
+    padding: 20px;
+    max-width: $max-content-width;
   }
 }

@@ -1,3 +1,5 @@
+@import './app.scss';
+
 %write-review-flex-row {
   display: flex;
 }
@@ -13,6 +15,8 @@
 }
 
 .write-review-modal {
+  display: flex;
+  flex-direction: column;
   position: fixed;
   z-index: 100;
   top: 0;
@@ -24,9 +28,11 @@
 }
 
 .write-review-container {
+  width: 100%;
+  max-width: 515px;
+  align-self: center;
   background: white;
   color: #2c385e;
-  width: 100%;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 }
 
@@ -118,5 +124,12 @@
     background: #2c385e;
     border: none;
     font-size: 18px;
+  }
+}
+
+@include medium-display {
+  .write-review-container {
+    margin-top: 50px;
+    width: 80%;
   }
 }

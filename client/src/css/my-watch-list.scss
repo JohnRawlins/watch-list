@@ -14,7 +14,7 @@
   align-items: center;
 }
 
-.my-watch-list {
+.my-watch-list-container {
   @extend %my-watch-list-flex-column;
   width: 100%;
   color: white;
@@ -22,12 +22,17 @@
   background: #2c385e;
 }
 
+.my-watch-list {
+  max-width: $max-content-width;
+  width: 90%;
+  align-self: center;
+}
+
 .my-watch-list-header {
   display: flex;
   justify-content: space-between;
-  align-self: center;
   margin-bottom: 20px;
-  width: 90%;
+  margin: auto;
 
   &__title {
     font-size: 24px;
@@ -44,8 +49,6 @@
 }
 
 .watch-list-videos {
-  align-self: center;
-  width: 90%;
 }
 
 @include medium-display {

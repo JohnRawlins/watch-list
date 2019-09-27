@@ -1,13 +1,14 @@
 $medium-width: 450px;
 $large-width: 880px;
+$max-content-width: 1920px;
 
-%flex-row{
-  display:flex;
+%flex-row {
+  display: flex;
 }
 
-%flex-col{
-  display:flex;
-  flex-direction:column;
+%flex-col {
+  display: flex;
+  flex-direction: column;
 }
 
 @mixin medium-display {
@@ -49,6 +50,3 @@ button {
 a {
   text-decoration: none;
 }
-
-
-

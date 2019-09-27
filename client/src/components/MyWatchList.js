@@ -26,25 +26,28 @@ const MyWatchList = ({ history }) => {
   }, [infoModalMsg, isAuthenticated]);
 
   return (
-    <div className="my-watch-list">
+    <div className="my-watch-list-container">
       <Navbar />
-      <header className="my-watch-list-header">
-        <h1 className="my-watch-list-header__title">My Watch List</h1>
-        <select className="my-watch-list-sort">
-          <option className="my-watch-list-sort__ascending">
-            Title A to Z
-          </option>
-          <option className="my-watch-list-sort__descending">
-            Title Z to A
-          </option>
-        </select>
-      </header>
-      <div className="watch-list-videos">
-        <VideoList
-          videoItems={usersWatchList}
-          videoItemsTotal={usersWatchList.length}
-        />
-        {removeVideoModal.visible && <RemoveVideoModal />}
+      <div className="my-watch-list">
+        <header className="my-watch-list-header">
+          <h1 className="my-watch-list-header__title">My Watch List</h1>
+          <select className="my-watch-list-sort">
+            <option className="my-watch-list-sort__ascending">
+              Title A to Z
+            </option>
+            <option className="my-watch-list-sort__descending">
+              Title Z to A
+            </option>
+          </select>
+        </header>
+
+        <div className="watch-list-videos">
+          <VideoList
+            videoItems={usersWatchList}
+            videoItemsTotal={usersWatchList.length}
+          />
+          {removeVideoModal.visible && <RemoveVideoModal />}
+        </div>
       </div>
     </div>
   );

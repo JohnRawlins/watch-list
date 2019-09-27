@@ -1,3 +1,5 @@
+@import './app.scss';
+
 %info-modal-flex-row {
   display: flex;
 }
@@ -32,6 +34,7 @@
 
 .info-modal-message {
   width: 90%;
+  max-width: 450px;
   text-align: center;
   background: white;
   color: #2c385e;
@@ -58,5 +61,11 @@
     @extend %info-modal-btn;
     text-transform: capitalize;
     background: #2c385e;
+  }
+}
+
+@include medium-display {
+  .info-modal-message {
+    width: 75%;
   }
 }
