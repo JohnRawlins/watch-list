@@ -81,23 +81,23 @@ const Home = ({ history, location }) => {
   return (
     <div className="home" onClick={handleHomeClickEvent}>
       <Navbar />
-      <form className="search" onSubmit={handleVideoSearch}>
-        <input
-          className="search__input"
-          type="text"
-          placeholder="Search"
-          onChange={handleSearchInput}
-          value={searchField}
-        />
-        <button className="search__btn" type="submit">
-          <img
-            className="search__btn-img"
-            src={searchIcon}
-            alt="Search Button"
-          />
-        </button>
-      </form>
       <div className="search-result">
+        <form className="search" onSubmit={handleVideoSearch}>
+          <input
+            className="search__input"
+            type="text"
+            placeholder="Search"
+            onChange={handleSearchInput}
+            value={searchField}
+          />
+          <button className="search__btn" type="submit">
+            <img
+              className="search__btn-img"
+              src={searchIcon}
+              alt="Search Button"
+            />
+          </button>
+        </form>
         {searchResults.Response ? (
           <>
             <VideoList
