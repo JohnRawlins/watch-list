@@ -21,7 +21,7 @@
   align-self: center;
   padding: 15px;
   width: 100%;
-  max-width: 1920px;
+  max-width: 1200px;
 
   &__watch-list-btn {
     background-image: url('../img/add-to-watchlist.svg');
@@ -153,9 +153,29 @@
   }
 }
 
+@include medium-display {
+  .video-profile {
+    &__watch-list-btn {
+      width: 162px;
+      font-size: 16px;
+    }
+  }
+  .video-details {
+    &__poster {
+      width: 170px;
+      height: auto;
+    }
+  }
+}
+
 @include large-display {
+  .video-details-general {
+    &__title {
+      font-size: 20px;
+    }
+  }
+
   .video-profile {
     padding: 20px;
-    max-width: $max-content-width;
   }
 }
