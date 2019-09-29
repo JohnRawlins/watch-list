@@ -24,8 +24,10 @@ const PageSelector = ({
     setDropDownMenuVisible(prevState => !prevState);
   };
 
-  if (location.search.split('&')[1]) {
-    currentPage = Number(location.search.split('&')[1].replace('page=', ''));
+  const pageNum = new URL(window.location.href).searchParams.get('page');
+
+  if (pageNum) {
+    currentPage = Number(pageNum);
   }
 
   prevPage = currentPage === 1 ? false : true;
