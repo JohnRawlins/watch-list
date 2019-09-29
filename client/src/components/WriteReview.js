@@ -17,6 +17,8 @@ const WriteReview = ({ videoInfo: { body: reviewText }, videoInfo }) => {
 
   const [reviewBody, setReviewBody] = useState(reviewText);
 
+  const disableStatus = !writeReviewModal.score || !reviewBody.trim() ? true : false;
+
   const handleReviewBody = event => {
     setReviewBody(event.target.value);
   };
@@ -77,6 +79,7 @@ const WriteReview = ({ videoInfo: { body: reviewText }, videoInfo }) => {
               <button
                 onClick={handleWriteReviewSubmit}
                 className="review-btns__submit"
+                disabled={disableStatus}
               >
                 Submit
               </button>

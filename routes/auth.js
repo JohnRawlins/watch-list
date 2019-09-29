@@ -73,7 +73,7 @@ router.post(
         payload,
         jwtSecret,
         {
-          expiresIn: 60
+          expiresIn: 3600
         },
         (error, userToken) => {
           if (error) throw error;
