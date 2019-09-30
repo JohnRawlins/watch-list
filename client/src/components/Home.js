@@ -49,7 +49,7 @@ const Home = ({ history, location }) => {
 
   const handleVideoSearch = event => {
     event.preventDefault();
-    if (searchField) {
+    if (searchField.trim()) {
       history.push(`/search?videoTitle=${searchField.trim()}`);
     }
   };
@@ -69,7 +69,11 @@ const Home = ({ history, location }) => {
 
   useEffect(() => {
     editVideoList(false);
-    if (location.search.length - 1 !== location.search.indexOf('=')) {
+    let videoTitle = new URL(window.location.href).searchParams.get(
+      'videoTitle'
+    );
+    videoTitle = videoTitle ? videoTitle.trim() : videoTitle;
+    if (videoTitle) {
       searchForVideo();
     } else {
       setSearchResults({ Search: [] });
