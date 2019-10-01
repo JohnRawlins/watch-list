@@ -1,0 +1,48 @@
+@import 'app.scss';
+
+.not-found-container {
+  @extend %flex-col;
+  background-color: $primary;
+  justify-content: center;
+  align-items: center;
+  flex: 1;
+  width: 100%;
+}
+
+.not-found {
+  @extend %flex-col;
+  align-items: center;
+  color: white;
+  padding: 20px;
+
+  &__icon {
+    width: 140px;
+    margin-bottom: 50px;
+  }
+
+  &__status-code {
+    font-size: 64px;
+    margin-bottom: 20px;
+  }
+
+  &__status {
+    font-size: 32px;
+    margin-bottom: 50px;
+  }
+
+  &__msg {
+    font-size: 14px;
+    margin-bottom: 50px;
+    text-align: center;
+  }
+
+  &__link {
+    background-color: $secondary;
+    padding: 10px 65px;
+    border-radius: 10px;
+  }
+
+  &__link:visited {
+    color: white;
+  }
+}

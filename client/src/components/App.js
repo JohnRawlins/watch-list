@@ -11,6 +11,7 @@ import AuthState from './context/auth/AuthState';
 import MyVideoListState from './context/my-video-list/MyVideoListState';
 import ReviewState from './context/review/ReviewState';
 import InfoModal from './InfoModal';
+import NotFound from './NotFound';
 import '../css/app.scss';
 
 const App = () => {
@@ -26,9 +27,10 @@ const App = () => {
                 <Route exact path="/login" component={SignIn} />
                 <Route exact path="/register" component={Register} />
                 <Route exact path="/my-watch-list" component={MyWatchList} />
-                <PrivateRoute path="/my-reviews" component={MyReviews} />
+                <PrivateRoute exact path="/my-reviews" component={MyReviews} />
                 <Route path="/video-profile" component={VideoProfile} />
                 <Route path="/search" component={Home} />
+                <Route component={NotFound} />
               </Switch>
             </BrowserRouter>
           </ReviewState>
