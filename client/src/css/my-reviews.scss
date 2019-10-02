@@ -15,12 +15,12 @@
 }
 
 .my-reviews-container {
-  flex:1;
+  flex: 1;
   width: 100%;
   color: white;
   display: flex;
   flex-direction: column;
-  background:$primary;
+  background: $primary;
 
   .search {
     display: flex;
@@ -47,7 +47,7 @@
 
 .my-reviews {
   width: 90%;
-  max-width:$max-content-width;
+  max-width: $max-content-width;
   align-self: center;
   display: flex;
   flex-direction: column;
@@ -65,9 +65,9 @@
 
 .my-reviews-sort {
   border-radius: 15px;
-  padding: 5px;
+  padding: 0px;
   background: white;
   color: #336e6b;
   font-weight: 700;
-  font-size: 15px;
+  font-size: 13px;
 }

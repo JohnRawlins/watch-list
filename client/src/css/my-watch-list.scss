@@ -41,13 +41,12 @@
 
 .my-watch-list-sort {
   border-radius: 15px;
-  padding: 5px;
+  padding: 0px;
   background: white;
   color: #336e6b;
   font-weight: 700;
-  font-size: 15px;
+  font-size: 13px;
 }
-
 
 @include medium-display {
   .my-watch-list-header {

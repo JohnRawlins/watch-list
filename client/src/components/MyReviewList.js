@@ -2,11 +2,12 @@ import React from 'react';
 import MyReviewItem from './MyReviewItem';
 import '../css/my-review-list.scss';
 
-const MyReviewList = ({ myReviews: { reviews } }) => {
+const MyReviewList = ({ myReviews }) => {
   let reviewList = [];
   let reviewListLength = 0;
-  if (reviews) {
-    reviewList = reviews.map(review => {
+
+  if (myReviews) {
+    reviewList = myReviews.map(review => {
       return <MyReviewItem key={review._id} reviewDetails={review} />;
     });
     reviewListLength = reviewList.length;

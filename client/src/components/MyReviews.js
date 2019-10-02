@@ -7,10 +7,11 @@ import Navbar from './Navbar';
 import MyReviewList from './MyReviewList';
 import searchIcon from '../img/search-icon.svg';
 import RemoveReviewModal from './RemoveReviewModal';
+import useSort from '../hooks/useSort';
 import '../css/my-reviews.scss';
 
 const MyReviews = () => {
-  const [myReviews, setMyReviews] = useState({});
+  const [myReviews, setMyReviews] = useState([]);
   const { userToken, setTokenStatus } = useContext(AuthContext);
   const {
     writeReviewModal: { review },
@@ -18,6 +19,10 @@ const MyReviews = () => {
   } = useContext(ReviewContext);
 
   const { infoModalMsg } = useContext(MyVideoListContext);
+
+  const { setList, sortedList } = useSort();
+
+  const [sortBy, setSortBy] = useState([]);
 
   const getMyReviews = async () => {
     const myReviewsResponse = await fetch('/api/reviews', {
@@ -33,9 +38,18 @@ const MyReviews = () => {
     }
   };
 
+  const handleListSort = event => {
+    const sortOrderAndProp = event.target.value.split('/');
+    setSortBy(sortOrderAndProp);
+  };
+
   useEffect(() => {
     if (userToken) getMyReviews();
   }, [infoModalMsg]);
+
+  useEffect(() => {
+    setList(myReviews, sortBy);
+  }, [myReviews, sortBy]);
 
   return (
     <div className="my-reviews-container">
@@ -43,10 +57,29 @@ const MyReviews = () => {
       <div className="my-reviews">
         <header className="my-reviews-header">
           <h1 className="my-reviews-header__title">My Reviews</h1>
-          <select className="my-reviews-sort">
-            <option className="my-reviews-sort__ascending">Title A to Z</option>
-            <option className="my-reviews-sort__descending">
+          <select onChange={handleListSort} className="my-reviews-sort">
+            <option className="my-reviews-sort__option">Sort By</option>
+
+            <option className="my-reviews-sort__option" value="asc/stars">
+              Rating Low to High
+            </option>
+
+            <option className="my-reviews-sort__option" value="desc/stars">
+              Rating Hight to Low
+            </option>
+            <option className="my-reviews-sort__option" value="asc/videoTitle">
+              Title A to Z
+            </option>
+            <option className="my-reviews-sort__option" value="desc/videoTitle">
               Title Z to A
+            </option>
+
+            <option className="my-reviews-sort__option" value="asc/date">
+              Oldest
+            </option>
+
+            <option className="my-reviews-sort__option" value="desc/date">
+              Most Recent
             </option>
           </select>
         </header>
@@ -60,7 +93,7 @@ const MyReviews = () => {
             />
           </button>
         </form>
-        <MyReviewList myReviews={myReviews} />
+        <MyReviewList myReviews={sortedList} />
         {deleteReviewModal.review && <RemoveReviewModal />}
         {review && <WriteReview videoInfo={review} />}
       </div>

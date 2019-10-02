@@ -21,27 +21,11 @@ const MyWatchList = () => {
 
   const { sortedList, setList } = useSort(usersWatchList);
 
-  const [sortBy, setSortBy] = useState(['oldest', 'Title']);
+  const [sortBy, setSortBy] = useState([]);
 
   const handleListSort = event => {
     const sortOrderAndProp = event.target.value.split('/');
-    const order = sortOrderAndProp[0];
-
-    switch (order) {
-      case 'asc': {
-        setSortBy(sortOrderAndProp);
-        return;
-      }
-
-      case 'desc': {
-        setSortBy(sortOrderAndProp);
-        return;
-      }
-
-      case 'oldest': {
-        setSortBy(sortOrderAndProp);
-      }
-    }
+    setSortBy(sortOrderAndProp);
   };
 
   useEffect(() => {
@@ -61,18 +45,13 @@ const MyWatchList = () => {
         <header className="my-watch-list-header">
           <h1 className="my-watch-list-header__title">My Watch List</h1>
           <select onChange={handleListSort} className="my-watch-list-sort">
-            <option className="my-watch-list-sort__sort-by">Sort By</option>
-            <option className="my-watch-list-sort__ascending" value="asc/Title">
+            <option className="my-watch-list-sort__option">Sort By</option>
+
+            <option className="my-watch-list-sort__option" value="asc/Title">
               Title A to Z
             </option>
-            <option
-              className="my-watch-list-sort__descending"
-              value="desc/Title"
-            >
+            <option className="my-watch-list-sort__option" value="desc/Title">
               Title Z to A
-            </option>
-            <option className="my-watch-list-sort__most-recent" value="oldest">
-              Oldest
             </option>
           </select>
         </header>
