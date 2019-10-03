@@ -1,3 +1,4 @@
+require('dotenv-extended').load();
 const mongoose = require('mongoose');
 const connectionString = process.env.MONGODB_URI || process.env.MONGO_URI;
 
