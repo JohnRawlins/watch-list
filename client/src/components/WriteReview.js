@@ -17,7 +17,7 @@ const WriteReview = ({ videoInfo: { body: reviewText }, videoInfo }) => {
 
   const [reviewBody, setReviewBody] = useState(reviewText);
 
-  const disableStatus = !writeReviewModal.score || !reviewBody.trim() ? true : false;
+  const [submitDisableStatus, setSubmitDisableStatus] = useState(true);
 
   const handleReviewBody = event => {
     setReviewBody(event.target.value);
@@ -43,6 +43,16 @@ const WriteReview = ({ videoInfo: { body: reviewText }, videoInfo }) => {
   useEffect(() => {
     loadUser(userToken);
   }, []);
+
+  useEffect(() => {
+    if (reviewBody) {
+      !writeReviewModal.score || !reviewBody.trim()
+        ? setSubmitDisableStatus(true)
+        : setSubmitDisableStatus(false);
+    } else {
+      setSubmitDisableStatus(true);
+    }
+  }, [writeReviewModal.score, reviewBody]);
 
   return (
     user && (
@@ -79,7 +89,7 @@ const WriteReview = ({ videoInfo: { body: reviewText }, videoInfo }) => {
               <button
                 onClick={handleWriteReviewSubmit}
                 className="review-btns__submit"
-                disabled={disableStatus}
+                disabled={submitDisableStatus}
               >
                 Submit
               </button>
