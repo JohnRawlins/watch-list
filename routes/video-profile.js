@@ -1,8 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const axios = require('axios');
-require('dotenv').config();
-const apiKey = process.env.REACT_APP_OMDB_API_KEY;
+const apiKey = process.env.OMDB_API_KEY;
 
 // @route     GET api/video-profile
 // @desc      Retrieve profile for video

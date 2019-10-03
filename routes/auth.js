@@ -4,8 +4,7 @@ const { check, validationResult } = require('express-validator');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const auth = require('../middleware/auth');
-require('dotenv').config();
-const jwtSecret = process.env.REACT_APP_JWT_SECRET;
+const jwtSecret = process.env.JWT_SECRET;
 
 const User = require('../models/User');
 

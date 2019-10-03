@@ -3,6 +3,7 @@ const app = express();
 const path = require('path');
 const PORT = process.env.PORT || 5000;
 const connectToDB = require('./config/db');
+require('dotenv-extended').load();
 
 connectToDB();
 
