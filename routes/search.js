@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const axios = require('axios');
 const apiKey = process.env.OMDB_API_KEY;
+const PORT = process.env.PORT || 5000;
 
 // @route     GET api/search
 // @desc      Search for movie or show using 3rd party API
@@ -22,7 +23,7 @@ router.get('/', async (req, res) => {
       let videoSearchResults = omdbSearchResponse.data.Search.map(
         async video => {
           const videoReviewResponse = await axios.get(
-            `http://localhost:3000/api/reviews/${video.imdbID}`
+            `http://localhost:${PORT}/api/reviews/${video.imdbID}`
           );
           return {
             ...video,
