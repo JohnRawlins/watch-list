@@ -14,8 +14,8 @@ const NotFound = () => {
           The page you are looking for doesn't exist or an other error has
           occurred
         </p>
-        <Link className="not-found__link" to="/login">
-          Sign In
+        <Link className="not-found__link" to="/">
+          Home
         </Link>
       </div>
     </div>
