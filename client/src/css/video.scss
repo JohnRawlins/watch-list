@@ -1,3 +1,5 @@
+@import './app.scss';
+
 %video-flex-row {
   display: flex;
 }
@@ -36,6 +38,7 @@
   border-radius: 15px 15px 0px 0px;
 
   &__img {
+    background-color: $plc-holder;
     object-fit: cover;
     width: 100%;
     height: 240px;
