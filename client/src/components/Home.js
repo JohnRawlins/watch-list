@@ -16,9 +16,11 @@ const Home = ({ history, location }) => {
   });
   const [numberOfPages, setNumberOfPages] = useState(0);
   const [homeClickEvent, setHomeClickEvent] = useState(null);
+  const [isLoading, setLoading] = useState(false);
 
   const searchForVideo = async () => {
     try {
+      setLoading(true);
       const omdbResponse = await fetch(`/api/search${location.search}`);
       const omdbResponsePayload = await omdbResponse.json();
       if (omdbResponsePayload.hasOwnProperty('Search')) {
@@ -27,6 +29,7 @@ const Home = ({ history, location }) => {
       } else {
         setSearchResults({ Search: [], noResultsFound: true });
       }
+      setLoading(false);
     } catch (error) {
       console.error(error);
     }
@@ -107,6 +110,7 @@ const Home = ({ history, location }) => {
             <VideoList
               videoItems={searchResults.Search}
               videoItemsTotal={searchResults.totalResults}
+              isLoading={isLoading}
             />
             <PageSelector
               parentComponentClickEvent={homeClickEvent}

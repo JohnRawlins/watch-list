@@ -1,0 +1,26 @@
+@import './app.scss';
+
+.video-list-plc-hldr {
+  @extend %fadeInAndOut;
+  :nth-child(2) {
+    height: 15px;
+    width: 80%;
+    margin: 0px 0px 10px 0px;
+    background: $plc-holder;
+  }
+
+  :nth-child(3) {
+    height: 15px;
+    width: 50%;
+    margin: 0px 0px 10px 0px;
+    background: $plc-holder;
+  }
+}
+
+.video-list-plc-hldr-poster {
+  @extend %flex-col;
+  border-radius: 15px;
+  height: 240px;
+  margin-bottom: 10px;
+  background: $plc-holder;
+}

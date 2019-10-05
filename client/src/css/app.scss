@@ -5,6 +5,23 @@ $primary: #2c385e;
 $secondary: #336e6b;
 $plc-holder: #464f6d;
 
+@keyframes fadeInAndOut {
+  from {
+    opacity: 0.5;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+%fadeInAndOut {
+  animation-name: fadeInAndOut;
+  animation-duration: 1s;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+}
+
 %flex-row {
   display: flex;
 }

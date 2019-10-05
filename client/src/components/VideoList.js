@@ -1,8 +1,9 @@
 import React from 'react';
 import Video from './Video';
 import '../css/video-list.scss';
+import VideoListPlaceHolder from './VideoListPlaceholder';
 
-const VideoList = ({ videoItems, videoItemsTotal }) => {
+const VideoList = ({ isLoading, videoItems, videoItemsTotal }) => {
   videoItems = videoItems.map((video, index) => {
     return (
       <Video
@@ -25,7 +26,9 @@ const VideoList = ({ videoItems, videoItemsTotal }) => {
         Results:
         <span className="search-total__num">{videoItemsTotal}</span>
       </p>
-      <ul className="video-list">{videoItems}</ul>
+      <ul className="video-list">
+        {isLoading ? <VideoListPlaceHolder /> : videoItems}
+      </ul>
     </>
   );
 };
