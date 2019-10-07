@@ -9,6 +9,7 @@
   grid-template-columns: repeat(2, 1fr);
   grid-template-rows: repeat(3, 1fr);
   gap: 5px;
+  grid-gap:5px;
   margin-right: 5px;
 
   &__img {
