@@ -34,21 +34,20 @@
   flex: 1;
 }
 
-.watch-list-default{
+.watch-list-default {
   @extend %my-watch-list-flex-column;
-  justify-content:center;
-  align-items:center;
-  flex:1;
+  justify-content: center;
+  align-items: center;
+  flex: 1;
 
-  &__icon{
-    width:120px;
-    margin-bottom:30px;
+  &__icon {
+    width: 95px;
+    margin-bottom: 40px;
   }
 
-  &__text{
-    text-align:center;
+  &__text {
+    text-align: center;
   }
-  
 }
 
 .my-watch-list-header {
@@ -74,6 +73,13 @@
   .my-watch-list-header {
     &__title {
       font-size: 30px;
+    }
+  }
+
+  .watch-list-default {
+    &__icon {
+      width: 120px;
+      margin-bottom: 50px;
     }
   }
 }
