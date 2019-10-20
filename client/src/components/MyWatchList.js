@@ -5,6 +5,7 @@ import Navbar from './Navbar';
 import VideoList from './VideoList';
 import RemoveVideoModal from './RemoveVideoModal';
 import useSort from '../hooks/useSort';
+import defaultWatchListIcon from '../img/default-watch-list.svg';
 import '../css/info-modal.scss';
 import '../css/my-watch-list.scss';
 
@@ -27,6 +28,20 @@ const MyWatchList = () => {
     const sortOrderAndProp = event.target.value.split('/');
     setSortBy(sortOrderAndProp);
   };
+
+  const defaultWatchList = (
+    <div className="watch-list-default">
+      <img
+        className="watch-list-default__icon"
+        src={defaultWatchListIcon}
+        alt="Empty Watch List"
+      />
+      <span className="watch-list-default__text">
+        Your Watch List is empty. Use the search feature to add videos to your
+        Watch List.
+      </span>
+    </div>
+  );
 
   useEffect(() => {
     editVideoList(true);
@@ -55,14 +70,18 @@ const MyWatchList = () => {
             </option>
           </select>
         </header>
+        {sortedList.length < 1 ? (
+          defaultWatchList
+        ) : (
+          <div className="watch-list-videos">
+            <VideoList
+              videoItems={sortedList}
+              videoItemsTotal={sortedList.length}
+            />
 
-        <div className="watch-list-videos">
-          <VideoList
-            videoItems={sortedList}
-            videoItemsTotal={sortedList.length}
-          />
-          {removeVideoModal.visible && <RemoveVideoModal />}
-        </div>
+            {removeVideoModal.visible && <RemoveVideoModal />}
+          </div>
+        )}
       </div>
     </div>
   );

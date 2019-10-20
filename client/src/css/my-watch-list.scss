@@ -23,16 +23,38 @@
 }
 
 .my-watch-list {
+  @extend %my-watch-list-flex-column;
   max-width: $max-content-width;
   width: 90%;
   align-self: center;
+  flex: 1;
+}
+
+.watch-list-videos {
+  flex: 1;
+}
+
+.watch-list-default{
+  @extend %my-watch-list-flex-column;
+  justify-content:center;
+  align-items:center;
+  flex:1;
+
+  &__icon{
+    width:120px;
+    margin-bottom:30px;
+  }
+
+  &__text{
+    text-align:center;
+  }
+  
 }
 
 .my-watch-list-header {
   display: flex;
   justify-content: space-between;
   margin-bottom: 20px;
-  margin: auto;
 
   &__title {
     font-size: 24px;
