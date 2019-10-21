@@ -9,6 +9,7 @@ import searchIcon from '../img/search-icon.svg';
 import RemoveReviewModal from './RemoveReviewModal';
 import useSort from '../hooks/useSort';
 import '../css/my-reviews.scss';
+import defaultMyReviewsIcon from '../img/default-my-reviews.svg';
 
 const MyReviews = () => {
   const [myReviews, setMyReviews] = useState([]);
@@ -23,6 +24,19 @@ const MyReviews = () => {
   const { setList, sortedList } = useSort();
 
   const [sortBy, setSortBy] = useState([]);
+
+  const defaultMyReviews = (
+    <div className="default-my-reviews">
+      <img
+        className="default-my-reviews__icon"
+        src={defaultMyReviewsIcon}
+        alt=""
+      />
+      <span className="default-my-reviews__text">
+        You haven't reviewed any movies or shows.
+      </span>
+    </div>
+  );
 
   const getMyReviews = async () => {
     const myReviewsResponse = await fetch('/api/reviews', {
@@ -93,9 +107,15 @@ const MyReviews = () => {
             />
           </button>
         </form>
-        <MyReviewList myReviews={sortedList} />
-        {deleteReviewModal.review && <RemoveReviewModal />}
-        {review && <WriteReview videoInfo={review} />}
+        {sortedList.length < 1 ? (
+          defaultMyReviews
+        ) : (
+          <>
+            <MyReviewList myReviews={sortedList} />
+            {deleteReviewModal.review && <RemoveReviewModal />}
+            {review && <WriteReview videoInfo={review} />}
+          </>
+        )}
       </div>
     </div>
   );

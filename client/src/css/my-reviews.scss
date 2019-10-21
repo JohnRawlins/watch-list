@@ -46,11 +46,11 @@
 }
 
 .my-reviews {
+  @extend %my-reviews-flex-column;
   width: 90%;
   max-width: $max-content-width;
   align-self: center;
-  display: flex;
-  flex-direction: column;
+  flex: 1;
 }
 
 .my-reviews-header {
@@ -70,4 +70,27 @@
   color: #336e6b;
   font-weight: 700;
   font-size: 13px;
+}
+
+.default-my-reviews {
+  @extend %my-reviews-flex-column, %my-reviews-flex-center;
+  flex: 1;
+
+  &__icon {
+    width: 95px;
+    margin-bottom: 40px;
+  }
+
+  &__text {
+    text-align: center;
+  }
+}
+
+@include medium-display {
+  .default-my-reviews {
+    &__icon {
+      width: 120px;
+      margin-bottom: 50px;
+    }
+  }
 }
