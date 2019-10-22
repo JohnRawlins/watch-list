@@ -14,7 +14,8 @@ const MyVideoListState = props => {
       videoID: '',
       videoImdbID: ''
     },
-    infoModalMsg: ''
+    infoModalMsg: '',
+    watchListLoading: false
   };
 
   const { userToken, isAuthenticated, setTokenStatus } = useContext(
@@ -22,6 +23,14 @@ const MyVideoListState = props => {
   );
 
   const [state, dispatch] = useReducer(myVideoListReducer, initialState);
+
+  const setWatchListLoading = status => {
+    if (status === true) {
+      dispatch({
+        type: 'LOADING_WATCHLIST'
+      });
+    }
+  };
 
   const editVideoList = option => {
     if (option) {
@@ -157,6 +166,8 @@ const MyVideoListState = props => {
   };
 
   const loadUsersWatchList = async () => {
+    setWatchListLoading(true);
+
     const guestUsersWatchList = JSON.parse(
       localStorage.getItem('guestWatchList')
     );
@@ -221,6 +232,7 @@ const MyVideoListState = props => {
         videoInfoModalMsg: state.videoInfoModalMsg,
         removeVideoModal: state.removeVideoModal,
         infoModalMsg: state.infoModalMsg,
+        watchListLoading: state.watchListLoading,
         editVideoList,
         clearInfoModalMsg,
         loadUsersWatchList,

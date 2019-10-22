@@ -3,10 +3,17 @@ export default (state, action) => {
     case 'LOAD_WATCH_LIST': {
       return {
         ...state,
-        usersWatchList: action.payload
+        usersWatchList: action.payload,
+        watchListLoading: false
       };
     }
 
+    case 'LOADING_WATCHLIST': {
+      return {
+        ...state,
+        watchListLoading: true
+      };
+    }
     // case 'LOAD_WATCH_LIST_FAIL': {
     //   return {
     //     ...state,

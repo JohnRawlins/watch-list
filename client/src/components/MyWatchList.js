@@ -15,7 +15,8 @@ const MyWatchList = () => {
     usersWatchList,
     editVideoList,
     removeVideoModal,
-    infoModalMsg
+    infoModalMsg,
+    watchListLoading
   } = useContext(MyVideoListContext);
 
   const { isAuthenticated } = useContext(AuthContext);
@@ -53,6 +54,8 @@ const MyWatchList = () => {
     setList(usersWatchList, sortBy);
   }, [usersWatchList, sortBy]);
 
+  console.log(watchListLoading);
+
   return (
     <div className="my-watch-list-container">
       <Navbar />
@@ -70,13 +73,14 @@ const MyWatchList = () => {
             </option>
           </select>
         </header>
-        {sortedList.length < 1 ? (
+        {sortedList.length < 1 && !watchListLoading ? (
           defaultWatchList
         ) : (
           <div className="watch-list-videos">
             <VideoList
               videoItems={sortedList}
               videoItemsTotal={sortedList.length}
+              isLaoding={watchListLoading}
             />
 
             {removeVideoModal.visible && <RemoveVideoModal />}

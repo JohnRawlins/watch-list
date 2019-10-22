@@ -19,7 +19,6 @@ const VideoList = ({ isLoading, videoItems, videoItemsTotal }) => {
       />
     );
   });
-
   return (
     <>
       <p className="search-total">
