@@ -1,8 +1,9 @@
 import React from 'react';
 import MyReviewItem from './MyReviewItem';
+import ReviewPlaceHolder from './ReviewPlaceHolder';
 import '../css/my-review-list.scss';
 
-const MyReviewList = ({ myReviews }) => {
+const MyReviewList = ({ myReviews, isLoading }) => {
   let reviewList = [];
   let reviewListLength = 0;
 
@@ -15,11 +16,17 @@ const MyReviewList = ({ myReviews }) => {
 
   return (
     <ul className="my-review-list">
-      <p className="my-review-list__results">
-        Results:
-        <span className="my-review-list__total"> {reviewListLength}</span>
-      </p>
-      {reviewList}
+      {isLoading ? (
+        <ReviewPlaceHolder />
+      ) : (
+        <>
+          <p className="my-review-list__results">
+            Results:
+            <span className="my-review-list__total"> {reviewListLength}</span>
+          </p>
+          {reviewList}{' '}
+        </>
+      )}
     </ul>
   );
 };

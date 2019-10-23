@@ -17,7 +17,8 @@ const ReviewState = props => {
       visible: false,
       review: null
     },
-    userReviews: []
+    userReviews: [],
+    reviewsLoading: false
   };
 
   const [state, dispatch] = useReducer(reviewReducer, initialState);
@@ -25,6 +26,18 @@ const ReviewState = props => {
   const { user, userToken } = useContext(AuthContext);
 
   const { setInfoModalMsg } = useContext(MyVideoListContext);
+
+  const setReviewsLoading = status => {
+    if (status === true) {
+      dispatch({
+        type: 'LOADING_REVIEWS'
+      });
+    } else {
+      dispatch({
+        type: 'DONE_LOADING_REVIEWS'
+      });
+    }
+  };
 
   const getVideoReviews = async videoImdbID => {
     try {
@@ -144,7 +157,7 @@ const ReviewState = props => {
         type: 'CLEAR_DELETE_REVIEW_MODAL'
       });
 
-      setInfoModalMsg("");
+      setInfoModalMsg('');
     }
   };
 
@@ -191,9 +204,8 @@ const ReviewState = props => {
       type: 'CLEAR_REVIEW_INFO'
     });
 
-    setInfoModalMsg("");
+    setInfoModalMsg('');
   };
-
 
   return (
     <ReviewContext.Provider
@@ -201,6 +213,7 @@ const ReviewState = props => {
         writeReviewModal: state.writeReviewModal,
         userReviews: state.userReviews,
         deleteReviewModal: state.deleteReviewModal,
+        reviewsLoading: state.reviewsLoading,
         setWriteReviewModal,
         setEditReviewModal,
         setDeleteReviewModal,
@@ -210,7 +223,8 @@ const ReviewState = props => {
         getVideoReviews,
         submitReviewEdit,
         deleteVideoReview,
-        clearUsersReviewInfo
+        clearUsersReviewInfo,
+        setReviewsLoading
       }}
     >
       {props.children}

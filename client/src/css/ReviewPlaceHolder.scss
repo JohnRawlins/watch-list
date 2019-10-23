@@ -1,0 +1,46 @@
+@import './app.scss';
+
+.review-placeholder {
+  margin-top: 20px;
+  margin-bottom: 30px;
+}
+
+.review-placeholder-top {
+  @extend %flex-row;
+  width: 100%;
+  justify-content: space-between;
+  margin-bottom: 15px;
+
+  &__title {
+    background-color: $plc-holder;
+    width: 40%;
+    height: 25px;
+  }
+
+  &__exit {
+    background-color: $plc-holder;
+    width: 30px;
+    border-radius: 50%;
+    height: 25px;
+  }
+}
+
+.review-placeholder-middle {
+  @extend %flex-row;
+  margin-bottom: 12px;
+  &__review-text {
+    background-color: $plc-holder;
+    width: 100%;
+    height: 60px;
+  }
+}
+
+.review-placeholder-bottom {
+  @extend %flex-row;
+  justify-content: flex-end;
+  &__edit {
+    background-color: $plc-holder;
+    width: 35px;
+    height: 25px;
+  }
+}

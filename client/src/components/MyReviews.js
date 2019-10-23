@@ -16,7 +16,9 @@ const MyReviews = () => {
   const { userToken, setTokenStatus } = useContext(AuthContext);
   const {
     writeReviewModal: { review },
-    deleteReviewModal
+    deleteReviewModal,
+    reviewsLoading,
+    setReviewsLoading
   } = useContext(ReviewContext);
 
   const { infoModalMsg } = useContext(MyVideoListContext);
@@ -39,12 +41,14 @@ const MyReviews = () => {
   );
 
   const getMyReviews = async () => {
+    setReviewsLoading(true);
     const myReviewsResponse = await fetch('/api/reviews', {
       headers: { 'x-auth-token': userToken }
     });
 
     const myReviewsPayload = await myReviewsResponse.json();
 
+    setReviewsLoading(false);
     if (myReviewsResponse.ok) {
       setMyReviews(myReviewsPayload);
     } else if (myReviewsPayload.hasOwnProperty('expiredToken')) {
@@ -107,11 +111,11 @@ const MyReviews = () => {
             />
           </button>
         </form>
-        {sortedList.length < 1 ? (
+        {sortedList.length < 1 && !reviewsLoading ? (
           defaultMyReviews
         ) : (
           <>
-            <MyReviewList myReviews={sortedList} />
+            <MyReviewList myReviews={sortedList} isLoading={reviewsLoading} />
             {deleteReviewModal.review && <RemoveReviewModal />}
             {review && <WriteReview videoInfo={review} />}
           </>

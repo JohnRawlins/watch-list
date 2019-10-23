@@ -54,8 +54,6 @@ const MyWatchList = () => {
     setList(usersWatchList, sortBy);
   }, [usersWatchList, sortBy]);
 
-  console.log(watchListLoading);
-
   return (
     <div className="my-watch-list-container">
       <Navbar />

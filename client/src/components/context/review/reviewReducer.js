@@ -75,6 +75,20 @@ export default (state, action) => {
       };
     }
 
+    case 'LOADING_REVIEWS': {
+      return {
+        ...state,
+        reviewsLoading: true
+      };
+    }
+
+    case 'DONE_LOADING_REVIEWS': {
+      return {
+        ...state,
+        reviewsLoading: false
+      };
+    }
+
     case 'GET_VIDEO_REVIEWS': {
       return {
         ...state,
@@ -112,7 +126,7 @@ export default (state, action) => {
         deleteReviewModal: {
           ...state.deleteReviewModal,
           visible: false,
-          review: null,
+          review: null
         }
       };
     }
@@ -134,7 +148,7 @@ export default (state, action) => {
         deleteReviewModal: {
           ...state.deleteReviewModal,
           visible: false,
-          review: null,
+          review: null
         }
       };
     }
