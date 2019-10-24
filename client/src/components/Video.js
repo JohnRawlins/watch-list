@@ -1,14 +1,16 @@
-import React, {useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { Link } from 'react-router-dom';
 import MyVideoListContext from './context/my-video-list/myVideoListContext';
 import '../css/video.scss';
 import defaultPoster from '../img/default-poster.jpg';
 import reviewStar from '../img/review-star.svg';
 
-const Video = ({singleVideoStyle,
+const Video = ({
+  singleVideoStyle,
   info: { Title, Year, Poster, videoID, imdbID },
   info: video
 }) => {
+  const [videoPosterError, setVideoPosterError] = useState(false);
   const { removeVideoItem, setRemoveVideoModal } = useContext(
     MyVideoListContext
   );
@@ -35,11 +37,11 @@ const Video = ({singleVideoStyle,
       <Link to={`/video-profile/${Title}/?imdbID=${imdbID}`}>
         <div className="video-Poster">
           <img
-            src={Poster}
+            src={videoPosterError ? defaultPoster : Poster}
             className="video-poster__img"
-            alt="video Poster"
-            onError={event => {
-              event.target.src = defaultPoster;
+            alt="Video Poster"
+            onError={() => {
+              setVideoPosterError(true);
             }}
           />
         </div>

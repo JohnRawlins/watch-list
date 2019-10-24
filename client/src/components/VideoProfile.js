@@ -14,6 +14,7 @@ import VideoProfilePlaceHolder from './VideoProfilePlaceHolder';
 
 const VideoProfile = ({ location }) => {
   const [video, setVideo] = useState({});
+  const [videoPosterError, setVideoPosterError] = useState(false);
 
   const { addVideoToWatchList, infoModalMsg } = useContext(MyVideoListContext);
 
@@ -79,10 +80,10 @@ const VideoProfile = ({ location }) => {
           <section className="video-details">
             <img
               className="video-details__poster"
-              src={video.Poster}
+              src={videoPosterError ? defaultPoster: video.Poster}
               alt="video Poster"
-              onError={event => {
-                event.target.src = defaultPoster;
+              onError={() => {
+                setVideoPosterError(true);
               }}
             />
             <div className="video-details-general">
