@@ -62,12 +62,7 @@ const Home = ({ history, location }) => {
   };
 
   const handleHomeClickEvent = event => {
-    if (
-      event.target.parentNode &&
-      event.target.parentNode.id !== 'pg-selector'
-    ) {
-      setHomeClickEvent(event.target.parentNode);
-    }
+    setHomeClickEvent({ node: event.target });
   };
 
   useEffect(() => {
@@ -83,7 +78,7 @@ const Home = ({ history, location }) => {
     }
 
     //eslint-disable-next-line
-  }, [location, homeClickEvent]);
+  }, [location]);
 
   return (
     <div className="home" onClick={handleHomeClickEvent}>

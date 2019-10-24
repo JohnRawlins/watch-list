@@ -22,6 +22,7 @@
   &__current-page {
     padding: 0px 30px;
     text-decoration: underline;
+    cursor: pointer;
   }
 
   &__dropdown-arrow {
@@ -55,13 +56,15 @@
   max-height: 360px;
   overflow-y: auto;
   border: 2px solid #2c385e;
+  -webkit-overflow-scrolling: touch;
 
   &__item {
-    font-size: 14px;
-    margin-bottom: 10px;
-    border-bottom: 1px solid #2c385e;
-   height:50px;
-   line-height:50px;
+    font-size: 20px;
+    margin-bottom: 40px;
+    height: 50px;
+    line-height: 50px;
+    text-align: center;
+    font-weight: 700;
   }
 
   &__item a {
@@ -73,6 +76,9 @@
     color: #2c385e;
   }
 
+  &__item:last-child {
+    margin-bottom: 0px;
+  }
   &__page {
     margin-right: 5px;
   }

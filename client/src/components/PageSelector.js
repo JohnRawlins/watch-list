@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import '../css/page-selector.scss';
 import backArrow from '../img/back-arrow.svg';
@@ -12,11 +12,13 @@ const PageSelector = ({
   const [dropDownMenuVisible, setDropDownMenuVisible] = useState(false);
   const pages = [];
   const videoTitle = location.search.split('&')[0];
+  const pageDropDownMenu = useRef(null);
   let currentPage = 1;
   let prevPage = false;
   let nextPage = false;
 
   const handleScrollToTop = () => {
+    if (dropDownMenuVisible) setDropDownMenuVisible(false);
     window.scrollTo(0, 0);
   };
 
@@ -51,18 +53,19 @@ const PageSelector = ({
   }
 
   useEffect(() => {
-    if (
-      parentComponentClickEvent &&
-      parentComponentClickEvent.id !== 'pg-selector' &&
-      dropDownMenuVisible === true
-    ) {
-      setDropDownMenuVisible(false);
+    if (parentComponentClickEvent && pageDropDownMenu.current) {
+      if (
+        !pageDropDownMenu.current.contains(parentComponentClickEvent.node) &&
+        dropDownMenuVisible === true
+      ) {
+        setDropDownMenuVisible(false);
+      }
     }
     //eslint-disable-next-line
   }, [parentComponentClickEvent]);
 
   return (
-    <div id="pg-selector" className="page-selector">
+    <div id="pg-selector" className="page-selector" ref={pageDropDownMenu}>
       {prevPage && (
         <Link to={`search${videoTitle}&page=${currentPage - 1}`}>
           <img
