@@ -36,8 +36,8 @@ const Home = ({ history, location }) => {
   };
 
   const searchDefaultMessage = searchResults.noResultsFound
-    ? 'No results found. Try again.'
-    : 'Never Forget A Show Or Movie Again.';
+    ? 'No results found. Please try again.'
+    : 'Never Forget A Show Or Movie Again';
 
   const searchDefault = (
     <div className="search-default">
@@ -88,7 +88,7 @@ const Home = ({ history, location }) => {
           <input
             className="search__input"
             type="text"
-            placeholder="Search For A Movie or Show"
+            placeholder="Enter Movie or Show"
             onChange={handleSearchInput}
             value={searchField}
           />
