@@ -11,7 +11,7 @@ const Menu = ({ history }) => {
   let { menuVisible, menuOpen, user, logUserOut } = useContext(AuthContext);
   const { clearUsersVideoInfo } = useContext(MyVideoListContext);
   const { clearUsersReviewInfo } = useContext(MyReviewContext);
-  const menuPosition = menuOpen ? { transform: 'translatex(0%)' } : {};
+  const menuPosition = menuOpen ? { visibility: 'visible' } : {};
   const username = user ? user.username : 'Guest';
 
   const handleMenuSelection = () => {
@@ -37,10 +37,7 @@ const Menu = ({ history }) => {
           <img className="user__icon" src={userIcon} alt="Profile Icon" />
           <p className="user__name">{username}</p>
         </div>
-        <button
-          className="menu-header__exit-btn"
-          onClick={handleMenuSelection}
-        >
+        <button className="menu-header__exit-btn" onClick={handleMenuSelection}>
           <img className="menu-header__exit-icon" src={exitIcon} alt="Exit" />
         </button>
       </div>
