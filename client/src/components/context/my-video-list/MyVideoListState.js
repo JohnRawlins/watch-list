@@ -168,10 +168,11 @@ const MyVideoListState = props => {
   const loadUsersWatchList = async () => {
     setWatchListLoading(true);
 
-    const guestUsersWatchList = JSON.parse(
-      localStorage.getItem('guestWatchList')
-    );
     try {
+      const guestUsersWatchList = JSON.parse(
+        localStorage.getItem('guestWatchList')
+      );
+
       if (isAuthenticated) {
         const usersWatchListResponse = await fetch('api/videos', {
           headers: { 'x-auth-token': userToken }
@@ -202,7 +203,7 @@ const MyVideoListState = props => {
         });
       } else {
         dispatch({
-          type: 'LOAD-WATCH_LIST_FAIL'
+          type: 'LOAD_WATCH_LIST_FAIL'
         });
       }
     } catch (error) {

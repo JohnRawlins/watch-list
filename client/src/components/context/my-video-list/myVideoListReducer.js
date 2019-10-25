@@ -14,11 +14,12 @@ export default (state, action) => {
         watchListLoading: true
       };
     }
-    // case 'LOAD_WATCH_LIST_FAIL': {
-    //   return {
-    //     ...state,
-    //   };
-    // }
+    case 'LOAD_WATCH_LIST_FAIL': {
+      return {
+        ...state,
+        watchListLoading: false
+      };
+    }
 
     case 'ENABLE_VIDEO_REMOVAL': {
       return {
