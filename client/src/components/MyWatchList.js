@@ -60,9 +60,8 @@ const MyWatchList = () => {
       <div className="my-watch-list">
         <header className="my-watch-list-header">
           <h1 className="my-watch-list-header__title">My Watch List</h1>
-          <select onChange={handleListSort} className="my-watch-list-sort">
+          <select className="my-watch-list-sort" onChange={handleListSort}>
             <option className="my-watch-list-sort__option">Sort By</option>
-
             <option className="my-watch-list-sort__option" value="asc/Title">
               Title A to Z
             </option>
