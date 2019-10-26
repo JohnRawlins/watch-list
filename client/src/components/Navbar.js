@@ -8,7 +8,12 @@ import Menu from './Menu';
 import DesktopMenu from './DesktopMenu';
 
 const Navbar = () => {
-  const { menuVisible } = useContext(AuthContext);
+  const { menuVisible, user } = useContext(AuthContext);
+  let userInitial = '';
+
+  if (user) {
+    userInitial = user.username[0];
+  }
 
   return (
     <div className="navbar">
@@ -22,6 +27,11 @@ const Navbar = () => {
           <span className="navbar-logo__title">Watch List</span>
         </div>
       </Link>
+      <div className="navbar-user-icon">
+        {user && (
+          <span className="navbar-user-icon__first-initial">{userInitial}</span>
+        )}
+      </div>
       <DesktopMenu />
       <button className="navbar__menu-btn" onClick={() => menuVisible(true)}>
         <img
