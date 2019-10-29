@@ -1,0 +1,41 @@
+@import './app.scss';
+
+.loading-page {
+  @extend %flex-col;
+  align-items: center;
+  justify-content: center;
+  background: $primary;
+  width: 100%;
+  position: absolute;
+  min-height: 100vh;
+  z-index: 1000;
+}
+
+.loading-circles {
+  &__circle {
+    display: inline-block;
+    margin-right: 10px;
+    height: 20px;
+    width: 20px;
+    background: white;
+    border-radius: 50%;
+    animation-name: loading;
+    animation-duration: 0.5s;
+    animation-direction: alternate;
+    animation-iteration-count: infinite;
+  }
+
+  &__circle:nth-child(2) {
+    background: $secondary;
+  }
+}
+
+@keyframes loading {
+  from {
+    transform: translate(0, 0px) scale(1, 0.5);
+  }
+
+  to {
+    transform: translate(0, -50px) scale(1, 1);
+  }
+}

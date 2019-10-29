@@ -33,6 +33,14 @@ export default (state, action) => {
       };
     }
 
+    case 'LOADING_PAGE_VISIBLE': {
+      return { ...state, isLoading: true };
+    }
+
+    case 'LOADING_PAGE_NOT_VISIBLE': {
+      return { ...state, isLoading: false };
+    }
+
     case 'SET_TOKEN_STATUS': {
       return {
         ...state,

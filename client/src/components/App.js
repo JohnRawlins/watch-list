@@ -12,6 +12,7 @@ import MyVideoListState from './context/my-video-list/MyVideoListState';
 import ReviewState from './context/review/ReviewState';
 import InfoModal from './InfoModal';
 import NotFound from './NotFound';
+import LoadingPage from './LoadingPage';
 import '../css/app.scss';
 
 const App = () => {
@@ -22,6 +23,7 @@ const App = () => {
           <ReviewState>
             <BrowserRouter>
               <InfoModal />
+              <LoadingPage />
               <Switch>
                 <Route exact path="/" component={Home} />
                 <Route exact path="/login" component={SignIn} />

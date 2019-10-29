@@ -9,6 +9,7 @@ const AuthState = props => {
     registerErrors: [],
     signInErrors: [],
     isAuthenticated: false,
+    isLoading: false,
     tokenStatus: {
       expiredToken: false,
       msg: '',
@@ -18,6 +19,18 @@ const AuthState = props => {
   };
 
   const [state, dispatch] = useReducer(authReducer, initialState);
+
+  const setLoadingPage = status => {
+    if (status === true) {
+      dispatch({
+        type: 'LOADING_PAGE_VISIBLE'
+      });
+    } else {
+      dispatch({
+        type: 'LOADING_PAGE_NOT_VISIBLE'
+      });
+    }
+  };
 
   const menuVisible = visible => {
     if (visible) {
@@ -32,6 +45,7 @@ const AuthState = props => {
   };
 
   const signInUser = async userCredentials => {
+    setLoadingPage(true);
     try {
       const response = await fetch('/api/auth', {
         method: 'POST',
@@ -54,6 +68,7 @@ const AuthState = props => {
           payload: responsePayload
         });
       }
+      setLoadingPage(false);
     } catch (error) {
       console.error(error);
     }
@@ -96,6 +111,7 @@ const AuthState = props => {
   };
 
   const registerUser = async userCredentials => {
+    setLoadingPage(true);
     try {
       let response = await fetch('/api/users', {
         method: 'POST',
@@ -117,6 +133,7 @@ const AuthState = props => {
           payload: responsePayload
         });
       }
+      setLoadingPage(false);
     } catch (error) {
       console.error(error);
     }
@@ -156,6 +173,7 @@ const AuthState = props => {
         registerErrors: state.registerErrors,
         signInErrors: state.signInErrors,
         isAuthenticated: state.isAuthenticated,
+        isLoading: state.isLoading,
         menuOpen: state.menuOpen,
         tokenStatus: state.tokenStatus,
         registerUser,
