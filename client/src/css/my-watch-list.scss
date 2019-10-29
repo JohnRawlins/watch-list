@@ -53,6 +53,7 @@
 .my-watch-list-header {
   display: flex;
   justify-content: space-between;
+  align-items: center;
   margin-bottom: 20px;
 
   &__title {
@@ -62,6 +63,7 @@
 
 .my-watch-list-sort {
   flex: 0 1 100px;
+  height: 29px;
   padding-left: 8px;
   border-radius: 15px;
   background: white;

@@ -60,15 +60,18 @@ const MyWatchList = () => {
       <div className="my-watch-list">
         <header className="my-watch-list-header">
           <h1 className="my-watch-list-header__title">My Watch List</h1>
-          <select className="my-watch-list-sort" onChange={handleListSort}>
-            <option className="my-watch-list-sort__option">Sort By</option>
-            <option className="my-watch-list-sort__option" value="asc/Title">
-              Title A to Z
-            </option>
-            <option className="my-watch-list-sort__option" value="desc/Title">
-              Title Z to A
-            </option>
-          </select>
+          {sortedList.length < 1 ? null : (
+            <select className="my-watch-list-sort" onChange={handleListSort}>
+              <option className="my-watch-list-sort__option">Sort By</option>
+
+              <option className="my-watch-list-sort__option" value="asc/Title">
+                Title A to Z
+              </option>
+              <option className="my-watch-list-sort__option" value="desc/Title">
+                Title Z to A
+              </option>
+            </select>
+          )}
         </header>
         {sortedList.length < 1 && !watchListLoading ? (
           defaultWatchList

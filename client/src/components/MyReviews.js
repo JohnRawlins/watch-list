@@ -75,42 +75,40 @@ const MyReviews = () => {
       <div className="my-reviews">
         <header className="my-reviews-header">
           <h1 className="my-reviews-header__title">My Reviews</h1>
-          <select onChange={handleListSort} className="my-reviews-sort">
-            <option className="my-reviews-sort__option">Sort By</option>
+          {sortedList.length < 1 ? null : (
+            <select onChange={handleListSort} className="my-reviews-sort">
+              <option className="my-reviews-sort__option">Sort By</option>
 
-            <option className="my-reviews-sort__option" value="asc/stars">
-              Rating Low to High
-            </option>
+              <option className="my-reviews-sort__option" value="asc/stars">
+                Rating Low to High
+              </option>
 
-            <option className="my-reviews-sort__option" value="desc/stars">
-              Rating Hight to Low
-            </option>
-            <option className="my-reviews-sort__option" value="asc/videoTitle">
-              Title A to Z
-            </option>
-            <option className="my-reviews-sort__option" value="desc/videoTitle">
-              Title Z to A
-            </option>
+              <option className="my-reviews-sort__option" value="desc/stars">
+                Rating Hight to Low
+              </option>
+              <option
+                className="my-reviews-sort__option"
+                value="asc/videoTitle"
+              >
+                Title A to Z
+              </option>
+              <option
+                className="my-reviews-sort__option"
+                value="desc/videoTitle"
+              >
+                Title Z to A
+              </option>
 
-            <option className="my-reviews-sort__option" value="asc/date">
-              Oldest
-            </option>
+              <option className="my-reviews-sort__option" value="asc/date">
+                Oldest
+              </option>
 
-            <option className="my-reviews-sort__option" value="desc/date">
-              Most Recent
-            </option>
-          </select>
+              <option className="my-reviews-sort__option" value="desc/date">
+                Most Recent
+              </option>
+            </select>
+          )}
         </header>
-        <form className="search">
-          <input className="search__input" type="text" placeholder="Search" />
-          <button className="search__btn" type="submit">
-            <img
-              className="search__btn-img"
-              src={searchIcon}
-              alt="Search Button"
-            />
-          </button>
-        </form>
         {sortedList.length < 1 && !reviewsLoading ? (
           defaultMyReviews
         ) : (
