@@ -7,9 +7,9 @@ const apiKey = process.env.OMDB_API_KEY;
 // @desc      Retrieve profile for video
 // @access    Public
 
-router.get('/', async (req, res) => {
+router.get('/:videoTitle/:imdbID', async (req, res) => {
   try {
-    const videoImdbID = req.query.imdbID;
+    const videoImdbID = req.params.imdbID;
 
     let omdbResponse = await axios.get(
       `http://www.omdbapi.com/?apikey=${apiKey}&i=${videoImdbID}`

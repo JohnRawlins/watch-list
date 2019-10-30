@@ -15,7 +15,6 @@ import VideoProfilePlaceHolder from './VideoProfilePlaceHolder';
 const VideoProfile = ({ location }) => {
   const [video, setVideo] = useState({});
   const [videoPosterError, setVideoPosterError] = useState(false);
-
   const { addVideoToWatchList, infoModalMsg } = useContext(MyVideoListContext);
 
   const {
@@ -30,19 +29,15 @@ const VideoProfile = ({ location }) => {
   const getVideoProfile = async () => {
     let rottenTomatoesScore;
     try {
-      const videoProfileResponse = await fetch(
-        `/api/video-profile/${location.search}`
-      );
+      const videoProfileResponse = await fetch(`/api${location.pathname}`);
 
       const videoProfilePayload = await videoProfileResponse.json();
-
-      if (
-        videoProfilePayload.Ratings.find(
-          review => review.Source === 'Rotten Tomatoes'
-        )
-      ) {
+      const rottenTomatoesReview = videoProfilePayload.Ratings.find(
+        review => review.Source === 'Rotten Tomatoes'
+      );
+      if (rottenTomatoesReview) {
         rottenTomatoesScore = Number(
-          videoProfilePayload.Ratings[1].Value.replace('%', '')
+          rottenTomatoesReview.Value.replace('%', '')
         );
       } else {
         rottenTomatoesScore = 'No Critic Reviews';
@@ -80,7 +75,7 @@ const VideoProfile = ({ location }) => {
           <section className="video-details">
             <img
               className="video-details__poster"
-              src={videoPosterError ? defaultPoster: video.Poster}
+              src={videoPosterError ? defaultPoster : video.Poster}
               alt="video Poster"
               onError={() => {
                 setVideoPosterError(true);

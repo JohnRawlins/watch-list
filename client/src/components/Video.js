@@ -6,7 +6,6 @@ import defaultPoster from '../img/default-poster.jpg';
 import reviewStar from '../img/review-star.svg';
 
 const Video = ({
-  singleVideoStyle,
   info: { Title, Year, Poster, videoID, imdbID },
   info: video
 }) => {
@@ -28,13 +27,13 @@ const Video = ({
     userReviewScore === undefined ? { display: 'none' } : {};
 
   return (
-    <li style={singleVideoStyle} className="video">
+    <li className="video">
       <button
         onClick={() => setRemoveVideoModal(true, Title, videoID, imdbID)}
         style={removeIconVisibility}
         className="video__remove-icon"
       />
-      <Link to={`/video-profile/${Title}/?imdbID=${imdbID}`}>
+      <Link to={`/video-profile/${Title.replace('?', '')}/${imdbID}`}>
         <div className="video-Poster">
           <img
             src={videoPosterError ? defaultPoster : Poster}
