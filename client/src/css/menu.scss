@@ -57,14 +57,15 @@ $menu-primary-color: #2c385e;
 .user {
   @extend %menu-flex-row;
   align-items: center;
+  width: 85%;
 
   &__name {
     text-transform: capitalize;
     font-weight: 700;
     font-size: 18px;
     margin-right: 5px;
-    overflow-wrap: break-word;
-    word-wrap: break-word;
+    overflow: hidden;
+    text-overflow: ellipsis;
     color: $menu-primary-color;
   }
 
