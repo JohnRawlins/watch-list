@@ -26,6 +26,8 @@ const VideoProfile = ({ location }) => {
 
   const [isLoading, setLoading] = useState(true);
 
+  const hide = {display:"none"};
+
   const getVideoProfile = async () => {
     let rottenTomatoesScore;
     try {
@@ -72,26 +74,18 @@ const VideoProfile = ({ location }) => {
         <VideoProfilePlaceHolder />
       ) : (
         <div className="video-profile">
-          <section className="video-details">
-            <img
-              className="video-details__poster"
-              src={videoPosterError ? defaultPoster : video.Poster}
-              alt="video Poster"
-              onError={() => {
-                setVideoPosterError(true);
-              }}
-            />
-            <div className="video-details-general">
-              <h1 className="video-details-general__title">{video.Title}</h1>
-              <p className="video-details-general__release-date">
-                {video.Released}
-              </p>
-              <p className="video-details-general__runtime">{video.Runtime}</p>
-              <p className="video-details-general__age-rating">{video.Rated}</p>
-              <div className="video-details-rt">
-                <p className="video-details-rt__tomatometer-heading">
-                  Tomatometer
-                </p>
+          <div className="video-details-container">
+            <section className="video-details">
+              <img
+                className="video-details__poster"
+                src={videoPosterError ? defaultPoster : video.Poster}
+                alt="video Poster"
+                onError={() => {
+                  setVideoPosterError(true);
+                }}
+              />
+              <div className="video-details-general">
+                <h1 className="video-details-general__title">{video.Title}</h1>
                 <div className="tomatometer">
                   <img
                     className="tomatometer__icon"
@@ -109,60 +103,73 @@ const VideoProfile = ({ location }) => {
                     {typeof video.rottenTomatoesScore === 'number' ? '%' : ''}
                   </span>
                 </div>
-              </div>
-            </div>
-          </section>
-          <button
-            onClick={() => addVideoToWatchList(video)}
-            className="video-profile__watch-list-btn"
-          >
-            Add To Watch List
-          </button>
-          <section className="video-plot">
-            <h2 className="video-plot__heading">Plot</h2>
-            <p className="video-plot__text">{video.Plot}</p>
-          </section>
-          <section className="video-credits">
-            <h2 className="video-credits__heading">Cast and Credits</h2>
-            <div className="video-actors">
-              <h3 className="video-actors__heading">Actors</h3>
-              <p className="video-actors__info">{video.Actors}</p>
-            </div>
-            <div className="video-director">
-              <h3 className="video-director__heading">Director</h3>
-              <p className="video-director__info">{video.Director}</p>
-            </div>
-          </section>
-          <section className="user-reviews">
-            <h2 className="user-reviews__heading">User Reviews</h2>
-            <div className="video-review-container">
-              <div className="video-review">
-                <div className="video-review-score-container">
-                  <span className="video-review__score">
-                    {userReviews.userReviewScore}
+                <div className="video-additional-details">
+                  <span style={video.Released.toLowerCase() === 'n/a' ? hide : {}}className="video-additional-details__release-date">
+                    {video.Released}
                   </span>
-                  <div className="user-reviews-total">
-                    <p className="user-reviews-total__heading">Total</p>
-                    <span className="user-reviews-total__num">
-                      {userReviews.totalUserReviews}
-                    </span>
-                  </div>
+                    <span style={video.Runtime.toLowerCase() === 'n/a' ? hide : {}} className="video-additional-details__runtime">
+                    {video.Runtime}
+                  </span>
+                    <span style={video.Rated.toLowerCase() === 'n/a' ? hide : {}}className="video-additional-details__age-rating">
+                    {video.Rated}
+                  </span>
                 </div>
-                <img
-                  className="video-review__star"
-                  src={reviewStar}
-                  alt="Review Star"
-                />
                 <button
-                  onClick={() => setWriteReviewModal(true)}
-                  className="video-review__btn"
+                  className="video-profile__watch-list-btn"
+                  onClick={() => addVideoToWatchList(video)}
                 >
-                  Write A Review
+                  Add To Watch List
                 </button>
               </div>
-            </div>
-            <UserReviews videoReviews={userReviews} />
-          </section>
+            </section>
+          </div>
+          <div className="video-profile-sections">
+            <section className="video-plot">
+              <h2 className="video-plot__heading">Plot</h2>
+              <p className="video-plot__text">{video.Plot}</p>
+            </section>
+            <section className="video-credits">
+              <h2 className="video-credits__heading">Cast and Credits</h2>
+              <div className="video-actors">
+                <h3 className="video-actors__heading">Actors</h3>
+                <p className="video-actors__info">{video.Actors}</p>
+              </div>
+              <div className="video-director">
+                <h3 className="video-director__heading">Director</h3>
+                <p className="video-director__info">{video.Director}</p>
+              </div>
+            </section>
+            <section className="user-reviews">
+              <h2 className="user-reviews__heading">User Reviews</h2>
+              <div className="video-review-container">
+                <div className="video-review">
+                  <div className="video-review-score-container">
+                    <span className="video-review__score">
+                      {userReviews.userReviewScore}
+                    </span>
+                    <div className="user-reviews-total">
+                      <p className="user-reviews-total__heading">Total</p>
+                      <span className="user-reviews-total__num">
+                        {userReviews.totalUserReviews}
+                      </span>
+                    </div>
+                  </div>
+                  <img
+                    className="video-review__star"
+                    src={reviewStar}
+                    alt="Review Star"
+                  />
+                  <button
+                    onClick={() => setWriteReviewModal(true)}
+                    className="video-review__btn"
+                  >
+                    Write A Review
+                  </button>
+                </div>
+              </div>
+              <UserReviews videoReviews={userReviews} />
+            </section>
+          </div>
         </div>
       )}
     </div>
