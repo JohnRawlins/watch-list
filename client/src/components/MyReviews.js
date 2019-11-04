@@ -84,7 +84,7 @@ const MyReviews = () => {
               </option>
 
               <option className="my-reviews-sort__option" value="desc/stars">
-                Rating Hight to Low
+                Rating High to Low
               </option>
               <option
                 className="my-reviews-sort__option"

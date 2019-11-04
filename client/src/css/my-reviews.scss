@@ -48,6 +48,7 @@
 .my-reviews {
   @extend %my-reviews-flex-column;
   width: 90%;
+  margin-top: 50px;
   max-width: $max-content-width;
   align-self: center;
   flex: 1;
@@ -56,6 +57,7 @@
 .my-reviews-header {
   display: flex;
   justify-content: space-between;
+  align-items: center;
   margin-bottom: 40px;
 
   &__title {
@@ -64,12 +66,23 @@
 }
 
 .my-reviews-sort {
+  width: 145px;
+  height: 29px;
+  appearance: none;
   border-radius: 15px;
-  padding: 0px;
   background: white;
+  padding: 0px 25px 0px 5px;
   color: #336e6b;
   font-weight: 700;
   font-size: 13px;
+  background-image: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjU1IiBoZWlnaHQ9IjEyOSIgdmlld0JveD0iMCAwIDI1NSAxMjkiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxwYXRoIGQ9Ik0wIDAuNzVMMTI3LjUgMTI4LjI1TDI1NSAwLjc1SDBaIiBmaWxsPSIjMzM2RTZCIi8+Cjwvc3ZnPgo=');
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  background-size: 10px 10px;
+
+  &__option {
+    font-weight: 700;
+  }
 }
 
 .default-my-reviews {
@@ -87,6 +100,12 @@
 }
 
 @include medium-display {
+  .my-reviews-header {
+    &__title {
+      font-size: 30px;
+    }
+  }
+
   .default-my-reviews {
     &__icon {
       width: 120px;

@@ -220,9 +220,9 @@
   .video-details {
     flex-direction: row;
     max-width: 1260px;
-    padding:35px 20px 0px 20px;
+    padding: 35px 20px 0px 20px;
     &__poster {
-      margin: 0px 30px 20px 0px;
+      margin: 0px 30px 0px 0px;
     }
   }
 
@@ -249,10 +249,9 @@
     max-width: 1260px;
   }
 
-  .video-review{
-
-    &__btn{
-      font-size:16px;
+  .video-review {
+    &__btn {
+      font-size: 16px;
     }
   }
 }
