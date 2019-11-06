@@ -5,6 +5,7 @@ import Navbar from './Navbar';
 import searchIcon from '../img/search-icon.svg';
 import popcorn from '../img/popcorn.svg';
 import VideoList from './VideoList';
+import PopularVideos from './PopularVideos';
 import '../css/home.scss';
 
 const Home = ({ history, location }) => {
@@ -83,23 +84,27 @@ const Home = ({ history, location }) => {
   return (
     <div className="home" onClick={handleHomeClickEvent}>
       <Navbar />
-      <div className="search-result">
-        <form className="search" onSubmit={handleVideoSearch}>
-          <input
-            className="search__input"
-            type="text"
-            placeholder="Enter Movie or Show"
-            onChange={handleSearchInput}
-            value={searchField}
-          />
-          <button className="search__btn" type="submit">
-            <img
-              className="search__btn-img"
-              src={searchIcon}
-              alt="Search Button"
+      <div className="home-search-container">
+        <div className="home-search">
+          <form className="search" onSubmit={handleVideoSearch}>
+            <input
+              className="search__input"
+              type="text"
+              placeholder="Enter A Movie Or Show"
+              onChange={handleSearchInput}
+              value={searchField}
             />
-          </button>
-        </form>
+            <button className="search__btn" type="submit">
+              <img
+                className="search__btn-img"
+                src={searchIcon}
+                alt="Search Button"
+              />
+            </button>
+          </form>
+        </div>
+      </div>
+      <div className="search-result">
         {searchResults.Response ? (
           <>
             <VideoList
@@ -114,7 +119,7 @@ const Home = ({ history, location }) => {
             />
           </>
         ) : (
-          searchDefault
+          <PopularVideos />
         )}
       </div>
     </div>

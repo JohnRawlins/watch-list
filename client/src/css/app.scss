@@ -1,4 +1,5 @@
 $medium-width: 450px;
+$tablet-width: 768px;
 $large-width: 880px;
 $max-content-width: 1920px;
 $primary: #2c385e;
@@ -33,6 +34,12 @@ $plc-holder: #464f6d;
 
 @mixin medium-display {
   @media (min-width: $medium-width) {
+    @content;
+  }
+}
+
+@mixin tablet-display {
+  @media (min-width: $tablet-width) {
     @content;
   }
 }

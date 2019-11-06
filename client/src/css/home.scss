@@ -22,26 +22,60 @@
   width: 100%;
 }
 
+.home-search-container {
+  display: flex;
+  flex-direction: column;
+  background: linear-gradient(rgba(44, 56, 94, 0), $primary 85.4%),
+    url('../img/video-search-background-4096w.jpg');
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.home-search {
+  align-self: center;
+  @extend %home-flex-column;
+  justify-content: flex-end;
+  width: 100%;
+  max-width: 1920px;
+  height: 300px;
+  margin-bottom: 75px;
+}
+
 .search {
   @extend %home-flex-row;
+  padding: 0px 25px;
   width: 100%;
   height: 45px;
   position: relative;
-  margin: 50px 0px 30px 0px;
 
   &__input {
     flex: 1 1 auto;
-    padding: 0px 42px 0px 15px;
-    font-size: 18px;
+    padding: 0px 33px 10px 0px;
+    font-size: 20px;
+    color: white;
+    background: transparent;
     border: none;
-    border-radius: 20px;
-    color: #2c385e;
+    border-bottom: 2px solid white;
+    outline: none;
+    border-radius: 0px;
   }
+
+  &__input::placeholder {
+    color: white;
+    font-weight: 700;
+    opacity: 1;
+  }
+
+  &__input::-ms-input-placeholder {
+    color: white;
+    font-weight: 700;
+  }
+
   &__btn {
     position: absolute;
-    top: 50%;
-    right: 15px;
-    transform: translatey(-50%);
+    top: 7px;
+    right: 25px;
     background: transparent;
     border: none;
   }
@@ -72,6 +106,20 @@
     }
     &__message {
       font-size: 18px;
+    }
+  }
+}
+
+@include large-display {
+  .home-search {
+    height: 450px;
+  }
+
+  .search {
+    &__input {
+      flex: 1 1 auto;
+      padding: 0px 33px 10px 0px;
+      font-size: 30px;
     }
   }
 }
