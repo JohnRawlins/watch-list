@@ -1,26 +1,54 @@
 @import './app.scss';
 
-.video-list-plc-hldr {
+.video-list-plc-hldr-container {
   @extend %fadeInAndOut;
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  grid-gap: 30px;
+}
+
+.video-list-plc-hldr {
+  @extend %flex-col;
+  align-items: center;
+
   :nth-child(2) {
     height: 15px;
-    width: 80%;
+    width: 60%;
     margin: 0px 0px 10px 0px;
     background: $plc-holder;
   }
 
   :nth-child(3) {
     height: 15px;
-    width: 50%;
+    width: 60%;
     margin: 0px 0px 10px 0px;
     background: $plc-holder;
   }
+
+  &__poster {
+    @extend %flex-col;
+    border-radius: 15px;
+    height: 240px;
+    margin-bottom: 10px;
+    background: $plc-holder;
+    width: 60%;
+  }
 }
 
-.video-list-plc-hldr-poster {
-  @extend %flex-col;
-  border-radius: 15px;
-  height: 240px;
-  margin-bottom: 10px;
-  background: $plc-holder;
+@include medium-display {
+  .video-list-plc-hldr-container {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@include tablet-display {
+  .video-list-plc-hldr-container {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@include large-display {
+  .video-list-plc-hldr-container {
+    grid-template-columns: repeat(4, 1fr);
+  }
 }

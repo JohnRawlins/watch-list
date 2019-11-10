@@ -17,6 +17,10 @@
   display: grid;
   grid-template-columns: 1fr;
   grid-gap: 80px;
+
+  a {
+    color: white;
+  }
 }
 
 .popular-video {
