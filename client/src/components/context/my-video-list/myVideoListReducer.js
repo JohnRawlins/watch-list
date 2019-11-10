@@ -53,6 +53,13 @@ export default (state, action) => {
       };
     }
 
+    case 'SET_POPULAR_VIDEOS': {
+      return {
+        ...state,
+        popularVideos: action.payload
+      };
+    }
+
     case 'SHOW_REMOVE_VIDEO_MODALS': {
       return {
         ...state,

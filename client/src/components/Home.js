@@ -9,7 +9,9 @@ import PopularVideos from './PopularVideos';
 import '../css/home.scss';
 
 const Home = ({ history, location }) => {
-  const { editVideoList } = useContext(MyVideoListContext);
+  const { editVideoList, setPopularVideos, popularVideos } = useContext(
+    MyVideoListContext
+  );
   const [searchField, setSearchField] = useState('');
   const [searchResults, setSearchResults] = useState({
     Search: [],
@@ -33,6 +35,18 @@ const Home = ({ history, location }) => {
       setLoading(false);
     } catch (error) {
       console.error(error);
+    }
+  };
+
+  const getPopularVideos = async () => {
+    try {
+      const popularVideosResponse = await fetch('api/search/popular');
+      if (popularVideosResponse.ok) {
+        const popularVideos = await popularVideosResponse.json();
+        setPopularVideos(popularVideos);
+      }
+    } catch (error) {
+      console.log(error);
     }
   };
 
@@ -81,6 +95,12 @@ const Home = ({ history, location }) => {
     //eslint-disable-next-line
   }, [location]);
 
+  useEffect(() => {
+    if (!popularVideos) {
+      getPopularVideos();
+    }
+  });
+
   return (
     <div className="home" onClick={handleHomeClickEvent}>
       <Navbar />
@@ -119,7 +139,7 @@ const Home = ({ history, location }) => {
             />
           </>
         ) : (
-          <PopularVideos />
+          <PopularVideos popularVideos={popularVideos} />
         )}
       </div>
     </div>

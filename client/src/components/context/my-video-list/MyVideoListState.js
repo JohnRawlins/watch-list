@@ -6,6 +6,7 @@ import MyVideoListContext from './myVideoListContext';
 const MyVideoListState = props => {
   const initialState = {
     usersWatchList: [],
+    popularVideos: null,
     error: '',
     removeVideoItem: false,
     removeVideoModal: {
@@ -23,6 +24,13 @@ const MyVideoListState = props => {
   );
 
   const [state, dispatch] = useReducer(myVideoListReducer, initialState);
+
+  const setPopularVideos = videos => {
+    dispatch({
+      type: 'SET_POPULAR_VIDEOS',
+      payload: videos
+    });
+  };
 
   const setWatchListLoading = status => {
     if (status === true) {
@@ -234,6 +242,7 @@ const MyVideoListState = props => {
         removeVideoModal: state.removeVideoModal,
         infoModalMsg: state.infoModalMsg,
         watchListLoading: state.watchListLoading,
+        popularVideos: state.popularVideos,
         editVideoList,
         clearInfoModalMsg,
         loadUsersWatchList,
@@ -241,7 +250,8 @@ const MyVideoListState = props => {
         removeVideoFromWatchList,
         setRemoveVideoModal,
         clearUsersVideoInfo,
-        setInfoModalMsg
+        setInfoModalMsg,
+        setPopularVideos
       }}
     >
       {props.children}

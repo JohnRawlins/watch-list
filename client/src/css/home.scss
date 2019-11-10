@@ -26,10 +26,11 @@
   display: flex;
   flex-direction: column;
   background: linear-gradient(rgba(44, 56, 94, 0), $primary 85.4%),
-    url('../img/video-search-background-4096w.jpg');
+    url('../img/video-search-background-1920w.jpg');
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
+  margin-bottom: 75px;
 }
 
 .home-search {
@@ -39,7 +40,6 @@
   width: 100%;
   max-width: 1920px;
   height: 300px;
-  margin-bottom: 75px;
 }
 
 .search {
@@ -120,6 +120,10 @@
       flex: 1 1 auto;
       padding: 0px 33px 10px 0px;
       font-size: 30px;
+    }
+
+    &__btn-img {
+      width: 25px;
     }
   }
 }

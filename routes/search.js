@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const axios = require('axios');
 const apiKey = process.env.OMDB_API_KEY;
+const tmdbApiKey = process.env.TMDB_API_KEY;
 const PORT = process.env.PORT || 5000;
 
 // @route     GET api/search
@@ -48,6 +49,28 @@ router.get('/', async (req, res) => {
       msg:
         'The server was unable to process your request due to an internal error'
     });
+  }
+});
+
+router.get('/popular', async (req, res) => {
+  try {
+    const popularVideosResponse = await axios.get(
+      `https://api.themoviedb.org/3/movie/popular?api_key=${tmdbApiKey}&language=en-US&page=1`
+    );
+
+    const popularVideos = await Promise.all(
+      popularVideosResponse.data.results.map(async video => {
+        videoDetails = await axios.get(
+          `https://api.themoviedb.org/3/movie/${video.id}?api_key=${tmdbApiKey}&language=en-US`
+        );
+        video.imdbID = videoDetails.data.imdb_id;
+        return video;
+      })
+    );
+
+    return res.status(200).json(popularVideos);
+  } catch (error) {
+    console.error(error.message);
   }
 });
 
