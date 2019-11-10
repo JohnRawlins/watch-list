@@ -3,7 +3,6 @@ import MyVideoListContext from './context/my-video-list/myVideoListContext';
 import PageSelector from './PageSelector';
 import Navbar from './Navbar';
 import searchIcon from '../img/search-icon.svg';
-import popcorn from '../img/popcorn.svg';
 import VideoList from './VideoList';
 import PopularVideos from './PopularVideos';
 import '../css/home.scss';
@@ -39,9 +38,11 @@ const Home = ({ history, location }) => {
   };
 
   const getPopularVideos = async () => {
+    setLoading(true);
     try {
       const popularVideosResponse = await fetch('api/search/popular');
       if (popularVideosResponse.ok) {
+        setLoading(false);
         const popularVideos = await popularVideosResponse.json();
         setPopularVideos(popularVideos);
       }
@@ -49,21 +50,6 @@ const Home = ({ history, location }) => {
       console.log(error);
     }
   };
-
-  const searchDefaultMessage = searchResults.noResultsFound
-    ? 'No results found. Please try again.'
-    : 'Never Forget A Show Or Movie Again';
-
-  const searchDefault = (
-    <div className="search-default">
-      <img
-        className="search-default__img"
-        src={popcorn}
-        alt="Container of Popcorn"
-      />
-      <p className="search-default__message">{searchDefaultMessage}</p>
-    </div>
-  );
 
   const handleVideoSearch = event => {
     event.preventDefault();
@@ -99,7 +85,7 @@ const Home = ({ history, location }) => {
     if (!popularVideos) {
       getPopularVideos();
     }
-  });
+  }, []);
 
   return (
     <div className="home" onClick={handleHomeClickEvent}>
@@ -139,7 +125,7 @@ const Home = ({ history, location }) => {
             />
           </>
         ) : (
-          <PopularVideos popularVideos={popularVideos} />
+          <PopularVideos popularVideos={popularVideos} isLoading={isLoading} />
         )}
       </div>
     </div>

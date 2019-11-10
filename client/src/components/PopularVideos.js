@@ -1,8 +1,9 @@
 import React from 'react';
+import VideoListPlaceholder from './VideoListPlaceholder';
 import { Link } from 'react-router-dom';
 import '../css/popular-videos.scss';
 
-const PopularVideos = ({ popularVideos }) => {
+const PopularVideos = ({ popularVideos, isLoading }) => {
   if (popularVideos) {
     popularVideos = popularVideos.map(video => (
       <Link
@@ -20,7 +21,9 @@ const PopularVideos = ({ popularVideos }) => {
       </Link>
     ));
   }
-  return (
+  return isLoading ? (
+    <VideoListPlaceholder />
+  ) : (
     <div className="popular-videos-container">
       <h2 className="popular-videos-container__title">Popular</h2>
       <ul className="popular-video-list">{popularVideos}</ul>
