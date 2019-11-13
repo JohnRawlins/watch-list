@@ -30,7 +30,7 @@
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
-  margin-bottom: 75px;
+  margin-bottom: 35px;
 }
 
 .home-search {
@@ -40,6 +40,13 @@
   width: 100%;
   max-width: 1920px;
   height: 300px;
+
+  &__no-results {
+    color: white;
+    margin: 0px 25px;
+    font-style: italic;
+    font-size: 14px;
+  }
 }
 
 .search {
@@ -48,6 +55,7 @@
   width: 100%;
   height: 45px;
   position: relative;
+  margin-bottom: 12px;
 
   &__input {
     flex: 1 1 auto;
@@ -100,6 +108,11 @@
 }
 
 @include medium-display {
+  .home-search {
+    &__no-results {
+      font-size: 16px;
+    }
+  }
   .search-default {
     &__img {
       width: 120px;
