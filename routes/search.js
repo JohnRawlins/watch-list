@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const axios = require('axios');
+const defaultPopularVideos = require('../defaultPopularVideos');
 const apiKey = process.env.OMDB_API_KEY;
 const tmdbApiKey = process.env.TMDB_API_KEY;
 const PORT = process.env.PORT || 5000;
@@ -70,7 +71,10 @@ router.get('/popular', async (req, res) => {
 
     return res.status(200).json(popularVideos);
   } catch (error) {
-    console.error(error.message);
+    if (error.message.includes('429')) {
+      res.status(200).json(defaultPopularVideos);
+    }
+    console.error(error);
   }
 });
 
