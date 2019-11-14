@@ -20,6 +20,8 @@ $menu-primary-color: #2c385e;
   right: 0px;
   width: 100%;
   z-index: 100;
+  transform:translateX(100vw);
+  transition: transform 0.3s, visibility 0.3s;
 }
 
 .menu-option {

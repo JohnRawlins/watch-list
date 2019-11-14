@@ -11,7 +11,7 @@ const Menu = ({ history }) => {
   let { menuVisible, menuOpen, user, logUserOut } = useContext(AuthContext);
   const { clearUsersVideoInfo } = useContext(MyVideoListContext);
   const { clearUsersReviewInfo } = useContext(MyReviewContext);
-  const menuPosition = menuOpen ? { visibility: 'visible' } : {};
+  const menuPosition = menuOpen ? { visibility: 'visible', transform:"translateX(0px)" } : {};
   const username = user ? user.username : 'Guest';
 
   const handleMenuSelection = () => {
