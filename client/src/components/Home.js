@@ -59,7 +59,7 @@ const Home = ({ history, location }) => {
   };
 
   const handleSearchInput = event => {
-    setSearchResults({...searchResults, noResultsFound:false})
+    setSearchResults({ ...searchResults, noResultsFound: false });
     setSearchField(event.target.value);
   };
 
@@ -109,7 +109,14 @@ const Home = ({ history, location }) => {
               />
             </button>
           </form>
-          <span className="home-search__no-results">{searchResults.noResultsFound && searchField ? `0 results found for "${searchField}"` : null}</span>
+          <span
+            className="home-search__no-results"
+            style={
+              searchResults.noResultsFound && searchField
+                ? { opacity: 1 }
+                : null
+            }
+          >{`0 results found for "${searchField}"`}</span>
         </div>
       </div>
       <div className="search-result">

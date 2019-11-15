@@ -43,9 +43,11 @@
 
   &__no-results {
     color: white;
+    opacity: 0;
     margin: 0px 25px;
     font-style: italic;
     font-size: 14px;
+    transition: opacity .5s;
   }
 }
 
