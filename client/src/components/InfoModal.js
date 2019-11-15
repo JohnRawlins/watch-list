@@ -41,13 +41,13 @@ const InfoModal = ({ history }) => {
   };
 
   return infoModalMsg || tokenStatus.msg ? (
-    <Spring
-      from={{ transform: 'scale(0)', opacity: 0 }}
-      to={{ transform: 'scale(1)', opacity: 1 }}
-    >
-      {props => (
-        <div style={props} className="info-modal">
-          <div className="info-modal-message">
+    <div className="info-modal">
+      <Spring
+        from={{ transform: 'scale(0)', opacity: 0 }}
+        to={{ transform: 'scale(1)', opacity: 1 }}
+      >
+        {animation => (
+          <div style={animation} className="info-modal-message">
             <p className="info-modal-message__text">
               {tokenStatus.msg || infoModalMsg}
             </p>
@@ -57,9 +57,9 @@ const InfoModal = ({ history }) => {
               </button>
             </div>
           </div>
-        </div>
-      )}
-    </Spring>
+        )}
+      </Spring>
+    </div>
   ) : null;
 };
 
