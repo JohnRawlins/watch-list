@@ -4,6 +4,7 @@ import AuthContext from './context/auth/authContext';
 import MyVideoListContext from './context/my-video-list/myVideoListContext.js';
 import ReviewContext from './context/review/reviewContext';
 import '../css/remove-video-modal.scss';
+import { Spring } from 'react-spring/renderprops';
 
 const InfoModal = ({ history }) => {
   const {
@@ -21,7 +22,10 @@ const InfoModal = ({ history }) => {
   } = useContext(ReviewContext);
 
   const handleSelection = event => {
-    if (tokenStatus.expiredToken && event.target.textContent.toLowerCase() === 'ok') {
+    if (
+      tokenStatus.expiredToken &&
+      event.target.textContent.toLowerCase() === 'ok'
+    ) {
       setTokenStatus(false, '', false);
       logUserOut();
       clearUsersVideoInfo();
@@ -37,18 +41,25 @@ const InfoModal = ({ history }) => {
   };
 
   return infoModalMsg || tokenStatus.msg ? (
-    <div className="info-modal">
-      <div className="info-modal-message">
-        <p className="info-modal-message__text">
-          {tokenStatus.msg|| infoModalMsg}
-        </p>
-        <div className="info-modal-btns">
-          <button onClick={handleSelection} className="info-modal-btns__ok">
-            ok
-          </button>
+    <Spring
+      from={{ transform: 'scale(0)', opacity: 0 }}
+      to={{ transform: 'scale(1)', opacity: 1 }}
+    >
+      {props => (
+        <div style={props} className="info-modal">
+          <div className="info-modal-message">
+            <p className="info-modal-message__text">
+              {tokenStatus.msg || infoModalMsg}
+            </p>
+            <div className="info-modal-btns">
+              <button onClick={handleSelection} className="info-modal-btns__ok">
+                ok
+              </button>
+            </div>
+          </div>
         </div>
-      </div>
-    </div>
+      )}
+    </Spring>
   ) : null;
 };
 
