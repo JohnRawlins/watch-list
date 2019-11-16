@@ -28,7 +28,7 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(255, 255, 255, 0.4);
+  background: rgba(0, 0, 0, 0.3);
   color: #2c385e;
 }
 
@@ -64,12 +64,12 @@
 
 .rm-review-score {
   @extend %remove-review-modal-flex-row;
-  justify-content: space-around;
-  width: 50%;
   margin-bottom: 15px;
-
-  &__star {
-    width: 20px;
+  .review-score-stars__star {
+    margin-right: 10px;
+  }
+  .review-score-stars__star:last-child {
+    margin-right: 0px;
   }
 }
 
@@ -94,10 +94,9 @@
 
 @include medium-display {
   .rm-review-score {
-    width: 70%;
-
     .review-score-stars__star {
       width: 25px;
+      margin-right: 20px;
     }
   }
 }
