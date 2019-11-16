@@ -30,7 +30,9 @@
   word-wrap: break-word;
 
   &__item {
-    margin-bottom: 5px;
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
   }
 
   &__item::before {
