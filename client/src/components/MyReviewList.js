@@ -24,7 +24,7 @@ const MyReviewList = ({ myReviews, isLoading }) => {
             Results:
             <span className="my-review-list__total"> {reviewListLength}</span>
           </p>
-          {reviewList}{' '}
+          {reviewList}
         </>
       )}
     </ul>
