@@ -1,4 +1,5 @@
 import React from 'react';
+import { Transition } from 'react-spring/renderprops';
 import '../css/field-error.scss';
 import inputErrorIcon from '../img/input-error-icon.svg';
 
@@ -20,9 +21,19 @@ const FieldError = ({ fieldErrors }) => {
 
   return (
     <div className="field-error">
-      {fieldErrors.length > 0 && (
-        <ul className="field-error-list">{fieldErrors}</ul>
-      )}
+      <Transition
+        items={fieldErrors}
+        keys={error => error.key}
+        from={{ opacity: 0 }}
+        enter={{ opacity: 1 }}
+        leave={{ opacity: 0 }}
+      >
+        {error => props => (
+          <ul style={props} className="field-error-list">
+            {error}
+          </ul>
+        )}
+      </Transition>
     </div>
   );
 };
