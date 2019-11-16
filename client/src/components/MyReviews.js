@@ -75,7 +75,7 @@ const MyReviews = () => {
       <div className="my-reviews">
         <header className="my-reviews-header">
           <h1 className="my-reviews-header__title">My Reviews</h1>
-          {sortedList.length < 1 ? null : (
+          {sortedList.length < 2 ? null : (
             <select onChange={handleListSort} className="my-reviews-sort">
               <option className="my-reviews-sort__option">Sort By</option>
 

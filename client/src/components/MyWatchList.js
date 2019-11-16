@@ -60,7 +60,7 @@ const MyWatchList = () => {
       <div className="my-watch-list">
         <header className="my-watch-list-header">
           <h1 className="my-watch-list-header__title">My Watch List</h1>
-          {sortedList.length < 1 ? null : (
+          {sortedList.length < 2 ? null : (
             <select className="my-watch-list-sort" onChange={handleListSort}>
               <option className="my-watch-list-sort__option">Sort By</option>
 
