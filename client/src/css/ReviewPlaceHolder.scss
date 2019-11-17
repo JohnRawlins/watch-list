@@ -1,6 +1,7 @@
 @import './app.scss';
 
 .review-placeholder {
+  @extend %fadeInAndOut;
   margin-top: 20px;
   margin-bottom: 30px;
 }
