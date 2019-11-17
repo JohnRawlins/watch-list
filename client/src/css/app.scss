@@ -32,7 +32,6 @@ $plc-holder: #464f6d;
   flex-direction: column;
 }
 
-
 @mixin medium-display {
   @media (min-width: $medium-width) {
     @content;

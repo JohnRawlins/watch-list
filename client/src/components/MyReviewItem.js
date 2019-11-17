@@ -1,4 +1,5 @@
-import React, { useContext } from 'react'
+import React, { useContext } from 'react';
+import { Link } from 'react-router-dom';
 import ReviewContext from './context/review/reviewContext';
 import reviewStar from '../img/review-star.svg';
 import '../css/my-review-item.scss';
@@ -7,10 +8,9 @@ const MyReviewItem = ({
   reviewDetails: { videoTitle, stars, date, body },
   reviewDetails: review
 }) => {
-  const {
-    setEditReviewModal,
-    setDeleteReviewModal
-  } = useContext(ReviewContext);
+  const { setEditReviewModal, setDeleteReviewModal } = useContext(
+    ReviewContext
+  );
 
   const formatReviewDate = date => {
     const format = { year: 'numeric', month: 'short', day: 'numeric' };
@@ -38,7 +38,7 @@ const MyReviewItem = ({
   };
 
   const handleReviewDeletion = () => {
-    setDeleteReviewModal(true, { ...review});
+    setDeleteReviewModal(true, { ...review });
   };
 
   return (
@@ -47,7 +47,9 @@ const MyReviewItem = ({
         onClick={handleReviewDeletion}
         className="my-review-item__exit-icon"
       />
-      <h1 className="my-review-item__media-title">{videoTitle}</h1>
+      <Link to={`/video-profile/${videoTitle}/${review.imdbID}`}>
+        <h1 className="my-review-item__media-title">{videoTitle}</h1>
+      </Link>
       <div className="my-review-item-details">
         <div className="my-review-item-stars">{createReviewStars(stars)}</div>
         <span className="my-review-item-details__date">
