@@ -96,7 +96,7 @@ const MyVideoListState = props => {
           dispatch({
             type: 'ADD_VIDEO',
             payload: {
-              msg: `${Title} is already on your watch list`
+              msg: `"${Title}" is already on your watch list`
             }
           });
         } else {
@@ -107,7 +107,7 @@ const MyVideoListState = props => {
           );
           dispatch({
             type: 'ADD_VIDEO',
-            payload: { msg: `${video.Title} has been added to your watch list` }
+            payload: { msg: `"${video.Title}" has been added to your watch list` }
           });
         }
       }
@@ -164,7 +164,7 @@ const MyVideoListState = props => {
         dispatch({
           type: 'REMOVE_VIDEO',
           payload: {
-            msg: `${videoToRemove.Title} has been removed from your watch list`
+            msg: `"${videoToRemove.Title}" has been removed from your watch list`
           }
         });
       }

@@ -63,12 +63,12 @@ router.post(
       if (duplicateVideo)
         return res
           .status(400)
-          .json({ msg: `${Title} is already on your watch list` });
+          .json({ msg: `"${Title}" is already on your watch list` });
 
       const video = await videoToAdd.save();
       return res
         .status(201)
-        .json({ msg: `${video.Title} has been added to your watch list` });
+        .json({ msg: `"${video.Title}" has been added to your watch list` });
     } catch (error) {
       console.error(error.message);
       return res.status(500).json({

@@ -111,12 +111,12 @@ router.post(
       if (duplicateReview) {
         return res
           .status(400)
-          .json({ msg: `You already reviewed ${videoTitle}` });
+          .json({ msg: `You already reviewed "${videoTitle}"` });
       }
 
       const review = await reviewToAdd.save();
       return res.status(201).json({
-        msg: `Your review for ${review.videoTitle} has been submitted`
+        msg: `Your review for "${review.videoTitle}" has been submitted`
       });
     } catch (error) {
       console.error(error.message);
@@ -173,7 +173,7 @@ router.put(
       );
 
       return res.status(200).json({
-        msg: `Your review for ${updatedReview.videoTitle} has been updated`
+        msg: `Your review for "${updatedReview.videoTitle}" has been updated`
       });
     } catch (error) {
       console.error(error.message);
@@ -203,7 +203,7 @@ router.delete('/:reviewID', auth, async (req, res) => {
     const removedReview = await Review.findByIdAndRemove(reviewToRemove._id);
 
     return res.status(200).json({
-      msg: `Your ${removedReview.videoTitle} review has been removed`
+      msg: `Your "${removedReview.videoTitle}" review has been removed`
     });
   } catch (error) {
     console.error(error.message);
