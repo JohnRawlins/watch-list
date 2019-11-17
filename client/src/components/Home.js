@@ -131,6 +131,7 @@ const Home = ({ history, location }) => {
               parentComponentClickEvent={homeClickEvent}
               numberOfPages={numberOfPages}
               location={location}
+              isLoading={isLoading}
             />
           </>
         ) : (

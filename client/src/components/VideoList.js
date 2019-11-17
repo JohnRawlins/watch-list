@@ -19,15 +19,15 @@ const VideoList = ({ isLoading, videoItems, videoItemsTotal }) => {
       />
     );
   });
-  return (
+  return isLoading ? (
+    <VideoListPlaceHolder />
+  ) : (
     <>
       <p className="search-total">
         Results:
         <span className="search-total__num">{videoItemsTotal}</span>
       </p>
-      <ul className="video-list">
-        {isLoading ? <VideoListPlaceHolder /> : videoItems}
-      </ul>
+      <ul className="video-list">{videoItems}</ul>
     </>
   );
 };

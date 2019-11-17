@@ -7,7 +7,8 @@ import nextArrow from '../img/next-arrow.svg';
 const PageSelector = ({
   numberOfPages,
   parentComponentClickEvent,
-  location
+  location,
+  isLoading
 }) => {
   const [dropDownMenuVisible, setDropDownMenuVisible] = useState(false);
   const pages = [];
@@ -64,7 +65,7 @@ const PageSelector = ({
     //eslint-disable-next-line
   }, [parentComponentClickEvent]);
 
-  return (
+  return isLoading ? null : (
     <div id="pg-selector" className="page-selector" ref={pageDropDownMenu}>
       {prevPage && (
         <Link to={`search${videoTitle}&page=${currentPage - 1}`}>
