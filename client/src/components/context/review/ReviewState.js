@@ -168,6 +168,12 @@ const ReviewState = props => {
     setInfoModalMsg('');
   };
 
+  const clearVideoProfileReviews = () => {
+    dispatch({
+      type: 'CLEAR_VIDEO_PROFILE_REVIEWS'
+    });
+  };
+
   const setScoreAndDescription = score => {
     let scoreDesc = '';
 
@@ -224,7 +230,8 @@ const ReviewState = props => {
         submitReviewEdit,
         deleteVideoReview,
         clearUsersReviewInfo,
-        setReviewsLoading
+        setReviewsLoading,
+        clearVideoProfileReviews
       }}
     >
       {props.children}

@@ -21,12 +21,13 @@ const VideoProfile = ({ location }) => {
     setWriteReviewModal,
     writeReviewModal,
     getVideoReviews,
-    userReviews
+    userReviews,
+    clearVideoProfileReviews
   } = useContext(ReviewContext);
 
   const [isLoading, setLoading] = useState(true);
 
-  const hide = {display:"none"};
+  const hide = { display: 'none' };
 
   const getVideoProfile = async () => {
     let rottenTomatoesScore;
@@ -59,6 +60,9 @@ const VideoProfile = ({ location }) => {
 
   useEffect(() => {
     getVideoProfile();
+    return () => {
+      clearVideoProfileReviews();
+    };
     //eslint-disable-next-line
   }, [infoModalMsg]);
 
@@ -104,13 +108,22 @@ const VideoProfile = ({ location }) => {
                   </span>
                 </div>
                 <div className="video-additional-details">
-                  <span style={video.Released.toLowerCase() === 'n/a' ? hide : {}}className="video-additional-details__release-date">
+                  <span
+                    style={video.Released.toLowerCase() === 'n/a' ? hide : {}}
+                    className="video-additional-details__release-date"
+                  >
                     {video.Released}
                   </span>
-                    <span style={video.Runtime.toLowerCase() === 'n/a' ? hide : {}} className="video-additional-details__runtime">
+                  <span
+                    style={video.Runtime.toLowerCase() === 'n/a' ? hide : {}}
+                    className="video-additional-details__runtime"
+                  >
                     {video.Runtime}
                   </span>
-                    <span style={video.Rated.toLowerCase() === 'n/a' ? hide : {}}className="video-additional-details__age-rating">
+                  <span
+                    style={video.Rated.toLowerCase() === 'n/a' ? hide : {}}
+                    className="video-additional-details__age-rating"
+                  >
                     {video.Rated}
                   </span>
                 </div>

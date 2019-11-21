@@ -173,6 +173,13 @@ export default (state, action) => {
       };
     }
 
+    case 'CLEAR_VIDEO_PROFILE_REVIEWS': {
+      return {
+        ...state,
+        userReviews: []
+      };
+    }
+
     default:
       return state;
   }
