@@ -60,9 +60,8 @@ const VideoProfile = ({ location }) => {
 
   useEffect(() => {
     getVideoProfile();
-    return () => {
-      clearVideoProfileReviews();
-    };
+    return clearVideoProfileReviews;
+
     //eslint-disable-next-line
   }, [infoModalMsg]);
 

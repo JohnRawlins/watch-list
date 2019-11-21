@@ -56,17 +56,10 @@ router.post(
         }
       };
 
-      jwt.sign(
-        payload,
-        jwtSecret,
-        {
-          expiresIn: 3600
-        },
-        (error, userToken) => {
-          if (error) throw error;
-          else return res.status(200).json(userToken);
-        }
-      );
+      jwt.sign(payload, jwtSecret, (error, userToken) => {
+        if (error) throw error;
+        else return res.status(200).json(userToken);
+      });
     } catch (error) {
       console.error(error.message);
       return res
