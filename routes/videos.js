@@ -97,7 +97,7 @@ router.delete('/:videoID', auth, async (req, res) => {
     let removedVideo = await Video.findByIdAndRemove(videoToRemove._id);
 
     res.status(200).json({
-      msg: `${removedVideo.Title} has been removed from your watch list`
+      msg: `"${removedVideo.Title}" has been removed from your watch list`
     });
   } catch (error) {
     console.error(error.message);
