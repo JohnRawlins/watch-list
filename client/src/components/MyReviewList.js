@@ -15,19 +15,15 @@ const MyReviewList = ({ myReviews, isLoading }) => {
   }
 
   return (
-    <ul className="my-review-list">
-      {isLoading ? (
-        <ReviewPlaceHolder />
-      ) : (
-        <>
-          <p className="my-review-list__results">
-            Results:
-            <span className="my-review-list__total"> {reviewListLength}</span>
-          </p>
-          {reviewList}
-        </>
-      )}
-    </ul>
+    <>
+      <p className="my-review-list__results">
+        Results:
+        <span className="my-review-list__total"> {reviewListLength}</span>
+      </p>
+      <ul className="my-review-list">
+        {isLoading ? <ReviewPlaceHolder /> : <>{reviewList}</>}
+      </ul>
+    </>
   );
 };
 
