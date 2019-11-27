@@ -6,19 +6,19 @@ import '../css/popular-videos.scss';
 const PopularVideos = ({ popularVideos, isLoading }) => {
   if (popularVideos) {
     popularVideos = popularVideos.map(video => (
-      <Link
-        key={video.id}
-        to={`/video-profile/${video.title.replace('?', '')}/${video.imdbID}`}
-      >
-        <li className="popular-video">
+      <li key={video.id} className="popular-video-wrapper">
+        <Link
+          to={`/video-profile/${video.title.replace('?', '')}/${video.imdbID}`}
+          className="popular-video"
+        >
           <img
             className="popular-video__poster"
             src={`https://image.tmdb.org/t/p/w600_and_h900_bestv2${video.poster_path}`}
             alt="Video Poster"
           />
           <span className="popular-video__title">{video.title}</span>
-        </li>
-      </Link>
+        </Link>
+      </li>
     ));
   }
   return isLoading ? (
