@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect, useContext, useRef } from 'react';
 import MyVideoListContext from './context/my-video-list/myVideoListContext';
 import PageSelector from './PageSelector';
 import Navbar from './Navbar';
@@ -19,6 +19,7 @@ const Home = ({ history, location }) => {
   const [numberOfPages, setNumberOfPages] = useState(0);
   const [homeClickEvent, setHomeClickEvent] = useState(null);
   const [isLoading, setLoading] = useState(false);
+  const videoSearchField = useRef(null);
 
   const searchForVideo = async () => {
     try {
@@ -55,6 +56,7 @@ const Home = ({ history, location }) => {
     event.preventDefault();
     if (searchField.trim()) {
       history.push(`/search?videoTitle=${searchField.trim()}`);
+      videoSearchField.current.blur();
     }
   };
 
@@ -100,6 +102,7 @@ const Home = ({ history, location }) => {
               placeholder="Enter A Movie Or Show"
               onChange={handleSearchInput}
               value={searchField}
+              ref={videoSearchField}
             />
             <button className="search__btn" type="submit">
               <img
