@@ -5,7 +5,6 @@ import Navbar from './Navbar';
 import defaultPoster from '../img/default-poster.jpg';
 import WriteReview from './WriteReview';
 import '../css/video-profile.scss';
-import defaultScore from '../img/popcorn.svg';
 import reviewStar from '../img/review-star.svg';
 import freshScore from '../img/fresh-score.png';
 import rottenScore from '../img/rotten-score.png';
