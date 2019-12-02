@@ -27,8 +27,6 @@ const VideoProfile = ({ location }) => {
 
   const [isLoading, setLoading] = useState(true);
 
-  const hide = { display: 'none' };
-
   const getVideoProfile = async () => {
     let rottenTomatoesScore;
     try {
@@ -90,41 +88,39 @@ const VideoProfile = ({ location }) => {
               <div className="video-details-general">
                 <h1 className="video-details-general__title">{video.Title}</h1>
                 <div className="tomatometer">
-                  <img
-                    className="tomatometer__icon"
-                    src={
-                      video.rottenTomatoesScore >= 60
-                        ? freshScore
-                        : video.rottenTomatoesScore < 60
-                        ? rottenScore
-                        : defaultScore
-                    }
-                    alt="Rotten Tomatoes"
-                  />
+                  {video.rottenTomatoesScore !== 'No Critic Reviews' && (
+                    <img
+                      className="tomatometer__icon"
+                      src={
+                        video.rottenTomatoesScore >= 60
+                          ? freshScore
+                          : rottenScore
+                      }
+                      alt="Rotten Tomatoes"
+                    />
+                  )}
+
                   <span className="tomatometer__rating">
                     {video.rottenTomatoesScore}
                     {typeof video.rottenTomatoesScore === 'number' ? '%' : ''}
                   </span>
                 </div>
                 <div className="video-additional-details">
-                  <span
-                    style={video.Released.toLowerCase() === 'n/a' ? hide : {}}
-                    className="video-additional-details__release-date"
-                  >
-                    {video.Released}
-                  </span>
-                  <span
-                    style={video.Runtime.toLowerCase() === 'n/a' ? hide : {}}
-                    className="video-additional-details__runtime"
-                  >
-                    {video.Runtime}
-                  </span>
-                  <span
-                    style={video.Rated.toLowerCase() === 'n/a' ? hide : {}}
-                    className="video-additional-details__age-rating"
-                  >
-                    {video.Rated}
-                  </span>
+                  {video.Released.toLowerCase() !== 'n/a' && (
+                    <span className="video-additional-details__release-date">
+                      {video.Released}
+                    </span>
+                  )}
+                  {video.Runtime.toLowerCase() !== 'n/a' && (
+                    <span className="video-additional-details__runtime">
+                      {video.Runtime}
+                    </span>
+                  )}
+                  {video.Rated.toLowerCase() !== 'n/a' && (
+                    <span className="video-additional-details__age-rating">
+                      {video.Rated}
+                    </span>
+                  )}
                 </div>
                 <button
                   className="video-profile__watch-list-btn"
