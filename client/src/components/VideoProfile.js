@@ -29,8 +29,9 @@ const VideoProfile = ({ location }) => {
   const getVideoProfile = async () => {
     let rottenTomatoesScore;
     try {
-      const videoProfileResponse = await fetch(`/api${location.pathname}`);
-
+      const videoProfileResponse = await fetch(
+        `/api${encodeURI(location.pathname)}`
+      );
       const videoProfilePayload = await videoProfileResponse.json();
       const rottenTomatoesReview = videoProfilePayload.Ratings.find(
         review => review.Source === 'Rotten Tomatoes'

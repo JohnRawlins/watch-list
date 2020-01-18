@@ -26,6 +26,12 @@ const Video = ({
   const displayProperty =
     userReviewScore === undefined ? { display: 'none' } : {};
 
+  let encodedVideoTitle = Title.replace('?', '');
+
+  encodedVideoTitle.replace(/%/g, '%25');
+
+  encodedVideoTitle = encodeURI(encodedVideoTitle);
+
   return (
     <li className="video">
       <button
@@ -33,7 +39,7 @@ const Video = ({
         style={removeIconVisibility}
         className="video__remove-icon"
       />
-      <Link to={`/video-profile/${Title.replace('?', '')}/${imdbID}`}>
+      <Link to={`/video-profile/${encodedVideoTitle}/${imdbID}`}>
         <div className="video-Poster">
           <img
             src={videoPosterError ? defaultPoster : Poster}

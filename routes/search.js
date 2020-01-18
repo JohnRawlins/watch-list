@@ -53,6 +53,10 @@ router.get('/', async (req, res) => {
   }
 });
 
+// @route     GET api/search
+// @desc      Search for popular movies or shows using 3rd party API
+// @access    Public
+
 router.get('/popular', async (req, res) => {
   try {
     const popularVideosResponse = await axios.get(
