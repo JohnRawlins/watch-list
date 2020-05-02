@@ -23,13 +23,13 @@ router.get('/', async (req, res) => {
 
     if (omdbSearchResponse.data.Search) {
       let videoSearchResults = omdbSearchResponse.data.Search.map(
-        async video => {
+        async (video) => {
           const videoReviewResponse = await axios.get(
             `http://localhost:${PORT}/api/reviews/${video.imdbID}`
           );
           return {
             ...video,
-            userReviewScore: videoReviewResponse.data.userReviewScore
+            userReviewScore: videoReviewResponse.data.userReviewScore,
           };
         }
       );
@@ -39,7 +39,7 @@ router.get('/', async (req, res) => {
       res.status(200).json({
         Search: videoSearchResults,
         totalResults: omdbSearchResponse.data.totalResults,
-        Response: omdbSearchResponse.data.Response
+        Response: omdbSearchResponse.data.Response,
       });
     } else {
       res.status(200).json(omdbSearchResponse.data);
@@ -48,7 +48,7 @@ router.get('/', async (req, res) => {
     console.error(error.message);
     return res.status(500).json({
       msg:
-        'The server was unable to process your request due to an internal error'
+        'The server was unable to process your request due to an internal error',
     });
   }
 });
@@ -58,28 +58,34 @@ router.get('/', async (req, res) => {
 // @access    Public
 
 router.get('/popular', async (req, res) => {
+  let popularVideosResponse;
   try {
-    const popularVideosResponse = await axios.get(
+    popularVideosResponse = await axios.get(
       `https://api.themoviedb.org/3/movie/popular?api_key=${tmdbApiKey}&language=en-US&page=1`
     );
-
-    const popularVideos = await Promise.all(
-      popularVideosResponse.data.results.map(async video => {
-        videoDetails = await axios.get(
-          `https://api.themoviedb.org/3/movie/${video.id}?api_key=${tmdbApiKey}&language=en-US`
-        );
-        video.imdbID = videoDetails.data.imdb_id;
-        return video;
-      })
-    );
-
-    return res.status(200).json(popularVideos);
   } catch (error) {
     if (error.message.includes('429')) {
       res.status(200).json(defaultPopularVideos);
     }
     console.error(error);
+    res.status(500).json("The server was unable to process your request due to an internal error")
   }
+  const popularVideos = await Promise.all(
+    popularVideosResponse.data.results.map(async (video) => {
+      try {
+        videoDetails = await axios.get(
+          `https://api.themoviedb.org/3/movie/${video.id}?api_key=${tmdbApiKey}&language=en-US`
+        );
+        video.imdbID = videoDetails.data.imdb_id;
+        return video;
+      } catch (error) {
+        console.error(error);
+        return null;
+      }
+    })
+  );
+
+  return res.status(200).json(popularVideos);
 });
 
 module.exports = router;
