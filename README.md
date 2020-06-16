@@ -18,6 +18,6 @@
 
 ![Movie/Show Search](https://i.imgur.com/w6R18Lt.jpg)
 
-![Create Review](https://i.imgur.com/nj8TzZp.png)
+![Create Review](https://i.imgur.com/5po04Ph.png)
 
-![Movie/Show Profile](https://i.imgur.com/0xLyzA0.png)
+![Movie/Show Profile](https://i.imgur.com/LZPZCbx.png)
