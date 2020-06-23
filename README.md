@@ -2,7 +2,7 @@
 
 ### What is this?
 
-[Watch List](https://watch-list1.herokuapp.com/) is a web application that assists users with tracking the movies and shows that they are interested in.
+[Watch List](https://watch-list1.herokuapp.com/) is a web application that assists users with keeping track of the movies and shows they're interested in.
 
 ### Features
 
