@@ -1,4 +1,4 @@
-@import './app.scss';
+@import "./app.scss";
 
 %video-profile-flex-row {
   display: flex;
@@ -42,7 +42,7 @@
   display: flex;
   flex-direction: column;
   background: linear-gradient(rgba(33, 44, 61, 0.4), #2c385e),
-    url('../img/video-profile-background-1920w.jpg');
+    url("../img/video-profile-background-1920w.jpg");
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
@@ -130,6 +130,31 @@
   margin-bottom: 30px;
   &__heading {
     margin-bottom: 10px;
+  }
+}
+
+.video-cast-container {
+  display: flex;
+  list-style: none;
+  align-items: flex-start;
+  margin-bottom: 30px;
+  overflow-x: auto;
+}
+
+.actor {
+  flex: 0 0 auto;
+  width: 100px;
+  margin-right: 20px;
+  &__headshot {
+    display: block;
+    width: 100%;
+    margin-bottom: 10px;
+    border-radius: 50%;
+  }
+  &__name {
+    overflow: hidden;
+    text-align: center;
+    text-overflow: ellipsis;
   }
 }
 
@@ -253,5 +278,9 @@
     &__btn {
       font-size: 16px;
     }
+  }
+
+  .actor {
+    margin-right: 50px;
   }
 }

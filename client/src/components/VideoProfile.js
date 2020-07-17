@@ -1,15 +1,15 @@
-import React, { useEffect, useState, useContext } from 'react';
-import MyVideoListContext from './context/my-video-list/myVideoListContext';
-import ReviewContext from './context/review/reviewContext';
-import Navbar from './Navbar';
-import defaultPoster from '../img/default-poster.jpg';
-import WriteReview from './WriteReview';
-import '../css/video-profile.scss';
-import reviewStar from '../img/review-star.svg';
-import freshScore from '../img/fresh-score.png';
-import rottenScore from '../img/rotten-score.png';
-import UserReviews from './UserReviews';
-import VideoProfilePlaceHolder from './VideoProfilePlaceHolder';
+import React, { useEffect, useState, useContext } from "react";
+import MyVideoListContext from "./context/my-video-list/myVideoListContext";
+import ReviewContext from "./context/review/reviewContext";
+import Navbar from "./Navbar";
+import defaultPoster from "../img/default-poster.jpg";
+import WriteReview from "./WriteReview";
+import "../css/video-profile.scss";
+import reviewStar from "../img/review-star.svg";
+import freshScore from "../img/fresh-score.png";
+import rottenScore from "../img/rotten-score.png";
+import UserReviews from "./UserReviews";
+import VideoProfilePlaceHolder from "./VideoProfilePlaceHolder";
 
 const VideoProfile = ({ location }) => {
   const [video, setVideo] = useState({});
@@ -21,10 +21,27 @@ const VideoProfile = ({ location }) => {
     writeReviewModal,
     getVideoReviews,
     userReviews,
-    clearVideoProfileReviews
+    clearVideoProfileReviews,
   } = useContext(ReviewContext);
 
   const [isLoading, setLoading] = useState(true);
+
+  let movieCast = null;
+
+  if (video.Cast) {
+    movieCast = video.Cast.map((actor, index) => {
+      return (
+        <li className="actor" key={index.toString()}>
+          <img
+            className="actor__headshot"
+            src={`https://image.tmdb.org/t/p/w138_and_h175_face/${actor.profile_path}`}
+            alt={actor.name}
+          />
+          <p className="actor__name">{actor.name}</p>
+        </li>
+      );
+    });
+  }
 
   const getVideoProfile = async () => {
     let rottenTomatoesScore;
@@ -34,14 +51,14 @@ const VideoProfile = ({ location }) => {
       );
       const videoProfilePayload = await videoProfileResponse.json();
       const rottenTomatoesReview = videoProfilePayload.Ratings.find(
-        review => review.Source === 'Rotten Tomatoes'
+        (review) => review.Source === "Rotten Tomatoes"
       );
       if (rottenTomatoesReview) {
         rottenTomatoesScore = Number(
-          rottenTomatoesReview.Value.replace('%', '')
+          rottenTomatoesReview.Value.replace("%", "")
         );
       } else {
-        rottenTomatoesScore = 'No Critic Reviews';
+        rottenTomatoesScore = "No Critic Reviews";
       }
 
       videoProfilePayload.rottenTomatoesScore = rottenTomatoesScore;
@@ -88,7 +105,7 @@ const VideoProfile = ({ location }) => {
               <div className="video-details-general">
                 <h1 className="video-details-general__title">{video.Title}</h1>
                 <div className="tomatometer">
-                  {video.rottenTomatoesScore !== 'No Critic Reviews' && (
+                  {video.rottenTomatoesScore !== "No Critic Reviews" && (
                     <img
                       className="tomatometer__icon"
                       src={
@@ -102,21 +119,21 @@ const VideoProfile = ({ location }) => {
 
                   <span className="tomatometer__rating">
                     {video.rottenTomatoesScore}
-                    {typeof video.rottenTomatoesScore === 'number' ? '%' : ''}
+                    {typeof video.rottenTomatoesScore === "number" ? "%" : ""}
                   </span>
                 </div>
                 <div className="video-additional-details">
-                  {video.Released.toLowerCase() !== 'n/a' && (
+                  {video.Released.toLowerCase() !== "n/a" && (
                     <span className="video-additional-details__release-date">
                       {video.Released}
                     </span>
                   )}
-                  {video.Runtime.toLowerCase() !== 'n/a' && (
+                  {video.Runtime.toLowerCase() !== "n/a" && (
                     <span className="video-additional-details__runtime">
                       {video.Runtime}
                     </span>
                   )}
-                  {video.Rated.toLowerCase() !== 'n/a' && (
+                  {video.Rated.toLowerCase() !== "n/a" && (
                     <span className="video-additional-details__age-rating">
                       {video.Rated}
                     </span>
@@ -138,10 +155,14 @@ const VideoProfile = ({ location }) => {
             </section>
             <section className="video-credits">
               <h2 className="video-credits__heading">Cast and Credits</h2>
-              <div className="video-actors">
-                <h3 className="video-actors__heading">Actors</h3>
-                <p className="video-actors__info">{video.Actors}</p>
-              </div>
+              {video.Cast.length < 1 ? (
+                <div className="video-actors">
+                  <h3 className="video-actors__heading">Actors</h3>
+                  <p className="video-actors__info">{video.Actors}</p>
+                </div>
+              ) : (
+                <ul className="video-cast-container">{movieCast}</ul>
+              )}
               <div className="video-director">
                 <h3 className="video-director__heading">Director</h3>
                 <p className="video-director__info">{video.Director}</p>
