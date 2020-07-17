@@ -10,6 +10,7 @@ import freshScore from "../img/fresh-score.png";
 import rottenScore from "../img/rotten-score.png";
 import UserReviews from "./UserReviews";
 import VideoProfilePlaceHolder from "./VideoProfilePlaceHolder";
+import ReactPlayer from "react-player/youtube";
 
 const VideoProfile = ({ location }) => {
   const [video, setVideo] = useState({});
@@ -36,6 +37,7 @@ const VideoProfile = ({ location }) => {
             className="actor__headshot"
             src={`https://image.tmdb.org/t/p/w138_and_h175_face/${actor.profile_path}`}
             alt={actor.name}
+            controls={true}
           />
           <p className="actor__name">{actor.name}</p>
         </li>
@@ -168,6 +170,20 @@ const VideoProfile = ({ location }) => {
                 <p className="video-director__info">{video.Director}</p>
               </div>
             </section>
+            {video.Trailer ? (
+              <section className="video-trailer">
+                <h2 className="video-trailer__heading">Trailer</h2>
+                <div className="video-trailer-wrapper">
+                  <ReactPlayer
+                    className="video-trailer-wrapper__video"
+                    url={`https://www.youtube.com/embed/${video.Trailer.key}`}
+                    width="100%"
+                    height="100%"
+                    controls={1}
+                  />
+                </div>
+              </section>
+            ) : null}
             <section className="user-reviews">
               <h2 className="user-reviews__heading">User Reviews</h2>
               <div className="video-review-container">

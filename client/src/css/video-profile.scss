@@ -121,6 +121,7 @@
 }
 
 .video-credits {
+  margin-bottom: 50px;
   &__heading {
     margin-bottom: 25px;
   }
@@ -150,6 +151,7 @@
     width: 100%;
     margin-bottom: 10px;
     border-radius: 50%;
+    border: 5px solid $secondary;
   }
   &__name {
     overflow: hidden;
@@ -159,9 +161,25 @@
 }
 
 .video-director {
-  margin-bottom: 50px;
   &__heading {
     margin-bottom: 10px;
+  }
+}
+
+.video-trailer {
+  margin-bottom: 50px;
+  &__heading {
+    margin-bottom: 25px;
+  }
+}
+
+.video-trailer-wrapper {
+  position: relative;
+  padding-top: 56.25%;
+  &__video {
+    position: absolute;
+    top: 0;
+    left: 0;
   }
 }
 

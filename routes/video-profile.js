@@ -9,13 +9,13 @@ const tmdbApiKey = process.env.TMDB_API_KEY;
 // @access    Public
 
 const getMovieCast = async (videoID) => {
-  const maxCastNumber = 8;
+  const maxCastNumber = 5;
   try {
     let response = await axios.get(
       `https://api.themoviedb.org/3/movie/${videoID}/credits?api_key=${tmdbApiKey}`
     );
 
-    let movieCast = response.data.cast.filter((actor, index) => {
+    let movieCast = response.data.cast.filter((actor) => {
       return actor.profile_path ? true : false;
     });
 
