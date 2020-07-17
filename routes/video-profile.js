@@ -9,20 +9,45 @@ const tmdbApiKey = process.env.TMDB_API_KEY;
 // @access    Public
 
 const getMovieCast = async (videoID) => {
-  const movieCastLimit = 5;
+  const maxCastNumber = 8;
   try {
     let response = await axios.get(
       `https://api.themoviedb.org/3/movie/${videoID}/credits?api_key=${tmdbApiKey}`
     );
 
     let movieCast = response.data.cast.filter((actor, index) => {
-      return index < movieCastLimit && actor.profile_path ? true : false;
+      return actor.profile_path ? true : false;
     });
 
-    return movieCast;
+    return (movieCast = movieCast.slice(0, maxCastNumber));
   } catch (error) {
     console.error(error);
     return [];
+  }
+};
+
+const getMovieTrailer = async (videoID) => {
+  try {
+    let response = await axios.get(
+      `https://api.themoviedb.org/3/movie/${videoID}/videos?api_key=${tmdbApiKey}`
+    );
+
+    let movieTrailers = response.data.results.filter((movie) => {
+      return movie.site === "YouTube" &&
+        movie.type === "Trailer" &&
+        movie.size === 1080
+        ? true
+        : false;
+    });
+
+    if (movieTrailers.length >= 1) {
+      return movieTrailers[0];
+    } else {
+      return null;
+    }
+  } catch (error) {
+    console.error(error);
+    return null;
   }
 };
 
@@ -38,6 +63,7 @@ router.get("/:videoTitle/:imdbID", async (req, res) => {
       return res.status(400).json({ msg: "Error loading video profile" });
     } else {
       omdbResponse.data.Cast = await getMovieCast(videoImdbID);
+      omdbResponse.data.Trailer = await getMovieTrailer(videoImdbID);
       return res.status(200).json(omdbResponse.data);
     }
   } catch (error) {
