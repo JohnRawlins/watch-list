@@ -179,7 +179,7 @@ const VideoProfile = ({ location }) => {
                     url={`https://www.youtube.com/embed/${video.Trailer.key}`}
                     width="100%"
                     height="100%"
-                    controls={1}
+                    controls={true}
                   />
                 </div>
               </section>
