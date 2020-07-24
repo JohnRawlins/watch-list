@@ -26,6 +26,18 @@ const getMovieCast = async (videoID) => {
   }
 };
 
+const getMovieBackdrop = async (videoID) => {
+  try {
+    let response = await axios.get(
+      `https://api.themoviedb.org/3/movie/${videoID}?api_key=${tmdbApiKey}&language=en-US`
+    );
+    return `https://image.tmdb.org/t/p/w1920_and_h800_multi_faces/${response.data.backdrop_path}`;
+  } catch (error) {
+    console.error(error);
+    return null;
+  }
+};
+
 const getMovieTrailer = async (videoID) => {
   try {
     let response = await axios.get(
@@ -62,6 +74,7 @@ router.get("/:videoTitle/:imdbID", async (req, res) => {
     if (omdbResponse.data.Error) {
       return res.status(400).json({ msg: "Error loading video profile" });
     } else {
+      omdbResponse.data.Backdrop = await getMovieBackdrop(videoImdbID);
       omdbResponse.data.Cast = await getMovieCast(videoImdbID);
       omdbResponse.data.Trailer = await getMovieTrailer(videoImdbID);
       return res.status(200).json(omdbResponse.data);

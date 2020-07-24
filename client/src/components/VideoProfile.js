@@ -11,6 +11,7 @@ import rottenScore from "../img/rotten-score.png";
 import UserReviews from "./UserReviews";
 import VideoProfilePlaceHolder from "./VideoProfilePlaceHolder";
 import ReactPlayer from "react-player/youtube";
+import defaultVideoBackdrop from "../img/video-profile-background-1920w.jpg";
 
 const VideoProfile = ({ location }) => {
   const [video, setVideo] = useState({});
@@ -94,7 +95,14 @@ const VideoProfile = ({ location }) => {
         <VideoProfilePlaceHolder />
       ) : (
         <div className="video-profile">
-          <div className="video-details-container">
+          <div
+            className="video-details-container"
+            style={{
+              backgroundImage: `linear-gradient(rgba(33, 44, 61, 0.4), #2c385e),url(${
+                video.Backdrop ? video.Backdrop : defaultVideoBackdrop
+              })`,
+            }}
+          >
             <section className="video-details">
               <img
                 className="video-details__poster"
