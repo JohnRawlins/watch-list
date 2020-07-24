@@ -152,6 +152,15 @@
     border: 5px solid $secondary;
   }
   &__name {
+    font-weight: bold;
+    overflow: hidden;
+    text-align: center;
+    text-overflow: ellipsis;
+    margin-bottom: 6px;
+  }
+
+  &__character {
+    font-size: 13px;
     overflow: hidden;
     text-align: center;
     text-overflow: ellipsis;

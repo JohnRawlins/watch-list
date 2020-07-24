@@ -41,6 +41,7 @@ const VideoProfile = ({ location }) => {
             controls={true}
           />
           <p className="actor__name">{actor.name}</p>
+          <p className="actor__character">{actor.character}</p>
         </li>
       );
     });
