@@ -41,8 +41,6 @@
 .video-details-container {
   display: flex;
   flex-direction: column;
-  background: linear-gradient(rgba(33, 44, 61, 0.4), #2c385e),
-    url("../img/video-profile-background-1920w.jpg");
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
@@ -245,7 +243,6 @@
 
 @include large-display {
   .video-details-container {
-    background-position: center bottom;
     align-items: center;
     height: 400px;
   }
