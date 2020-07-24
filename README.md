@@ -18,7 +18,7 @@
 
 ![Movie/Show Search](https://i.imgur.com/w6R18Lt.jpg)
 
-![Movie/Show Profile](https://i.imgur.com/p6rKZN0.jpg)
+![Movie/Show Profile](https://i.imgur.com/JtKMiIy.jpg)
 
 ![Create Review](https://i.imgur.com/5po04Ph.png)
 
