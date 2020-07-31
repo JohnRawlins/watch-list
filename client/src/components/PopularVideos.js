@@ -1,16 +1,27 @@
-import React from 'react';
-import VideoListPlaceholder from './VideoListPlaceholder';
-import { Link } from 'react-router-dom';
-import '../css/popular-videos.scss';
+import React from "react";
+import VideoListPlaceholder from "./VideoListPlaceholder";
+import { Swiper, SwiperSlide } from "swiper/react";
+import SwiperCore, { Navigation } from "swiper";
+import "swiper/swiper-bundle.css";
+import { Link } from "react-router-dom";
+import "../css/popular-videos.scss";
+
+SwiperCore.use(Navigation);
 
 const PopularVideos = ({ popularVideos, isLoading }) => {
+  const swiperBreakPoints = {
+    768: { slidesPerView: 4, slidesPerGroup: 4 },
+    880: { slidesPerView: 5, slidesPerGroup: 5 },
+    1920: { slidesPerView: 7, slidesPerGroup: 7, spaceBetween: 40 },
+  };
+
   if (popularVideos) {
     popularVideos = popularVideos.reduce((videos, video) => {
       if (video) {
         videos.push(
-          <li key={video.id} className="popular-video-wrapper">
+          <SwiperSlide key={video.id} tag="li">
             <Link
-              to={`/video-profile/${video.title.replace('?', '')}/${
+              to={`/video-profile/${video.title.replace("?", "")}/${
                 video.imdbID
               }`}
               className="popular-video"
@@ -22,7 +33,7 @@ const PopularVideos = ({ popularVideos, isLoading }) => {
               />
               <span className="popular-video__title">{video.title}</span>
             </Link>
-          </li>
+          </SwiperSlide>
         );
       }
       return videos;
@@ -32,8 +43,90 @@ const PopularVideos = ({ popularVideos, isLoading }) => {
     <VideoListPlaceholder />
   ) : (
     <div className="popular-videos-container">
-      <h2 className="popular-videos-container__title">Popular</h2>
-      <ul className="popular-video-list">{popularVideos}</ul>
+      <section className="video-section">
+        <h2 className="video-section__title">Action</h2>
+        <Swiper
+          wrapperTag="ul"
+          slidesPerView={3}
+          spaceBetween={15}
+          slidesPerGroup={3}
+          freeMode={true}
+          navigation
+          breakpoints={swiperBreakPoints}
+        >
+          {popularVideos}
+        </Swiper>
+      </section>
+      <section className="video-section">
+        <h2 className="video-section__title">Comedy</h2>
+        <Swiper
+          wrapperTag="ul"
+          slidesPerView={3}
+          spaceBetween={15}
+          slidesPerGroup={3}
+          freeMode={true}
+          navigation
+          breakpoints={swiperBreakPoints}
+        >
+          {popularVideos}
+        </Swiper>
+      </section>
+      <section className="video-section">
+        <h2 className="video-section__title">Science Fiction</h2>
+        <Swiper
+          wrapperTag="ul"
+          slidesPerView={3}
+          spaceBetween={15}
+          slidesPerGroup={3}
+          freeMode={true}
+          navigation
+          breakpoints={swiperBreakPoints}
+        >
+          {popularVideos}
+        </Swiper>
+      </section>
+      <section className="video-section">
+        <h2 className="video-section__title">Horror</h2>
+        <Swiper
+          wrapperTag="ul"
+          slidesPerView={3}
+          spaceBetween={15}
+          slidesPerGroup={3}
+          freeMode={true}
+          navigation
+          breakpoints={swiperBreakPoints}
+        >
+          {popularVideos}
+        </Swiper>
+      </section>
+      <section className="video-section">
+        <h2 className="video-section__title">Animation</h2>
+        <Swiper
+          wrapperTag="ul"
+          slidesPerView={3}
+          spaceBetween={15}
+          slidesPerGroup={3}
+          freeMode={true}
+          navigation
+          breakpoints={swiperBreakPoints}
+        >
+          {popularVideos}
+        </Swiper>
+      </section>
+      <section className="video-section">
+        <h2 className="video-section__title">Romance</h2>
+        <Swiper
+          wrapperTag="ul"
+          slidesPerView={3}
+          spaceBetween={15}
+          slidesPerGroup={3}
+          freeMode={true}
+          navigation
+          breakpoints={swiperBreakPoints}
+        >
+          {popularVideos}
+        </Swiper>
+      </section>
     </div>
   );
 };
