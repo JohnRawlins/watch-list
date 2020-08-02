@@ -23,8 +23,9 @@
     "express-validator": "^6.4.1",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.9.11",
+    "react-slick": "^0.27.1",
     "react-spring": "^8.0.27",
-    "swiper": "^6.0.4"
+    "slick-carousel": "^1.8.1"
   },
   "devDependencies": {
     "concurrently": "^4.1.2",

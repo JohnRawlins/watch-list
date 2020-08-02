@@ -1,133 +1,137 @@
 import React from "react";
 import VideoListPlaceholder from "./VideoListPlaceholder";
-import { Swiper, SwiperSlide } from "swiper/react";
-import SwiperCore, { Navigation } from "swiper";
-import "swiper/swiper-bundle.css";
-import { Link } from "react-router-dom";
-import "../css/popular-videos.scss";
-
-SwiperCore.use(Navigation);
+import VideoPoster from "./VideoPoster";
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 
 const PopularVideos = ({ popularVideos, isLoading }) => {
-  const swiperBreakPoints = {
-    768: { slidesPerView: 4, slidesPerGroup: 4 },
-    880: { slidesPerView: 5, slidesPerGroup: 5 },
-    1920: { slidesPerView: 7, slidesPerGroup: 7, spaceBetween: 40 },
-  };
+  const sliderBreakPoints = [
+    {
+      breakpoint: 425,
+      settings: {
+        slidesToShow: 3,
+        slidesToScroll: 3,
+      },
+    },
+    {
+      breakpoint: 768,
+      settings: {
+        slidesToShow: 4,
+        slidesToScroll: 4,
+      },
+    },
+    {
+      breakpoint: 880,
+      settings: {
+        slidesToShow: 5,
+        slidesToScroll: 5,
+      },
+    },
+    {
+      breakpoint: 1440,
+      settings: {
+        slidesToShow: 5,
+        slidesToScroll: 5,
+      },
+    },
+    {
+      breakpoint: 4000,
+      settings: {
+        slidesToShow: 7,
+        slidesToScroll: 7,
+      },
+    },
+  ];
 
   if (popularVideos) {
-    popularVideos = popularVideos.reduce((videos, video) => {
-      if (video) {
-        videos.push(
-          <SwiperSlide key={video.id} tag="li">
-            <Link
-              to={`/video-profile/${video.title.replace("?", "")}/${
-                video.imdbID
-              }`}
-              className="popular-video"
-            >
-              <img
-                className="popular-video__poster"
-                src={`https://image.tmdb.org/t/p/w600_and_h900_bestv2${video.poster_path}`}
-                alt="Video Poster"
-              />
-              <span className="popular-video__title">{video.title}</span>
-            </Link>
-          </SwiperSlide>
-        );
+    popularVideos = popularVideos.reduce((genreList, currentGenre) => {
+      const genreVideos = [];
+      if (currentGenre) {
+        for (const video of currentGenre.videos) {
+          genreVideos.push(
+            <VideoPoster
+              key={video.id}
+              id={video.id}
+              posterPath={video.poster_path}
+              title={video.title}
+            />
+          );
+        }
       }
-      return videos;
-    }, []);
+      const genreData = {
+        genreName: currentGenre.genreName,
+        videos: genreVideos,
+      };
+      genreList[
+        currentGenre.genreName.toLowerCase().replace(/\s/g, "")
+      ] = genreData;
+      return genreList;
+    }, {});
   }
+  const settings = {
+    speed: 500,
+    infinite: false,
+    slidesToShow: 3,
+    slidesToScroll: 3,
+    responsive: sliderBreakPoints,
+  };
+
   return isLoading ? (
     <VideoListPlaceholder />
   ) : (
-    <div className="popular-videos-container">
-      <section className="video-section">
-        <h2 className="video-section__title">Action</h2>
-        <Swiper
-          wrapperTag="ul"
-          slidesPerView={3}
-          spaceBetween={15}
-          slidesPerGroup={3}
-          freeMode={true}
-          navigation
-          breakpoints={swiperBreakPoints}
-        >
-          {popularVideos}
-        </Swiper>
-      </section>
-      <section className="video-section">
-        <h2 className="video-section__title">Comedy</h2>
-        <Swiper
-          wrapperTag="ul"
-          slidesPerView={3}
-          spaceBetween={15}
-          slidesPerGroup={3}
-          freeMode={true}
-          navigation
-          breakpoints={swiperBreakPoints}
-        >
-          {popularVideos}
-        </Swiper>
-      </section>
-      <section className="video-section">
-        <h2 className="video-section__title">Science Fiction</h2>
-        <Swiper
-          wrapperTag="ul"
-          slidesPerView={3}
-          spaceBetween={15}
-          slidesPerGroup={3}
-          freeMode={true}
-          navigation
-          breakpoints={swiperBreakPoints}
-        >
-          {popularVideos}
-        </Swiper>
-      </section>
-      <section className="video-section">
-        <h2 className="video-section__title">Horror</h2>
-        <Swiper
-          wrapperTag="ul"
-          slidesPerView={3}
-          spaceBetween={15}
-          slidesPerGroup={3}
-          freeMode={true}
-          navigation
-          breakpoints={swiperBreakPoints}
-        >
-          {popularVideos}
-        </Swiper>
-      </section>
-      <section className="video-section">
-        <h2 className="video-section__title">Animation</h2>
-        <Swiper
-          wrapperTag="ul"
-          slidesPerView={3}
-          spaceBetween={15}
-          slidesPerGroup={3}
-          freeMode={true}
-          navigation
-          breakpoints={swiperBreakPoints}
-        >
-          {popularVideos}
-        </Swiper>
-      </section>
-      <section className="video-section">
-        <h2 className="video-section__title">Romance</h2>
-        <Swiper
-          wrapperTag="ul"
-          slidesPerView={3}
-          spaceBetween={15}
-          slidesPerGroup={3}
-          freeMode={true}
-          navigation
-          breakpoints={swiperBreakPoints}
-        >
-          {popularVideos}
-        </Swiper>
-      </section>
-    </div>
+    popularVideos && (
+      <div className="popular-videos-container">
+        <section className="video-section">
+          <h2 className="video-section__name">
+            {popularVideos.popular.genreName}
+          </h2>
+          <Slider {...settings}>{popularVideos.popular.videos}</Slider>
+        </section>
+        <section className="video-section">
+          <h2 className="video-section__name">
+            {popularVideos.animation.genreName}
+          </h2>
+          <Slider {...settings}>{popularVideos.animation.videos}</Slider>
+        </section>
+        <section className="video-section">
+          <h2 className="video-section__name">
+            {popularVideos.horror.genreName}
+          </h2>
+          <Slider {...settings}>{popularVideos.horror.videos}</Slider>
+        </section>
+        <section className="video-section">
+          <h2 className="video-section__name">
+            {popularVideos.action.genreName}
+          </h2>
+          <Slider {...settings}>{popularVideos.action.videos}</Slider>
+        </section>
+        <section className="video-section">
+          <h2 className="video-section__name">
+            {popularVideos.comedy.genreName}
+          </h2>
+          <Slider {...settings}>{popularVideos.comedy.videos}</Slider>
+        </section>
+        <section className="video-section">
+          <h2 className="video-section__name">
+            {popularVideos.sciencefiction.genreName}
+          </h2>
+          <Slider {...settings}>{popularVideos.sciencefiction.videos}</Slider>
+        </section>
+        <section className="video-section">
+          <h2 className="video-section__name">
+            {popularVideos.thriller.genreName}
+          </h2>
+          <Slider {...settings}>{popularVideos.thriller.videos}</Slider>
+        </section>
+        <section className="video-section">
+          <h2 className="video-section__name">
+            {popularVideos.romance.genreName}
+          </h2>
+          <Slider {...settings}>{popularVideos.romance.videos}</Slider>
+        </section>
+      </div>
+    )
   );
 };
 
