@@ -1,7 +1,7 @@
-const express = require('express');
+const express = require("express");
 const router = express.Router();
-const axios = require('axios');
-const defaultPopularVideos = require('../defaultPopularVideos');
+const axios = require("axios");
+const genres = require("../genres");
 const apiKey = process.env.OMDB_API_KEY;
 const tmdbApiKey = process.env.TMDB_API_KEY;
 const PORT = process.env.PORT || 5000;
@@ -10,7 +10,7 @@ const PORT = process.env.PORT || 5000;
 // @desc      Search for movie or show using 3rd party API
 // @access    Public
 
-router.get('/', async (req, res) => {
+router.get("/", async (req, res) => {
   try {
     const videoTitle = req.query.videoTitle;
     let pageNum = 1;
@@ -48,7 +48,7 @@ router.get('/', async (req, res) => {
     console.error(error.message);
     return res.status(500).json({
       msg:
-        'The server was unable to process your request due to an internal error',
+        "The server was unable to process your request due to an internal error",
     });
   }
 });
@@ -57,35 +57,36 @@ router.get('/', async (req, res) => {
 // @desc      Search for popular movies or shows using 3rd party API
 // @access    Public
 
-router.get('/popular', async (req, res) => {
-  let popularVideosResponse;
+router.get("/popular", async (req, res) => {
+  let popularVideosResponse = null;
   try {
-    popularVideosResponse = await axios.get(
-      `https://api.themoviedb.org/3/movie/popular?api_key=${tmdbApiKey}&language=en-US&page=1`
+    popularVideosResponse = await Promise.all(
+      genres.map(async (genre) => {
+        let genreVideosResponse = null;
+        if (genre.id === 1) {
+          genreVideosResponse = await axios.get(
+            `https://api.themoviedb.org/3/movie/popular?api_key=${tmdbApiKey}&language=en-US&page=1`
+          );
+        } else {
+          genreVideosResponse = await axios.get(
+            `https://api.themoviedb.org/3/discover/movie?api_key=${tmdbApiKey}&language=en-US&include_adult=false&include_video=false&page=1&with_genres=${genre.id}&release_date.gte=2019`
+          );
+        }
+        return {
+          genreName: genre.name,
+          videos: genreVideosResponse.data.results,
+        };
+      })
     );
+    return res.status(200).json(popularVideosResponse);
   } catch (error) {
-    if (error.message.includes('429')) {
-      res.status(200).json(defaultPopularVideos);
-    }
     console.error(error);
-    res.status(500).json("The server was unable to process your request due to an internal error")
+    res
+      .status(500)
+      .json(
+        "The server was unable to process your request due to an internal error"
+      );
   }
-  const popularVideos = await Promise.all(
-    popularVideosResponse.data.results.map(async (video) => {
-      try {
-        videoDetails = await axios.get(
-          `https://api.themoviedb.org/3/movie/${video.id}?api_key=${tmdbApiKey}&language=en-US`
-        );
-        video.imdbID = videoDetails.data.imdb_id;
-        return video;
-      } catch (error) {
-        console.error(error);
-        return null;
-      }
-    })
-  );
-
-  return res.status(200).json(popularVideos);
 });
 
 module.exports = router;

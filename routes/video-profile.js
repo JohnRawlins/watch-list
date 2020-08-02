@@ -4,10 +4,6 @@ const axios = require("axios");
 const apiKey = process.env.OMDB_API_KEY;
 const tmdbApiKey = process.env.TMDB_API_KEY;
 
-// @route     GET api/video-profile
-// @desc      Retrieve profile for video
-// @access    Public
-
 const getMovieCast = async (videoID) => {
   const maxCastNumber = 5;
   try {
@@ -63,20 +59,30 @@ const getMovieTrailer = async (videoID) => {
   }
 };
 
-router.get("/:videoTitle/:imdbID", async (req, res) => {
+// @route     GET api/video-profile
+// @desc      Retrieve profile for video
+// @access    Public
+
+router.get("/:videoTitle/:videoID", async (req, res) => {
   try {
-    const videoImdbID = req.params.imdbID;
+    const videoID = req.params.videoID;
+
+    let theMovieDbResponse = await axios.get(
+      `https://api.themoviedb.org/3/movie/${videoID}?api_key=${tmdbApiKey}&language=en-US`
+    );
+
+    const imdbID = theMovieDbResponse.data.imdb_id;
 
     let omdbResponse = await axios.get(
-      `http://www.omdbapi.com/?apikey=${apiKey}&i=${videoImdbID}`
+      `http://www.omdbapi.com/?apikey=${apiKey}&i=${imdbID}`
     );
 
     if (omdbResponse.data.Error) {
       return res.status(400).json({ msg: "Error loading video profile" });
     } else {
-      omdbResponse.data.Backdrop = await getMovieBackdrop(videoImdbID);
-      omdbResponse.data.Cast = await getMovieCast(videoImdbID);
-      omdbResponse.data.Trailer = await getMovieTrailer(videoImdbID);
+      omdbResponse.data.Backdrop = await getMovieBackdrop(imdbID);
+      omdbResponse.data.Cast = await getMovieCast(imdbID);
+      omdbResponse.data.Trailer = await getMovieTrailer(imdbID);
       return res.status(200).json(omdbResponse.data);
     }
   } catch (error) {
