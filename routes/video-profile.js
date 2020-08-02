@@ -66,12 +66,17 @@ const getMovieTrailer = async (videoID) => {
 router.get("/:videoTitle/:videoID", async (req, res) => {
   try {
     const videoID = req.params.videoID;
+    let theMovieDbResponse = null;
 
-    let theMovieDbResponse = await axios.get(
-      `https://api.themoviedb.org/3/movie/${videoID}?api_key=${tmdbApiKey}&language=en-US`
-    );
+    if (!videoID.includes("tt")) {
+      theMovieDbResponse = await axios.get(
+        `https://api.themoviedb.org/3/movie/${videoID}?api_key=${tmdbApiKey}&language=en-US`
+      );
+    }
 
-    const imdbID = theMovieDbResponse.data.imdb_id;
+    const imdbID = theMovieDbResponse
+      ? theMovieDbResponse.data.imdb_id
+      : videoID;
 
     let omdbResponse = await axios.get(
       `http://www.omdbapi.com/?apikey=${apiKey}&i=${imdbID}`
