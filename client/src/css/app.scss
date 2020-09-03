@@ -50,11 +50,17 @@ $plc-holder: #464f6d;
   }
 }
 
+@mixin max-display {
+  @media (min-width: $max-content-width) {
+    @content;
+  }
+}
+
 * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
-  font-family: 'Roboto', sans-serif;
+  font-family: "Roboto", sans-serif;
 }
 
 .app {
@@ -65,7 +71,7 @@ $plc-holder: #464f6d;
   overflow: hidden;
 }
 
-input[type='submit'] {
+input[type="submit"] {
   appearance: none;
   opacity: 1;
 }

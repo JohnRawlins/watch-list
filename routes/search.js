@@ -59,6 +59,7 @@ router.get("/", async (req, res) => {
 
 router.get("/popular", async (req, res) => {
   let popularVideosResponse = null;
+  let featuredContent = [];
   try {
     popularVideosResponse = await Promise.all(
       genres.map(async (genre) => {
@@ -72,13 +73,27 @@ router.get("/popular", async (req, res) => {
             `https://api.themoviedb.org/3/discover/movie?api_key=${tmdbApiKey}&language=en-US&include_adult=false&include_video=false&page=1&with_genres=${genre.id}&release_date.gte=2019`
           );
         }
+
+        for (const genreVideo of genreVideosResponse.data.results) {
+          if (
+            !featuredContent.find((featuredVideo) => {
+              return featuredVideo.id === genreVideo.id;
+            })
+          ) {
+            featuredContent.push(genreVideo);
+            break;
+          }
+        }
+
         return {
           genreName: genre.name,
           videos: genreVideosResponse.data.results,
         };
       })
     );
-    return res.status(200).json(popularVideosResponse);
+    res
+      .status(200)
+      .json({ featured: featuredContent, popular: popularVideosResponse });
   } catch (error) {
     console.error(error);
     res

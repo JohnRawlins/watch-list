@@ -20,6 +20,14 @@
   z-index: 100;
 }
 
+.slick-prev {
+  left: 8px !important;
+}
+
+.slick-next {
+  right: 8px !important;
+}
+
 .slick-list {
   overflow: visible !important;
 }

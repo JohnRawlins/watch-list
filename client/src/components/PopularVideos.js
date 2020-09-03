@@ -45,7 +45,7 @@ const PopularVideos = ({ popularVideos, isLoading }) => {
   ];
 
   if (popularVideos) {
-    popularVideos = popularVideos.reduce((genreList, currentGenre) => {
+    popularVideos = popularVideos.popular.reduce((genreList, currentGenre) => {
       const genreVideos = [];
       if (currentGenre) {
         for (const video of currentGenre.videos) {
@@ -82,12 +82,6 @@ const PopularVideos = ({ popularVideos, isLoading }) => {
   ) : (
     popularVideos && (
       <div className="popular-videos-container">
-        <section className="video-section">
-          <h2 className="video-section__name">
-            {popularVideos.popular.genreName}
-          </h2>
-          <Slider {...settings}>{popularVideos.popular.videos}</Slider>
-        </section>
         <section className="video-section">
           <h2 className="video-section__name">
             {popularVideos.animation.genreName}
