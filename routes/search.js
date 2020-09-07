@@ -5,6 +5,8 @@ const genres = require("../genres");
 const apiKey = process.env.OMDB_API_KEY;
 const tmdbApiKey = process.env.TMDB_API_KEY;
 const PORT = process.env.PORT || 5000;
+const FormData = require("form-data");
+const cheerio = require("cheerio");
 
 // @route     GET api/search
 // @desc      Search for movie or show using 3rd party API
@@ -101,6 +103,52 @@ router.get("/popular", async (req, res) => {
       .json(
         "The server was unable to process your request due to an internal error"
       );
+  }
+});
+
+const createNewReleasesFormData = (formData) => {
+  formData.append("with_ott_providers", "384|43|37");
+  formData.append("certification", "PG-13|R");
+  formData.append("certification_country", "US");
+  formData.append("ott_region", "US");
+  formData.append("page", "1");
+  formData.append("sort_by", "primary_release_date.desc");
+  formData.append("vote_average.lte", "10");
+  formData.append("with_original_language", "en");
+  formData.append("with_runtime.gte", "0");
+  formData.append("with_runtime.lte", "400");
+  formData.append("language", "en-US");
+};
+
+// @route     GET api/search
+// @desc      Search for new movie releases based on service providers
+// @access    Public
+
+router.get("/new-releases", async (req, res) => {
+  try {
+    const newReleases = [];
+    const formData = new FormData();
+    createNewReleasesFormData(formData);
+    const websiteResponse = await axios.post(
+      "https://www.themoviedb.org/discover/movie",
+      formData,
+      { responseType: "text", headers: formData.getHeaders() }
+    );
+
+    const $ = cheerio.load(websiteResponse.data);
+
+    $(".card").each(function (i, elem) {
+      const movieTitle = $(this).find("h2").text();
+      let moviePosterSrc = $(this).find(".poster").data("src");
+      if (movieTitle && moviePosterSrc) {
+        moviePosterSrc = "https:" + moviePosterSrc;
+        newReleases.push({ movieTitle, moviePosterSrc });
+      }
+    });
+    res.status(200).json(newReleases);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json("Unable to retrieve new releases")
   }
 });
 
