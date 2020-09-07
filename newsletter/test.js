@@ -9,7 +9,7 @@ const getNewReleases = async () => {
 
     console.log(websiteResponse.data);
   } catch (error) {
-    console.log(error);
+    console.log(error.message);
   }
 };
 
