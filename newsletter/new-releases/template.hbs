@@ -1,0 +1,17 @@
+<html>
+
+<head>
+  <title>Message HTML Title</title>
+</head>
+
+<body>
+  <div>
+    <span style="font-weight: bold; margin-bottom:10px;">Movies </span>
+    {{#each movieReleases}}
+      <img src="{{moviePosterSrc}}" alt={{movieTitle}}>
+      <span>{{movieTitle}}</span>
+    {{/each}}
+  </div>
+</body>
+
+</html>
