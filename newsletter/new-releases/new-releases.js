@@ -11,13 +11,13 @@ let mailgunDomain = process.env.MAILGUN_DOMAIN;
 let emailFrom = process.env.EMAIL_FROM;
 let emailTo = process.env.EMAIL_TO;
 
+// Dev Environment Only
 if (
   !process.env.MAILGUN_API_KEY ||
   !process.env.MAILGUN_DOMAIN ||
   !process.env.EMAIL_TO ||
   !process.env.EMAIL_FROM
 ) {
-  console.log("MISSING ENVIRONMENT VARIABLES \n\n");
   require("dotenv-extended").load({ path: "../../.env" });
   mailgunApiKey = process.env.MAILGUN_API_KEY;
   mailgunDomain = process.env.MAILGUN_DOMAIN;
@@ -26,12 +26,10 @@ if (
 }
 
 const createNewReleasesFormData = (formData) => {
-  formData.append("with_ott_providers", "384|43|37");
   formData.append("certification", "PG-13|R");
   formData.append("certification_country", "US");
-  formData.append("ott_region", "US");
   formData.append("page", "1");
-  formData.append("sort_by", "primary_release_date.desc");
+  formData.append("sort_by", "popularity.desc");
   formData.append("vote_average.lte", "10");
   formData.append("with_original_language", "en");
   formData.append("with_runtime.gte", "0");
@@ -39,9 +37,15 @@ const createNewReleasesFormData = (formData) => {
   formData.append("language", "en-US");
 };
 
+const getTodaysDate = () => {
+  const format = { year: "numeric", month: "short", day: "numeric" };
+  return new Date().toLocaleDateString("en-US", format);
+};
+
 const getNewReleases = async () => {
-  const newReleases = [];
   try {
+    const newReleases = [];
+    const newReleasesTableData = {};
     const formData = new FormData();
     createNewReleasesFormData(formData);
     const websiteResponse = await axios.post(
@@ -52,60 +56,78 @@ const getNewReleases = async () => {
 
     const $ = cheerio.load(websiteResponse.data);
 
-    $(".card").each(function (i, elem) {
+    $(".card").each(function (index, elem) {
       const movieTitle = $(this).find("h2").text();
       let moviePosterSrc = $(this).find(".poster").data("src");
-      if (movieTitle && moviePosterSrc) {
+      if (movieTitle && moviePosterSrc && index < 12) {
         moviePosterSrc = "https:" + moviePosterSrc;
         newReleases.push({ movieTitle, moviePosterSrc });
       }
     });
-    return newReleases;
+
+    if (newReleases.length > 0) {
+      let rowData = [];
+      let count = 0;
+      for (const [index, value] of newReleases.entries()) {
+        rowData.push(value);
+        count = index + 1;
+        if (count % 3 === 0) {
+          newReleasesTableData[`row${count}`] = rowData;
+          rowData = [];
+        }
+      }
+    }
+    return newReleasesTableData;
   } catch (error) {
     console.error(error);
-    return newReleases;
   }
 };
 
 const sendEmail = async () => {
-  const emailTemplateSource = fileSystem.readFileSync(
-    path.join(__dirname, "/template.hbs"),
-    "utf-8"
-  );
+  try {
+    const emailTemplateSource = fileSystem.readFileSync(
+      path.join(__dirname, "/template.hbs"),
+      "utf-8"
+    );
 
-  const mailgunAuth = {
-    auth: {
-      api_key: mailgunApiKey,
-      domain: mailgunDomain,
-    },
-  };
+    const mailgunAuth = {
+      auth: {
+        api_key: mailgunApiKey,
+        domain: mailgunDomain,
+      },
+    };
 
-  const smtpTransport = nodemailer.createTransport(
-    mailgunTransport(mailgunAuth)
-  );
+    const smtpTransport = nodemailer.createTransport(
+      mailgunTransport(mailgunAuth)
+    );
 
-  const template = handlebars.compile(emailTemplateSource);
+    const template = handlebars.compile(emailTemplateSource);
 
-  const movieReleases = await getNewReleases();
+    const movieReleases = await getNewReleases();
 
-  console.log(movieReleases)
-
-  const emailContent = template({ movieReleases });
-
-  const emailOptions = {
-    from: emailFrom,
-    to: emailTo,
-    subject: "Test Email",
-    html: emailContent,
-  };
-
-  smtpTransport.sendMail(emailOptions, (error, response) => {
-    if (error) {
-      console.log(error);
-    } else {
-      console.log("Successfully sent email");
+    if (!movieReleases) {
+      throw new Error("Unable to obtain movie releases");
     }
-  });
+
+    const emailContent = template(movieReleases);
+
+    const emailOptions = {
+      from: emailFrom,
+      to: emailTo,
+      subject: `Popular Movie Releases ${getTodaysDate()}`,
+      html: emailContent,
+    };
+
+    smtpTransport.sendMail(emailOptions, (error, response) => {
+      if (error) {
+        console.error(error);
+      } else {
+        console.log("Successfully sent email");
+      }
+    });
+  } catch (error) {
+    console.error(error);
+  }
 };
 
 module.exports = sendEmail;
