@@ -53,7 +53,7 @@ router.get("/", async (req, res) => {
   }
 });
 
-// @route     GET api/search
+// @route     GET api/search/popular
 // @desc      Search for popular movies or shows using 3rd party API
 // @access    Public
 

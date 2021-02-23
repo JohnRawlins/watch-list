@@ -7,10 +7,12 @@ const VideoPoster = ({ id, posterPath, title }) => {
 
   const posterFadeIn = posterLoading ? { opacity: 0 } : { opacity: 1 };
 
+  const encodedVideoTitle = encodeURI(title.replace("?", ""));
+
   return (
     <Link
       className="popular-video-wrapper"
-      to={`/video-profile/${title.replace("?", "")}/${id}`}
+      to={`/video-profile/${encodedVideoTitle}/${id}`}
     >
       <div className="popular-video">
         <img
